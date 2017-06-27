@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dom总结</title>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="w1 w2"></div>
+        <div class="w1 w3    w2"></div>
+        <div class="w4 w2"></div>
+        <div class="w3 w2"></div>
+    </div>
+    <script type="text/javascript" src="./utils.js"></script>
+    <script type="text/javascript">
+        // 59内置dom操作属性和方法
+        // 获取页面元素的方法
+        // document.getElementById()
+        // context.getElementsByTagName()
+        // context.getElementsByClassName()  // 在IE6~8中不兼容
+        // document.getElementsByName()      // 在IE浏览器中支队表单元素的name起作用
+        // document.body
+        // document.docuemntElement
+        // document.querySelector
+        // document.querySlectorAll  // 在IE6~8中不兼容, 通过该方式获取的集合为static node，不存在dom映射
+
+        // 获取节点和节点之间的关系的属性
+        // childNodes
+        // children -> 在IE6~8下获取的结果和标准浏览器获取的结果不一致（如含注释节点）
+        // previousSibling/ previousElementSibling // element方法在IE6~8不兼容
+        // parentNode/parentElement
+        // nextSibling/nextElementSibling
+        // lastChild/lastElementChild
+        // firstChild/firstElementChild
+        // nodeType: 1Element:"#element", 3Text:"#comment", 8Comment:"#comment", 9Document,nodeName:"#docuemnt"
+
+        // DOM的增删改
+        // createElement
+        // document.createDocumentFragment()
+        // appendChild
+        // insertBefore          // 父节点调用，添加在某一子节点
+        // cloneNode(true/false) // 克隆节点内的所有元素/只克隆当前节点
+        // replaceChild
+        // removeChild
+        // get/set/removeAttribute
+
+        // DOM盒子模型
+        // clientHeight, clientWidth, clientTop, clientLeft
+        // offsetHeight, offsetWidth, offsetTop, offsetLeft, offsetParent
+        // scrollHeight, scrollWidth, scrollTop, scrollLeft
+
+        // 60获取某一容器中所有容器子节点，或筛选出指定标签名字（同jquery）
+        // curEle[DOM]
+        // tagName[String]
+        function chidren(curEle, tagName) {
+            var ary = [];
+            // IE6~8 children和Array.prototype不兼容
+            if (/MSIE [6-8]/i.test(navigator.userAgent)) {
+                var nodeList = curEle.childNodes;
+                for (var i = 0, len = nodeList.length; i < len; i++) {
+                    var curNode = nodeList[i];
+                    if (curNode.nodeType === 1) {
+                        ary[ary.lengh] = curNode;
+                    }
+                }
+            } else {
+                ary = Array.prototype.slice.call(curNode.children);
+            }
+            // 进行子节点选择
+            if (typeof tagName === "string") {
+                for (var k = 0; k < ary.length; k++) {
+                    var curEleNode = ary[k];
+                    if (curEleNode.nodeName.toLowerCase() !== tagName.toLowerCase()) {
+                        ary.splice(k, 1);
+                        k--;
+                    }
+                }
+            }
+            return ary;
+        }
+        // getElementsByClass -> 通过元素的样式类获取一组元素（兼容所有浏览器）jqury部分选择器的原理
+        // document.getElementsByClassName() // 必须同时包含所有className元素, 和中间有多少个空格无关
+        function getElementsByClass(className, context) {
+            context = context || document;
+            var classNameAry = className.replace(/(^ +| +$)/, "").split(/ +/g);
+            // 获取上下文所有的标签
+            var nodeList = context.getElementsByTagName("*");
+            var eleAry = [];
+            for (var i = 0, iLen = nodeList.length; i < iLen; i++) {
+                var isOk = true;
+                var curNode = nodeList[i];
+                for (var j = 0, jLen = classNameAry.length; j < jLen; j++) {
+                    // new RegExp("(^| +)" + classNameAry[j] + "( +|$)")
+                    if (!hasClass(curNode, classNameAry[j])) {
+                        isOk = false;
+                        break;
+                    }
+                }
+                if (isOk) {
+                    eleAry.push(curNode);
+                }
+            }
+            return eleAry;
+        }
+
+        // 获取上一个节点(prev)、获取下一个弟弟节点(next)、获取所有的哥哥元素节点(prevAll)
+        // 获取所有的弟弟元素节点(nextAll)、获取相邻的两个元素节点(sibling)
+        // 获取所有的兄弟元素节点(siblings)
+        // 获取第一个元素的节点firstChild，获取最后一个元素的节点lastChild（jquery没有）
+        // index获取当前元素的索引
+
+        // prepend ->增加到某一容器开头，与appendChild对应
+        // insertAfter -> 插入到容器中某一元素后面，与insertBefore对应
+
+        // 64
+        // hasClass 判断是否存在某一个样式类名
+        function hasClass(curEle, className) {
+            // key in obj
+            var reg = new RegExp("(^| +)" + className + "( +|$)");
+            return reg.test(curEle.className);
+        }
+        // addClasses 增加样式类名
+        function addClasses(curEle, className) {
+            var ary = className.replace(/(^ +| +$)/, "").split(/ +/g);
+            for (var i = 0, len = ary.length; i < len; i++) {
+                var curName = ary[i];
+                if (!hasClass(curEle, curName)) {
+                    curEle.className += " " + curName;
+                }
+            }
+        }
+        // removeClass 删除样式类名
+        function removeClass(curEle, className) {
+            var ary = className.replace(/(^ +| +$)/, "").split(/ +/g);
+            for (var i = 0, len = ary.length; i < len; i++) {
+                var curName = ary[i];
+                if (!hasClass(curEle, curName)) {
+                    var reg = new RegExp("(^| +)" + curName + "( +|$)", "g");
+                    curEle.className = curEle.className.replace(reg, " ");
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多张图片延时加载</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            /* \5FAE\8F6F\96C5\9ED1 微软小黑*/
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+        }
+        
+        ul,
+        li {
+            list-style-type: none;
+        }
+        
+        img {
+            display: block;
+            border: none;
+        }
+        /* 最外层容器不设定宽高 */
+        
+        .new {
+            padding: 10px;
+        }
+        
+        .new li {
+            position: relative;
+            padding: 0 10px;
+            height: 60px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .new li>div:nth-child(1) {
+            position: relative;
+            top: 10px;
+            left: 0;
+            width: 75px;
+            height: 80px;
+            /*background: url() no-repeat center center // 添加默认图*/
+            background-size: 100%;
+        }
+        
+        .new li>div:nth-child(1) img {
+            display: none;
+            width: 100%;
+            /*延时加载的图片渐进显示*/
+            opacity: 0;
+        }
+        
+        .new li>div:last-child {
+            margin-left: 80px;
+            height: 60px;
+        }
+        
+        .new li>div:nth-child(2) h2 {
+            margin-left: 80px;
+            line-height: 80px;
+            /*超出一行自动裁剪*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .new li>div:last-child p {
+            line-height: 20px;
+            font-size: 12px;
+            color: #616161;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="news" class="news">
+        <li>
+            <div>
+                <img src="./images/7.jpg" alt="" true>
+            </div>
+            <div>
+                <h2>网络时代</h2>
+                <p>互联网21世纪</p>
+            </div>
+        </li>
+    </ul>
+    <script type="text/javascript">
+        // 1获取数据
+        var jsonData = {};
+        ~ function() {
+            var xhr = new XMLHttpRequest;
+            // URL地址后加随机数，清除get请求数据时(get请求)产生的缓存
+            xhr.open("get", "./data/1.json" + Math.random(), false);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && /^2\d{2}$/.test(xhr.status)) {
+                    var val = xhr.responseText;
+                    jsonData = utils.formatJSON(val);
+                }
+            }
+            xhr.send();
+        }()
+        // 2字符串拼接绑定jsonData中存储的数据（字符串拼接）
+        ~ function() {}
+        // 3图片延时加载
+        function lazyImgs(ele) {
+            var oImg = new Image;
+            oImg.src = ele.getAttribute("trueImg");
+            oImg.onload = function() {
+                ele.src = oImg.src;
+                ele.style.display = "block";
+                oImg = null;
+            }
+            ele.isLoad = true;
+        }
+
+        function handdleAllImg() {
+            for (var i = 0; len = ImgList.length; i++) {
+                var curImg = ImgList[i];
+                // 已加载图片不再进行处理
+                if (curImg.isLoad) {
+                    continue;
+                }
+                var curParent = curImg.parentNode;
+                // 隐藏的图片：其offsetHeight为0，所以用父节点进行计算
+                var A = utils.offset(curParent).top + curParent.offsetHeight,
+                    B = utils.win("clientHeight") + utils.win("scrollTop");
+                if (A < B) {
+                    lazyImgs(curImg);
+                }
+            }
+        }
+
+        function fadeIn(curImg) {
+            var duration = 500,
+                interval = 10,
+                target = 1;
+            var step = taget / interval;
+            var timer = window.setInterval(function() {
+                var curOp = utils.getCss(curImg, "opacity");
+                if (curOp >= 1) {
+                    curImg.style.opacity = 1;
+                    window.clearInterval(timer);
+                    return;
+                }
+                curOp += setp;
+                curImg.style.opacity = curOp;
+            }, interval)
+        }
+
+        // 4、开始的时候（过500ms）加载第一屏，滚动时加载其他图片
+        window.setTimeout(handdleAllImg, 500);
+        window.onscroll = handdleAllImg;
+    </script>
+</body>
+
+</html>
