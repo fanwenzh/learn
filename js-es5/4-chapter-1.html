@@ -68,7 +68,11 @@
     // }, 10);
 
     // 73 setTimeout设置动画
+    var timer = null;
+
     function move() {
+        // 清除已停止的计时器，节约内存
+        window.clearTimeout(timer);
         var curLeft = utils.css(oBox, "left");
         if (curLeft + step >= maxLeft) {
             utils.css(oBox, "left", maxLeft);
@@ -76,7 +80,8 @@
         }
         curLeft += step;
         utils.css(oBox, "left", curLeft);
-        timer = window.setTimeout(move, 10); // 最后执行
+        // 不断形成move1， move2...moven作用域，消耗内存
+        timer = window.setTimeout(move, 10);
     }
     move();
 </script>
