@@ -13,11 +13,14 @@
         }
         
         #box {
+            position: absolute;
             width: 100px;
             height: 100px;
-            position: relative;
             left: 10px;
+            top: 0px;
             background-color: lightblue;
+            opacity: 1;
+            filter: alpha(opacity=100);
         }
     </style>
 </head>
@@ -26,16 +29,24 @@
     <div id="box"></div>
 </body>
 <script type="text/javascript" src="./utils.js"></script>
+<script type="text/javascript" src="./animate.js"></script>
 <script type="text/javascript">
     // 71匀速运动
     // 1.定步长运动 
     var oBox = document.getElementById("box");
-    var maxLeft = document.documentElement.clientWidth || document.body.clientWidth;
-    var distance = maxLeft - box.offsetWidth,
-        totalTime = 2000,
-        interval = 100,
-        step = distance / totalTime * 100;
+    // var maxLeft = document.documentElement.clientWidth || document.body.clientWidth;
+    // var distance = maxLeft - box.offsetWidth,
+    //     totalTime = 2000,
+    //     interval = 100,
+    //     step = distance / totalTime * 100;
     // oBox["style"]["left"] = "0px";
+    move(oBox, {
+        left: 1000,
+        top: 500,
+        opacity: 0,
+        width: 0,
+        height: 0
+    }, 3000);
     // var timer1 = window.setInterval(function() {
     //     var left = parseFloat(window.getComputedStyle(oBox, null)["left"]);
     //     if (left >= distance) {
@@ -68,22 +79,37 @@
     // }, 10);
 
     // 73 setTimeout设置动画
-    var timer = null;
+    // var timer = null;
 
-    function move() {
-        // 清除已停止的计时器，节约内存
-        window.clearTimeout(timer);
-        var curLeft = utils.css(oBox, "left");
-        if (curLeft + step >= maxLeft) {
-            utils.css(oBox, "left", maxLeft);
-            return;
+    // function move() {
+    //     // 清除已停止的计时器，节约内存
+    //     window.clearTimeout(timer);
+    //     var curLeft = utils.css(oBox, "left");
+    //     if (curLeft + step >= maxLeft) {
+    //         utils.css(oBox, "left", maxLeft);
+    //         return;
+    //     }
+    //     curLeft += step;
+    //     utils.css(oBox, "left", curLeft);
+    //     // 如果move函数需要传参 不断形成move1， move2...moven作用域，消耗内存
+    //     timer = window.setTimeout(move, 10);
+    // }
+    // move(); 
+    // 避免形成不销毁作用域
+    // function move(target){
+    //     _move();
+    //     function _move(){
+    //         if(target){}
+    //     }
+    // }
+
+    // 78 动画回调
+    function fn(callback) {
+        if (typeof callBack === "function") {
+            // 改变回调函数执行环境
+            callBack.call(this);
         }
-        curLeft += step;
-        utils.css(oBox, "left", curLeft);
-        // 不断形成move1， move2...moven作用域，消耗内存
-        timer = window.setTimeout(move, 10);
     }
-    move();
 </script>
 
 </html>

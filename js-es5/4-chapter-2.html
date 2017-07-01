@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="banner" class="banner">
+        <!--左右轮播图-->
+        <!--1..banner固定.img-inline，inner移动-->
+        <!--2.数据绑定 document.createDocumentFragmment, document.createElement("li")
+        inner.getElementsByTagName("img")-->
+        <!--3.设置图片默认图-->
+        <!--4.鼠标hover向banner，自动轮播停止-->
+        <!--切换图片-->
+        <div class="inner">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+            <img src="" alt="">
+        </div>
+        <!--切换点-->
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <!--a标签:hover 兼容性好：所有浏览器-->
+        <a href="javascript:;" class="left"></a>
+        <a href="javascript:;" class="right"></a>
+    </div>
+    <script>
+        // 81 3.图片延时加载
+        var inner = document.getElementsByClassName("inner")[0],
+            imgList = inner.getElementsByTagName("img");
+
+        function lasyImg() {
+            for (var i = 0, len = imgList.length; i < len; i++) {
+                // 闭包实现异步加载
+                ~ function(i) {
+                    var curImg = imgList[i];
+                    var oImg = new Image();
+                    oImg.src = curImg.getAttribute("trueImg");
+                    oImg.onload = function() {
+                        curImg.src = oImg.src;
+                        curImg.style.display = "block";
+                        // move(curImg, {opacity: 1}, 3000);
+                        oImg = null;
+                    }
+                }(i)
+            }
+        }
+        window.setTimeout(lasyImg, 1000);
+        // 82 4.自动轮播
+        // imgs一行float排列
+        // var autoTimer = window.setInterval(autoMove, 2000);
+        // 加1添加第一幅图，实现轮播无缝对接
+        var step = 0,
+            imgNum = imgList.length + 1;
+
+        function autoMove() {
+            if (step >= imgNum - 1) {
+                step = 0;
+                inner.style.left = "0px";
+            }
+            step++;
+            move(inner, {
+                left: -step * 1000
+            }, 500);
+            changeTip();
+        }
+        // 83 焦点轮播
+        function changeTip() {
+            var end = step >= oLis.length ? 0 : step;
+            for (var i = 0, len = oLis.length; i < len; i++) {
+                var curLi = oLis[i];
+                i === tempStep ? utils.addClass(curLi, "bg") : utils.removeClass(curLi, "bg");
+            }
+        }
+        banner.onmouseover = function() {
+            // window.clearInterval(autoTimer);
+        }
+        banner.onmouseout = function() {
+                // window.clearInterval(autoTimer);
+            }
+            // 点击焦点轮播图切换
+            ~ function() {
+                for (var i = 0, len = oLis.length; i < len; i++) {
+                    var curLi = oLis[i];
+                    curLi.index = i;
+                    curLi.onclick = function() {
+                        step = this.index;
+                        changeTip();
+                        move(banner, {
+                            left: -step * 1000
+                        }, 500);
+                    }
+                }
+            }
+
+        // 91 jq
+        // http://jquery.cuishifeng.cn/
+        // 92 回调函数
+        var $call = $.Callbacks();
+        $call.add(fun1);
+        $call.fire(arguments);
+        $call.remove(fun1);
+
+        // 页面中的HTML结构、图片、文字资源加载完成触发，只执行1次
+        window.onload = function() {}
+            // HTML结构加载完成会触发，页面中可以触发多次
+        $(document).ready(function() {});
+        $(function() {});
+        // 自定义属性
+        .attr() // 原生js : get, getAttribute
+            .removeAttr()
+            // 可通用，不能混用，获取设置属性property，不能和attr混用
+            // 内置的属性(表单元素：多数使用prop)
+            .prop()
+            .removeProp()
+            // jq可进行集合操作
+        $boxDivList = $("div", $box); // (selector, context)
+        $boxDivList.addClass("c1"); // 内置遍历
+        $boxDivList.removeClass("c1");
+        $boxDivList.each(function() {}); // 手动遍历
+        // 93 css
+        // .offset 获取当前元素距离body的偏移位置(top/left)
+        // .posotion 获取当前元素距离父级参照物的偏移(top/left)
+        // .scrollTop/.scrollLeft
+        // .heigh/.width
+        // .innerHeight()/.innerWidth() 获取 clientWidth, clientHeight; 设置保留padding，设置width
+        // .outerWidth()/.outerHeight 获取和设置元素可视区域的宽高(含边框), 若传入true，margin也计算在内
+
+        // 94.ajax
+        // $.ajax({
+        //     url: "www.baidu.com",
+        //     type: "get",
+        //     dataType: "json", //->text, html, jsonp（跨域通信）
+        //     success: function(data) {
+        //         console.log(data);
+        //     }
+        // })
+
+        // 事件
+        // $("#box").on("click", function(){
+        //     this: 当前元素（js原生对象）
+        // })
+
+        // 工具
+        // $("div").each(function(index, item){})
+        // $.each([1,2,3], function(index, item){})
+        // $.makArray()
+
+        // 效果动画
+        // $.("#box").animate({left:xxx},[speed]during,[easing],[fn])
+        // .stop(), .finish(), .delay()
+
+        // 95 核心
+        // window.jQuery = window.$ = jQuery
+        // jQuery = function( selector, context ) {
+        //     return new jQuery.fn.init( selector, context );
+        // }
+        // 新建对象，$box存储对象的作用
+        // $("#box") !== $("#box") -> true
+        // jQuery.fn = jQuery.prototype = {
+        //     constructor: jQuery
+        // }
+        // 1)jQuery.fn.extend/ jQuery.extend向jq类库中增加其他方法
+        // 向jQuery属性名上扩展，增加类库核心方法
+        jQuery.extend({
+            aa: function() {}
+        })
+        $.aa();
+        // 2)向jQuery原型上扩展，编写jquery插件
+        jQuery.fn.extend({
+            bb: function() {}
+        })
+        $().bb(); // 先创建jq对象$(),后执行bb()函数
+    </script>
+    <script src="../js/jquery-1.12.4.min.js"></script>
+</body>
+
+</html>
