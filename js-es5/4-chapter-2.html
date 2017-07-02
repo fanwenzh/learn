@@ -141,6 +141,7 @@
         //     url: "www.baidu.com",
         //     type: "get",
         //     dataType: "json", //->text, html, jsonp（跨域通信）
+        //     async: false, 
         //     success: function(data) {
         //         console.log(data);
         //     }
@@ -181,6 +182,26 @@
             bb: function() {}
         })
         $().bb(); // 先创建jq对象$(),后执行bb()函数
+
+        // 99 jq图片延时加载
+        window.setTimeout(lazyImg, 500);
+
+        function lasyImg() {
+            // function 已形成闭包
+            $imgList.each(function(index, item) {
+                    var _this = this;
+                    var oImg = new Image;
+                    oImg.src = $(this).attr("trueImg");
+                    oImg.onload = function() {
+                        $(_this).attr("trueImg", this.src).css("display", "block");
+                        oImg = null;
+                    }
+                })
+                // fadeIn(300): opacity:1
+            $divList.eq(0).css("zIndex", 1).animate({
+                opacity: 1
+            }, 300);
+        }
     </script>
     <script src="../js/jquery-1.12.4.min.js"></script>
 </body>

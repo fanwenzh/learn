@@ -6,12 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #d1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            box-shadow: 3px 3px 10px 0 #010101;
+        }
+    </style>
 </head>
+<div id="d1"></div>
 
 <body>
     <script type="text/javascript">
         // 104 事件
-        // onclick,
+        // onclick, onmouseover(onmouseenter), onmouseout(onmouseleave), onmousemove
+        // onmousedown, onmouseup, onmousewheel(鼠标滚动), onscroll(滚动条滚动)
+        // onresize(window.onresize浏览器窗口大小改变事件), onload, onunload
+        // onfocus(文本框获取焦点), onblur(失去焦点)
+        // onkeydown, onkeyup(键盘)
+
+        var oDiv = document.getElementById("d1");
+        // DOM0级事件绑定
+        // 定义在私有属性上
+        oDiv.onclick = function() {}
+
+        // DOM2级事件绑定
+        // 定义在EventTarget类的原型上
+        //true: 捕获阶段，false： 冒泡阶段(默认)
+        oDiv.addEventListener("click", function() {}, false);
+
+        // 105事件对象及兼容处理
+        // 1）e: MouseEvent 对象数据类型
+        // 2）MouseEvent -> UIEvent -> Event -> Object
+        oDiv.onclick = function(e) {
+                // ie6~8
+                // console.dir(window.event)
+                console.dir(e);
+                e = e || window.event;
+                // e.clientX/e.clientY 鼠标出发点距离屏幕左上角x/y的坐标值
+                //iE6~8： e.srcElement
+                // e.target 事件源   
+                e.target = e.target || e.srcElement;
+                // e.pageX/e.pageY: 鼠标触发点在Body左上角（第一屏幕左上角）x/y的坐标
+                // ie6~8没有这个属性，通过clientY+滚动条高度获取
+                e.pageX = e.pageX || (e.clientX + (document.documentELement.scrollLeft || document.body.scrollLeft));
+                e.pageY = e.pageY || (e.clientY + (document.documentElement.scrollTop || document.body.scrollTop));
+                // 阻止默认行为
+                e.preventDefault()
+                    // ie6~8: e.returnValue = false;
+                    // 或
+                    // return false;
+                    // li: hover伪类在IE6浏览器中不兼容，a标签:hover则兼容所有浏览器
+                    // a标签：javascript: void (expression) // 执行表达式，没有返回值，即undefined
+                    // javascript:; // 不执行任何操作
+                    // e.stopPropagation() //阻止冒泡事件传播
+                    // ie6~8 e.cancelBubble = true;
+                    // e.stopPropagation? e.stopPropagation() : e.cancelBubble = true;
+
+                // 键盘事件
+                // e.keyCode: 
+                // 空格键space: 32, 回退键Backspace: 8, 回车键Enter: 13, 删除键(Del): 46
+                // 方向键：左37, 上38, 右39, 下40
+
+                // 106 事件传播机制
+                // 捕获：从外向内
+                // 冒泡：从内向外
+                // 用DOM0级事件绑定(.onclick等)都是冒泡阶段触发执行, e.target为最内层对象
+                // 用DOM2级事件绑定控制监听阶段:.addEventListener() false:冒泡，true:捕获
+
+                // 107 鼠标触发事件
+                // var left = e.clientX - $boxOffset.left + 10;
+                // var top = e.clientY - $boxOffset.top + 10;
+
+                // 110 事件委托（代理）
+                e.target = e.target || e.srcElement;
+                // 还可判断： e.target.tagName.toLowerCase(), e.target.parentNode.id
+            }
+            // 111 物品放大镜
+            // #box img {
+            //    position: absolute;
+            //    left: 0;
+            //    right:0;
+            //     width: 200%; 
+            //     height: 200%;
+            // }
+            // 设置mark盒子信息
+        function setPosition(e) {
+            var top = e.clientY - box.offsetTop - (mark.offsetHeight / 2),
+                left = e.clientX - box.offsetLeft - (mark.offsetWidth / 2);
+        }
+
+        // 112 百度搜索
     </script>
 </body>
 
