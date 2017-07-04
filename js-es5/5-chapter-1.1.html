@@ -98,6 +98,13 @@
         }
 
         // 112 百度搜索
+        searchIn.onfocus = searchIn.onkeyup = function() {
+                var val = this.value.trim();
+                searchList.style.display = val.length > 0 ? "block" : "none";
+            }
+            // 阻止容器中某些元素不在委托范围内
+            // 1）在e.target中判断
+            // 2）在元素中处理，并阻止事件传播e.stopPropagation(),e.cancelBubble = true
     </script>
 </body>
 
