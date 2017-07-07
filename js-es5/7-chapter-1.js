@@ -67,10 +67,9 @@ xhr.addEventListener("readystatechange", function() {}) // DOM2
 
 //js惰性思想：私有作用域储存标识 （如IE6~8）
 
-// CRM; 客户管理系统
-// CMS: 内容发布管理系统
-// ERP: 企业传略信息管理系统
-// OA: 企业办公管理系统
+// window.location.href = ""
 
 // XML(Extensible Markup Language) 可扩展标记语言
 // 利用自己扩展的规则标记来存储相关的数据
+
+// JSONP(JSON with Padding)

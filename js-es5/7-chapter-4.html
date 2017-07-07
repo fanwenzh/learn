@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script charset="utf-8" type="text/javascript">
+        // AJAX: 同源策略
+        // JSONP: 非同源策略（跨域请求）
+
+        // 协议、域名、端口号相同：同源
+        // http://www.baidu.com:80/
+
+        // JSONP(JSON with Padding)
+        // http://blog.csdn.net/wall1999/article/details/55509429
+        // 利用script的src跨域请求解决非同源问题
+        // 原理解析（服务器支持JSONP）
+        // 1)把需要请求数API接口赋值给script的src
+        // 2)把当前页面中的某一函数名当参数值传递给服务器(URL问号传参)
+        // 3)服务器接收到请求后，把传递进来的函数名和服务器回传的数据拼接成一个字符串。例如传递进去的是fn，
+        // 返回数据'fn([{"name":"zhufeng"}])' -> '传递的函数名(需要返回的数据)'
+        // 4)服务器把准备的数据通过HTTP协议返回给客户端，及客户端执行fn(resData)
+        function fn(data) {
+            console.log(data);
+        };
+    </script>
+    <script charset="utf-8" type="text/javascript" src="http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&callback=fn"></script>
+</body>
+
+</html>
