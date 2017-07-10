@@ -175,6 +175,20 @@
         //         changeTab(i)
         //     };
         // }
+
+        // var box = document.getElementById("box");
+        // 1.元素.style.属性名
+        // 需要将元素样式都写在行内
+        // console.log(box.style.left);
+        // 2.window.getComputedStyle(box, [伪类null])
+        // 获取CSSStyleDeclaration类的实例
+        // window.getComputedStyle(box, null).height  或 window.getComputedStyle(box, null)["height"]
+        // ie6~8中
+        // box.currentStyle.height
+
+        // 3.检测浏览器版本和类型
+        // window.navigator.userAgent
+        // /MSIE (6|7|8)/.test(navigator.userAgent)
     </script>
 </body>
 

@@ -30,6 +30,25 @@
         };
     </script>
     <script charset="utf-8" type="text/javascript" src="http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&callback=fn"></script>
+    <script charset="utf-8" type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+    <script charset="urf-8" type="text/javascript">
+        // jq的jsonp
+        $.ajax({
+            url: "data.text",
+            // type: "get",
+            dataType: "jsonp", //格式为jsonp!
+            // data: null,
+            // async: true,
+            // cache: false, // url添加随机数，get请求不要缓存
+            jsonpCallback: "fn", //自定义传递给服务器测函数名为fn,而不是jquery生成的随机函数名
+            jsonp: "cb", //把传递函数名的形参callback变为cb
+            // http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&cb=fn
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(e) {}
+        })
+    </script>
 </body>
 
 </html>

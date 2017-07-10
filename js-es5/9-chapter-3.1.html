@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--viewport默认width:980px-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--可添加ie条件注释-->
+    <!--[if lt IE 9]>
+        <script></script>
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        a {
+            /*展开动画*/
+            z-index: -1;
+            /*移动端两套*/
+            -webkit-transition: all .3s linear 0s;
+            /*pc端5套*/
+            -webkit-transition: all .3s linear 0s;
+            -moz-transition: all .3s linear 0s;
+            -o-transition: all .3s linear 0s;
+            /*必须最后一个*/
+            transition: all .3s linear 0s;
+        }
+        
+        html {
+            font-size: 100px;
+            /* 1rem = 100px*/
+        }
+        /*动画*/
+        
+        @-webkit-keyframes musicMove {
+            0% {
+                -webkit-tarnsform: rotate(0deg);
+                tansform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        
+        #music .move {
+            -webkit-animation: musiceMove 1s linear 0s infinite both;
+            animation: musiceMove 1s linear 0s infinite both;
+        }
+        
+        #music audio {
+            display: none;
+        }
+    </style>
+    <!--
+        移动端和pc端为两个前端项目
+        js的mobileTest检测 或 http://www.cnblogs.com/mrdoor/p/5560775.html
+    -->
+    <!--移动端轮播图用css3实现：（轮播图，场景切换）帧动画库-->
+    <!--swiper插件：http://www.swiper.com.cn/-->
+    <script>
+    </script>
+</head>
+
+<body>
+    <!--hyBride模拟（微信的webView）-->
+</body>
+<script>
+    // DPI适配: 不同尺寸的图片素材
+    // logo.png 100*100
+    // logo@2x.png 200*200
+    // logo@3x.png 300*300
+
+    // 媒体查询: @media
+    // 媒体设备: all, screen(所有屏幕设备，pc+移动端), print打印设备...
+    // 媒体条件: 
+    // @media all and (min-width:320px) and (max-width:359px){}  >=320, <360
+    // media all and (device-pixel-ratio: 2m .0){}
+
+    // 设计稿通常: 640*960, 640*1136, 750*1334
+    // iphone: 5s 320px, 6 375px, 6p 414px(3dpi)1280
+    // android: 320, 360, 480, 540, || 640, 720
+
+    // IOS Safari
+    // 忽略数字自动识别为电话号码(邮箱)
+    // <meta name="fortmat-detection" content="telephone=no, email=no">
+    // 开启拨打电话/发送短信功能/发邮件
+    // <a href="tel:123456">拨打电话</a>, <a href="sms:123456">发送短信</a>, <a href="mailto:fwz@qq.com"></a>
+    // 没有地址栏和状态栏全屏显示：
+    // <meta name="apple-mobile-web-app-capable" content="yes">
+    // 全屏模式设置状态栏颜色
+    // <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    // 添加主屏后的图标\标题
+    // <link href="url" sizes="114*114" rel="apple-touch-icon-precomposed">
+    // <meta name="apple-mobile-web-app-title" content="标题">
+
+    // Expires：声明页面过期时间
+    // <meta http-equiv="expires" content=""/>
+    // Pragma(cache模式): 禁止浏览器从本地计算机的缓存中访问页面内容
+    // <meta http-equiv="pragma" content="no-cache">
+    // Refresh(刷新): 刷新或页面跳转
+    // <meta http-equiv="refresh" content="10; url=...">
+    // 设置cookie
+    // <meta http-equiv="set-cookie" content="">
+    // Window-target显示窗口设置
+    // <meta http-equiv="window-target" content="_top">
+    // 声明浏览器版本
+    // keyword(搜索关键字), description（网站描述），robots（机器人向导）
+
+    // 响应式布局
+    // 1)流式布局：部分相对viewport百分比设置
+    // -容器或盒子宽度width使用百分比
+    // -其余样式（字体, 高度, margin, padding按设计稿标注尺寸的一半）
+    // -部分屏幕尺寸使用@media进行微调:
+    // @media all and (min-width:641px){
+    //      .box{background:url('banner@2x.png')}
+    // }
+    // 2）rem响应式布局(只在移动端访问，rem不兼容低版本的浏览器)
+    // 针对html的front-size进行设置:
+    // 设计图640*1136 -> html的font-size:100px(浏览器最小像素为12px) -> 按照设计稿样式填写6.4rem
+    // 注意：外层盒子使用百分比的流式布局
+    // ->动态计算html的font-size值
+    ~ function() {
+        var desW = 640,
+            winW = document.documentElement.clientWidth, // ie6~8不支持rem, 不用兼容
+            ratio = winW / desW;
+        var oMain = document.getElementById("main");
+        // 超过设计稿大小设置最大值，剩余部分留白显示（如京东）
+        if (winW > desW) {
+            oMain.style.width = desW + 'px';
+            oMain.style.margin = '0 auto';
+            return;
+        }
+        document.documentElement.style.fontSize = ratio * 100 + 'px';
+    }()
+</script>
+
+</html>
