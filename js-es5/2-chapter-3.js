@@ -89,7 +89,7 @@ var reg = /^\d{17}(\d|X)$/ // 或 /^\d{17}[\dX]$/
 // 2)放在一个量词后面的元字符后面取消捕获的贪婪性
 // var reg = /\d+?/g; 
 // var str = "qwe123qwe123qwe123"
-// reg.exec(str); // ->"1""
+// reg.exec(str); // ->"1"
 // 3、String中的match方法->把所有正则匹配都捕获到
 // var ary = str.match(reg); // ary得到同上的结果
 // 但是match无法捕获小正则()的内容?
@@ -344,3 +344,6 @@ String.prototype.trim = function() {
     while (ws.test(str.charAt(--i)));
     return str.slice(0, i + 1);
 }
+
+// 在ES5的严格模式下是不能使用
+// argument.callee

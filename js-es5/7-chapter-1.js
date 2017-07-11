@@ -68,6 +68,7 @@ xhr.addEventListener("readystatechange", function() {}) // DOM2
 //js惰性思想：私有作用域储存标识 （如IE6~8）
 
 // window.location.href = ""
+// window.open()
 
 // XML(Extensible Markup Language) 可扩展标记语言
 // 利用自己扩展的规则标记来存储相关的数据

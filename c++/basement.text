@@ -1,0 +1,71 @@
+### vector:
+	1.赋值
+		v.assign(begin, end) //迭代器
+		v(n, val)
+	2.访问元素
+		v.begin(), v.rbegin(), v.end(), v.rend()  //迭代器
+		v.back(), v.front()   //值访问
+	3.添加元素
+		v.push_back(), v.push_front(), v.insert(q, val)
+	  删除元素
+	  	v.pop_back(), v.pop_front(), v.erase(q, end), v.clear()
+	4. 容器大小
+		v.size(), c.empty()
+
+### queue:
+	q.pop(), q.push(), q.front(), q.back(), q.empty()
+
+### stack
+	s.push(), s.pop(), s.top(), s.size(), s.empty()
+
+### pair
+	pair<t1, t2> p(key, value), make_pair(k, v)
+	p.first, p.second
+
+### set/unordered_set
+	1.元素访问
+		s.begin(), s.end(), s.rbegin(), s.rend()
+	2.元素添加
+		s.insert()
+	3.删除
+		s.erase(it), clear()
+	4.访问
+		s.size(), s.empty(), 
+		s.find() *it or s.end()
+		s.count() *it or 0;
+
+初始化：
+	int s[100] = {0};
+	vector< vector<int> > v(10, vector<int>(10, 0));
+
+输入带空格的字符串
+1)#include<stdio.h>  gets(char *str)
+2)#include<stdio.h>  scanf("%[^\n]", str) //正则匹配：非\n
+3)#include<string>  getline(cin, string str)
+
+string input;
+vector<string>arr;
+while(cin>>input){
+    arr.push_back(input);
+}
+
+大小写转换
+#include <algorithm>
+transform(strA.begin(), strA.end(), strA.begin(), ::toupper)
+transform(strA.begin(), strA.end(), strA.begin(), ::tolower)
+toupper(str[i]), tolower(str[i])
+
+幂运算
+#include<math.h>
+pow(x, y)
+
+输入十六进制转换十进制
+int a;
+cin>>hex>>a;
+个人实现：
+for (int i = 2; i < str.length(); ++i) {
+    if (str[i] >= '0' && str[i] <= '9')
+        num = num * 16 + (str[i] - '0');
+    else
+        num = num * 16 + (str[i] - 'A' + 10);
+}

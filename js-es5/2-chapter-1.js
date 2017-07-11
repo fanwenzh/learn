@@ -1,8 +1,8 @@
 // 20 原型深入
 // 获取元素方法 
-document.getElementById // 上下文是document
+document.getElementById // 上下文是document  //HTMLDocument -> Document
 document.getElementsByName // 上下文是document
-document.getElementsByClassName // 元素
+document.getElementsByClassName // 元素  // HTMLDivElement -> HTMLElement ->Element
 document.getElementsByTagName // 元素
     // css方法
 document.querySelector

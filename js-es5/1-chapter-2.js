@@ -254,7 +254,7 @@ Fn.constructor === Fn
 Fn.prototype = {
     // 手动添加constructor！完全构成构造函数的prototype，否则没有constructor
     // jquery方法，否则为默认Object
-    constructor: Fn,
+    constructor: Fn, //返回对创建对象的函数引用：test.constructor == Array
     getX: function() {},
     getY: function() {}
 }
@@ -433,8 +433,8 @@ div
 // firstChild: 第一个子节点
 // lastChild: 
 // nextSibling: 下一个节点
-// parentNode
 // previousSibling
+// parentNode
 
 // .style.  所有style属性
 // IE
