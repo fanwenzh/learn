@@ -449,7 +449,7 @@ div
 // attributes:NamedNodeMap(类Array)  储存div所有属性
 // className, id, tagName, hidden(style属性?), localName. nodeName, textContent,  nodetype
 // clientHeight, clientWidth, clientLeft, clientTop 相对于文档的位置信息
-// offsetHeight, offsetLeft, offsetRight, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
+// offsetHeight, offsetWidth, offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
 // offsetPartent
 // scrollHeight, scrollLeft, scrollTop, scrollWidth
 

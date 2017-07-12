@@ -33,10 +33,46 @@
 		s.size(), s.empty(), 
 		s.find() *it or s.end()
 		s.count() *it or 0;
+### map/unordered_map
+	1.元素访问
+		m.begin(), m.end(), m.rbegin(), .rend(), 
+	  数组方式访问
+	  	map[a]
+	2.添加元素
+		iter = m.insert(make_pair(a, b))//不能覆盖, 返回迭代器，插入成功iter.second == true
+		iter = m.insert(iter2, e) ;
+		m[a] = b//覆盖, key为int时可用 for(int i = 0; i < m.size(); i++)遍历
+	3.删除
+		m.erase(key), m.clear();
+	4.访问
+		s.size(), s.empty(), 
+		s.find(key) *it or s.end()
+		s.count(key) *it or 0;
+	iter->first, iter->second
+### 指针iterator
+	map<int, string>::iterator  iter;
+
+ASCII表字符: 0~127
+	0: ' '
+char word;
+int temp[128] = {0};
+while(cin >> word){
+    if(word >= 0 && word <= 127){ // char类型可直接比较
+        temp[word]++;             // 并直接插入
+    }
+}
 
 初始化：
 	int s[100] = {0};
 	vector< vector<int> > v(10, vector<int>(10, 0));
+
+排序：
+bool compare(const string& s1, const string &s2) {
+	return s1 < s1; // 可直接字符串比较
+}
+sort(res.begin(), res.end(), compare); // sort！！！
+sort(res.begin(), res.end(), less<int>())  // greater<int>()
+stable_sort() 对给定区间所有元素进行稳定排序  
 
 输入带空格的字符串
 1)#include<stdio.h>  gets(char *str)
