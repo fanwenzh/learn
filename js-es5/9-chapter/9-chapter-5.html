@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!--less  -->
+    <!-- <link charset="utf-8" type="text/css" rel="stylesheet/less" href="index.less">
+    <script charset="utf-8" type="text/javascript" src="js/less-2.5.3.min.js"></script> -->
+    <style type="text/css">
+        .box {
+            /*渐进变色  */
+            background: -webkit-linear-gradient(top left, #123345, #456789, #9ABCDE);
+            /* background: url("") no-repeat .center左右 center上下; */
+            /* background: url("") no-repeat .1rem左 center; */
+            box-sizing: border-box;
+            background-size: 50% 50%;
+        }
+    </style>
+    <script>
+        // rem
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + "px";
+        // 本地存储方案
+        // 传统：
+        // cookie: 存储在浏览器中
+        // session: 把信息存储在服务器中
+
+        // HTML5:webStorage
+        // localStorage:永久存储到客户端的本地
+        // sessionStorage: 信息会话存储，会话窗口关闭信息消除
+
+        // 2.localStorage:
+        // localStorage.setItem([key],[value]); // 自动转换为字符串存储
+        // localStorage.getItem([key]);
+        // .removeItem([key])
+        // .clear(), .length, .key(0)
+        // 杀毒软件、浏览器清除历史记录不清除localStorage?
+        // sessionStorage:
+        // 同localStorage, 会话存储（关闭页面即清除,F5刷新将当前页面dom结构重新渲染，会话没有关闭）：网页游戏
+        // cookie:
+        // document.cookie="age=7"
+
+        // cookie 与 localStorage的区别
+        // cookie存储内容大小有限制, 同源4kb, 有过期时间，无痕浏览器禁用cookie，可被浏览器、杀毒软件查找并删除; cookie的size单位为byte, 兼容所有浏览器
+        // localStorage: 同源5MB，不兼容ie6~8
+
+        // 使用场景
+        // cookie: 信息量少或需要兼容所有浏览器
+        // 如：用户名密码、自动登录；用户部分信息，用户登录成功的返回信息，确定登录用户身份；购物车(兼容原因)
+        // localStorage:移动端
+        // 如：存储某个js或css源代码;不需要经常更新的数据+时间;
+
+        // 本地存储都是明文存储
+        // 一般不保存密码等信息，或者需要多次加密(MD5,秘钥)
+    </script>
+    <script charset="utf-8" type="text/javascript" src="../js/cookie.js"></script>
+    <script charset="utf-8" type="text/javascript">
+        // 现在：node本地服务器
+        // 传统：设置--enable-file-cookies --allow-file-access-from-files本地调试
+        // document.cookie = "test1=myCookie1;"
+    </script>
+
+    <!--ejs模板  -->
+    <script charset="utf-8" type="text/javascript" data-src="ejs.min.js"></script>
+    <script charset="utf-8" type="text/javascript" id="conTemplate">
+        // js执行: <% %>, 数据输出<%= %>
+        // <%$.each(myData, function(index, item){%>
+        //     <li>
+        //         <span><%=item.id%></span>
+        //     </li>
+        // <%})%>
+    </script>
+    <script charset="utf-8" type="text/javascript">
+        function bindHTML(data) {
+            // 1)获取HTML结构script中制作的模板字符串
+            var template = $("#conTemplate").html();
+            // 2)ejs引擎渲染,myData名称与模板对应;返回数据和HTML结构拼接的 [字符串]
+            var result = ejs.render(template, {
+                myData: data
+            });
+            // 3）把拼接好的数据放入到容器中
+            $('.content>ul').html(result);
+        }
+    </script>
+
+    <!--iScroll  css3实现:处理移动端position:fixed问题-->
+    <script charset="utf-8" type="text/javascript">
+        /*
+         * var scroll = new IScroll(滚动区域，{参数})，初始化成功后只对容器中[第一个子元素]实现滚动操作：
+         * document.querySelector('.content').querySelector('*')
+         * 
+         * [options]
+         * scrollbars: true: 显示滚动条
+         * 原理：向.content区域增加一个iScrollVerticalScrollbar的DIV, 控制滚动条，其样式为position: absolute;
+         * 设置.content的样式position:relative可实现在.content内滚动
+         * mouseWheel:true 设置支持鼠标滚动条
+         * bounce: false 禁止运动到边界后反弹
+         * fadeScrollbars:true 不移动时隐藏滚动条
+         * click: true 防止滑动过程中误操作，默认禁止click事件
+         * 
+         * [方法]
+         * myScroll.reflesh 滚动区域改变时，刷新滚动区域相关数值
+         * myScroll.scrollToElement([ele], [time]) 用多长时间滚动到ele元素的位置
+         *      myScroll.scrollToElement($li[$li.length - 1], 300);
+         * myScroll.scrollTo(x, y, time) 用多长时间滚动到具体坐标位置
+         */
+        var myScroll = new IScroll('.content', {
+            scrollbars: true,
+            fadeScrollbars: true,
+            mouseWheel: true,
+            bounce: false,
+            click: true, // 触发点击事件  
+            scrollX: true, // 横向滚动
+            scrollY: false
+        });
+    </script>
+
+</head>
+
+<body>
+    <!--运用section  -->
+    <section>
+        <!--controls 播放器  src:链接 or source:添加资源-->
+        <!--只有 preload="none"时，poster(封面图)才能起作用 -->
+        <!-- <video src="" controls preload="none" poster="">
+            <source src="horse.avi" type="audio/ogg">
+            <source src="horse.mp4" type="audio/mpeg">   
+        </video> -->
+    </section>
+</body>
+
+</html>

@@ -6,9 +6,9 @@
 		v.begin(), v.rbegin(), v.end(), v.rend()  //迭代器
 		v.back(), v.front()   //值访问
 	3.添加元素
-		v.push_back(), v.push_front(), v.insert(q, val)
+		v.push_back(), v.insert(q, val)
 	  删除元素
-	  	v.pop_back(), v.pop_front(), v.erase(q, end), v.clear()
+	  	v.pop_back(), v.erase(q) or v.erase(q, end), v.clear()
 	4. 容器大小
 		v.size(), c.empty()
 

@@ -448,10 +448,13 @@ div
 
 // attributes:NamedNodeMap(类Array)  储存div所有属性
 // className, id, tagName, hidden(style属性?), localName. nodeName, textContent,  nodetype
-// clientHeight, clientWidth, clientLeft, clientTop 相对于文档的位置信息
-// offsetHeight, offsetWidth, offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
+// clientHeight, clientWidth: padding+内容 
+// clientLeft, clientTop : border宽度
+// offsetHeight, offsetWidth: (padding+内容 = clientXXX) + border宽度
+// offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
 // offsetPartent
-// scrollHeight, scrollLeft, scrollTop, scrollWidth
+// scrollHeight, scrollLeft: 滚动区域的总宽高
+// scrollTop, scrollWidth: 已滚动(屏幕外)的高度
 
 // innerHTML, outerHTML, innerText, outerText(设置(包括标签)或获取(不包括标签)对象的文本)
 

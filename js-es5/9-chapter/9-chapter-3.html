@@ -18,8 +18,8 @@
             /*移动端两套*/
             -webkit-transition: all .3s linear 0s;
             /*pc端5套*/
-            -webkit-transition: all .3s linear 0s;
             -moz-transition: all .3s linear 0s;
+            -ms-transition: all .3s linear 0s;
             -o-transition: all .3s linear 0s;
             /*必须最后一个*/
             transition: all .3s linear 0s;
@@ -40,6 +40,17 @@
                 -webkit-transform: rotate(360deg);
                 transform: rotate(360deg);
             }
+        }
+        
+        .box {
+            /*transition: property duration time-function delay ：变化过程*/
+            transition: width 1s ease-in .3s;
+            /*transform: translate(x,y)  scale(x,y)  ratate(30deg) */
+            /*transform: translateX(10px) scaleY(2) rotateZ(30deg) */
+            /*transform: translate3d(移动) scale3d(缩放) rotate3d(选转) */
+            /*旋转的原点  */
+            transform-origin: left center;
+            transform-origin: 0% 100%;
         }
         
         #music .move {
