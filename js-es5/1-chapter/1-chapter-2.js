@@ -8,9 +8,9 @@ var person = {
     // 工作中的最简单的模块化分组开发
 
 // 12工厂模式：工厂模式
-// 单例模式解决分组问题，但是不能实现批量生产，属于手工业模式 -> 工厂模式
+// 单例模式解决分组问题, 但是不能实现批量生产, 属于手工业模式 -> 工厂模式
 // 把相同功能的代码放到一个函数中 -> 函数的封装 
-// -> 低耦合(相同)高内聚(重复利用率)：减少页面中的冗余代码，提高代码的利用率
+// -> 低耦合(相同)高内聚(重复利用率): 减少页面中的冗余代码，提高代码的利用率
 function createPerson(name, age) {
     var obj = {}; // new Object()
     obj.name = name;
@@ -22,14 +22,14 @@ function createPerson(name, age) {
 }
 var p1 = createPerson('a', 1);
 var p2 = createPerson('b', 2);
-// 面向对象：继承、封装、多态
-// 多态：重载和重写
+// 面向对象: 继承、封装、多态
+// 多态: 重载和重写
 // js中不存在重载，方法名相同时，后面的把前面的覆盖掉
-// js可重写：子类重写父类的方法
+// js可重写: 子类重写父类的方法
 
-// 13构造函数模式：创建一个自定义类，并且创建这个类的实例
-// 1.js 中所有的类都是函数数据类型的，所有实例都是对象数据类型的
-// 2.构造函数中，类中（函数体中）出现的this.xxx中的this是当前类的一个实例，注意和方法中的this区分
+// 13构造函数模式: 创建一个自定义类, 并且创建这个类的实例
+// 1.js 中所有的类都是函数数据类型的, 所有实例都是对象数据类型的
+// 2.构造函数中, 类中（函数体中）出现的this.xxx中的this是当前类的一个实例，注意和方法中的this区分
 // 3.构造函数创建的实例是单独的个体，所有私有属性（函数）不相等
 // 构造函数模式和工厂模式的区别
 // 1、函数执行时
@@ -124,13 +124,13 @@ var f1 = new Fn();
 var f2 = new Fn();
 console.log(Fn.prototype.constructor === Fn) //->true
 console.log(f1.__proto__ === Fn.prototype) //->true
-console.log(Fn.prototype.__proto__ === Object.prototype) //->true
-    // Objects是js中所有对象的基类（最顶层的类）
-    // 1、f1 instanceof Object -> true 因为f1通过—__proto__可以向上级查找，最终为Object
-    // 2、在Object.prototype上没有__proto__属性(唯一没有__proto__属性的对象)
-    // 3、原型链模式
-    // f1.hasOwnProperty('x')
-    // 通过 对象名.属性名查找时，查找顺序为 私有属性 -> __proto__的属性 ->  最终查找到Object.prototype的属性
+console.log(Fn.prototype.__proto__ === Object.prototype); //->true
+// Objects是js中所有对象的基类（最顶层的类）
+// 1、f1 instanceof Object -> true 因为f1通过—__proto__可以向上级查找，最终为Object
+// 2、在Object.prototype上没有__proto__属性(唯一没有__proto__属性的对象)
+// 3、原型链模式
+// f1.hasOwnProperty('x')
+// 通过 对象名.属性名查找时，查找顺序为 私有属性 -> __proto__的属性 ->  最终查找到Object.prototype的属性
 f1.getX === f2.getX - > true
 f1.__proto__.getX === f2.getX - > true
 f1.getX === Fn.prototype.getX - > true
@@ -263,6 +263,7 @@ var f = new Fn;
 f.constructor == Object
     // [但是]浏览器屏蔽以替换原型类型prototype对象的方式
 Array.prototype = {
+        // 以这种方式定义contructor, 该属性可枚举（原生不可枚举）
         constructor: Array,
         unique: function() {}
     }
@@ -446,13 +447,13 @@ div
 // previousElementSibling
 // parentElement
 
-// attributes:NamedNodeMap(类Array)  储存div所有属性
+// *attributes:NamedNodeMap(类Array)  储存div所有属性
 // className, id, tagName, hidden(style属性?), localName. nodeName, textContent,  nodetype
 // clientHeight, clientWidth: padding+内容 
 // clientLeft, clientTop : border宽度
 // offsetHeight, offsetWidth: (padding+内容 = clientXXX) + border宽度
 // offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
-// offsetPartent
+// offsetPartent 返回父节点
 // scrollHeight, scrollLeft: 滚动区域的总宽高
 // scrollTop, scrollWidth: 已滚动(屏幕外)的高度
 

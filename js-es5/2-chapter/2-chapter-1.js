@@ -30,15 +30,17 @@ document.body.clientTop
 
 // 21 函数的三种角色：理解Function的原型链
 // 所有函数都是Function函数类的一个实例
-// Function.prototype.__proto__ === Object.prototype， 函数本身就是Objcet  
+Function.prototype.__proto__ === Object.prototype， 函数本身就是Objcet
+Function.__proto__ === Function.prototype // funcition anonymous(){}
+Object.__proto__ 没有__proto__;
 // 函数属性：
 // length: 形参的个数
 // name: 函数名
 // prototype 类原型，在原型上定义的方法都是当前Fn这个类实例的共有方法
 // ___proto__ 作为对象的函数，指向Function类的原型对象
 // 函数的多面性
-// 1.普通函数： 执行时形成私有作用域（闭包），形参赋值，预解释，代码执行后栈内存 销毁/不销毁
-// 2.类： 有自己的实例，prototype指向自己的原型，其实例指向自己的原型
+// 1.普通函数: 执行时形成私有作用域（闭包），形参赋值，预解释，代码执行后栈内存 销毁/不销毁
+// 2.类: 有自己的实例，prototype指向自己的原型，其实例指向自己的原型
 // 3.普通对象：和var obj ={}中的obj一样，为普通对象，可以有自己的私有属性，通过__proto__找到Function.prototype
 // 三者没有必然关系
 function Fn() {
@@ -56,7 +58,7 @@ f.aaa // -> undefined // 和Fn作为类没有关系
 var res = Fn(); // Fn中的this位window
 res // undefined 
 Fn.aaa //1000
-    // function.prototype 是函数数据类型，但相关操作和之前一样：类型anonymous
+    // Function.prototype 是函数数据类型，但相关操作和之前一样：类型anonymous
 
 // 22 call 方法深入
 // Function.prototype.call = function (){} // 原型上定义call

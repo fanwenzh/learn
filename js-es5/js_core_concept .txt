@@ -1,0 +1,93 @@
+1、数据类型、判断方法 
+基本数据类型5: Undefined, Null, Number, String, Boolean
+引用数据类型: Array、Function、Math、Date、JSON、RegExp、Error
+复合: Object
+精确区分: Object.prototype.toString.call() === "[object Array]"
+模糊区分方法3
+.constructor, instanceOf, typeof  
+
+2、执行上下文
+执行上下文在函数调用栈中的顺序为（自底向上）：globalStack => threeStack => twoStack => oneStack
+    特性：
+    1.单线程
+    2.同步执行，只有栈顶的上下文处于执行中，其他上下文需要等待
+    3.全局上下文只有唯一的一个，它在浏览器关闭时出栈
+    4.函数的执行上下文的个数没有限制
+    5.每次某个函数被调用，就会有个新的执行上下文为其创建，即使是调用的自身函数，也是如此
+
+3、原型、原型链 
+原型链顶端对象：Object.prototype
+获取原型对象方法：
+   var a = {};
+ * Object.getPrototypeOf(a);
+   a.__proto__;
+   a.constructor.prototype;
+
+ * Function.__proto__ === Function.prototype  // funcition anonymous(){}
+ * Object.__proto__ 没有__proto__
+
+4、作用域、作用域链
+作用域:
+    ES5: 全局作用域、函数作用域、eval作用域
+    ES6: 块作用域
+作用域链:当定义一个函数时，它实际上创建了一个作用域节点，该节点上存储着当前作用域中的局部变量，并且该节点会挂载在作用域链的底端。
+JavaScript中的函数采用静态作用域，也称词法作用域。当在执行函数调用时，不管何时何地执行函数，其中的变量在函数定义时就已经决定了，函数会从自身作用域节点开始，沿着作用域链向上访问变量的值。
+注意：作用域链的顶端是全局作用域，作用域链在函数定义时就已经创建了。
+
+5、闭包、垃圾回收机制
+    闭包：有权访问另一个函数作用域内变量的函数
+    闭包特性：
+    1.函数返回嵌套的函数形成闭包
+    2.闭包内部可以访问外部的参数和变量
+    3.外部参数和变量在被闭包引用时不会被垃圾回收机制回收
+
+6、this指向 
+    1.函数中有this, 但是它没有以对象方法的形式调用，而是以函数名的形式执行，this指向的就是全局对象;
+    2.函数中有this，并且这个函数是以对象方法的形式调用，那么this指向的就是调用该方法的对象
+    3.函数中有this，并且包含该函数的对象也同时被另一个对象所包含，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象.
+    4.构造函数或类方法中有this，那么它指向由该构造函数或类创建出来的实例对象。
+    DOM中回调函数的this指触发事件的对象
+
+7、 类和模块(弱类型语言)
+类：
+    ES5: new, prototype, constructor
+    ES6: class
+CommonJS模块特点：
+    所有代码都运行在模块作用域，不会污染全局作用域。
+    模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。
+    模块加载的顺序，按照其在代码中出现的顺序。
+异步加载模式AMD（异步模块定义）和CMD（通用模块定义）:
+    AMD会在加载完模块的[同时去执行模块]，从而拥有延迟低、效率高的特性；
+    CMD则是加载完[所有依赖模块]后，再进入程序，遇到需要执行的模块才会执行相应的操作
+
+8、继承
+ES5: prototype, apply, call, bind
+ES6: class, extends
+
+9、函数式编程（柯里化）
+将函数当参数传入函数中执行
+
+*10、正则表达式
+解析url:
+    // \w: 数字、字符串、下划线  \S非（空白符、空格、制表符、换页符）
+    var url = /(\w+)/\/\([\w.]+)/\(\S*)/;
+
+*11、事件模型
+DOM0:只有冒泡阶段。
+DOM2事件流：从顶document沿DOM树至底目标，而后自底向上传播返回document, 即先捕获后冒泡，IE6~8不支持: attachEvent, detachEvent。
+阻止事件流传播：支持addEventListener, stopPropagation(); IE6~8: cancelBubble=true;
+阻止事件默认行为：支持addEventListener, preventDefault(); IE6~8: returnValue=false;
+事件委托/事件代理：利用事件冒泡的原理，将事件加到目标节点的父级节点上，触发执行效果。
+ie6~8中 change、select、submit、reset 事件均不产生事件冒泡, 所以以上事件不要依赖事件冒泡机制委托给其祖先元素处理。
+
+12、Ajax、跨域访问  
+Ajax: new XMLHttpRequest, open, onreadystatechange, send
+JSONP: 定义fn函数 -> src="http://xxx.xxx.xxx?callback=fn" -> fn(obj)在浏览器中执行
+
+13、DOM
+document.documentElement: getElementById, getElementByClassName, querySelector, getAttribute
+14、BOM:window
+Location, History, Navigator, Screen
+
+
+http://mp.weixin.qq.com/s/I7A1iC8Et6uOGZ234DsTlA

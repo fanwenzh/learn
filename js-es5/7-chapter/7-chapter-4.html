@@ -25,7 +25,7 @@
         // 3)服务器接收到请求后，把传递进来的函数名和服务器回传的数据拼接成一个字符串。例如传递进去的是fn，
         // 返回数据'fn([{"name":"zhufeng"}])' -> '传递的函数名(需要返回的数据)'
         // 4)服务器把准备的数据通过HTTP协议返回给客户端，及客户端执行fn(resData)
-        function fn(data) {
+        function fn(data, num) { // 返回任意格式的字符串(多为JSON)
             console.log(data);
         };
     </script>

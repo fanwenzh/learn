@@ -142,7 +142,7 @@ String.prototype.match = function(reg) {
         var res = reg.exec(this);
         while (res) {
             ary.push(res[0]);
-            str = reg.exec(this);
+            res = reg.exec(this);
         }
         return ary;
     }
@@ -270,7 +270,8 @@ console.log(reg.test());
 // 所属类的详细信息，可用于类型判断
 console.log((1).toString()) // "1"-> Number.prototype.toString 转化为字符串
     //"[object Object]" -> Object.prototype.toString()
-console.log((1).__proto__.__proto__.toString())
+console.log((1).__proto__.__proto__.toString());
+.toString(2) //转2进制
 var obj = { name: "fwz" };
 // 运用的是Object.prototype.toString()
 console.log(obj);
