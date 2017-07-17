@@ -164,7 +164,17 @@ xhr.open("post", "url", true);
 xhr.send(form);
 
 跨域处理：
-1. 被请求资源返回时服务器添加添加: Access - Control - Allow - Origin: 请求url
+1. CORS(Cross - Origin Resource Sharing)
+    // 客户端
+Access - Control - Request - Method:
+    Access - Control - Request - Headers: , ,
+    // 服务器
+    *
+    Access - Control - Allow - Origin: *
+    Access - Control - Allow - Methods: POST, GET
+Access - Control - Allow - Headers: 允许的头部
+Access - Control - Max - Age: 17200
+Ajax请求
 2. JSONP, 图片ping(不能接收返回数据)
 3. Web Sockets:
     // ws(s安全)自定义协议
@@ -176,4 +186,15 @@ socket.onmessage = function(e) {
     var data = e.data;
 }
 socket.send("data");
-4. CORS(跨域资源共享, Cross - Origin Resource Sharing)
+
+
+惰性载入: 保存兼容判断结果
+函数柯里化
+高级定时器: p611
+    // 仅当没有该定时器的任何其他代码实例时, 才将定时器代码添加到队列中. 
+    // 产生两个问题:(1)某些间隔时间的定时器被跳过. (2)多个定时器代码之间的执行间隔可能比预期小
+setInterval(function() {}, 300)
+    // 解决方案
+setTimeout(function() {
+    setTimeout(arguments.callee, interval);
+}, 300)

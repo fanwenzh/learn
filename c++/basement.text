@@ -15,6 +15,14 @@
 ### queue:
 	q.pop(), q.push(), q.front(), q.back(), q.empty()
 
+	deque:双端队列
+		q.push_back(), q.push_front()
+		q.pop_back(), q.pop_front(), 
+		q.insert(q, e), q.erase(q), q.clear()
+	priority_queue: 优先队列
+		q.push(), q.pop(), q.top(), q.size(), q.empty(), q.erase()
+		priority_queue<int,vector<int>,greater<int>/less<int> >q;
+		
 ### stack
 	s.push(), s.pop(), s.top(), s.size(), s.empty()
 

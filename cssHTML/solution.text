@@ -1,0 +1,67 @@
+*{margin:0;padding:0;list-style:none;}
+
+清除浮动:
+    overflow: hidden;  // 清除子元素浮动对父级的影响
+    clear:both;        // 清除哥哥元素浮动对子元素的影响
+    .clear:after {
+        display: block;
+        content: '';
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        clear: both;
+    }
+
+font-family:      微软小黑
+	font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif, Arial, "微软雅黑","新宋体","黑体";
+
+透明度兼容:
+	opacity: 0.9;  // 透明度在IE6~8中不兼容
+	filter: alpha(opacity=90);
+
+省略号裁剪
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+居中样式:
+    1) {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            或 margin: 宽高
+        }
+    2)  {
+            position: absolute;
+            top: 0;
+            left:0;
+            bottom:0;
+            right: 0;
+            margin: 0;
+        }
+删除table表格边框距离:
+    border-spacing:0;
+    border-collapse:collapse;
+
+
+嵌套结构纯质外边距margin Bug:
+    1)padding-top:1px solid transparent;
+    2)border-top:1px solid transparent;
+    3)overflow:hidden;
+
+
+其他
+    a: text-decoration:none;
+    *: -webkit-user-select: none;
+    { width:1000px; margin:0 auto;}
+
+设置font-size:
+    // 没有小于12px的字体
+    ~function(){
+        let winW = document.documentElement.clientWidht;
+        if(winW >= maxW){
+            winW = maxW;
+        }
+        document.documentElement.sytle.fontSize = winW / designWin * 100 + "px";
+    }

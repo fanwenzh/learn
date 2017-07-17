@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <input type="file" id="file">
+</body>
+<script>
+    var file = document.querySelector('#fileInput');
+    var fileReader = new FileReader();
+    //    fileReader.readAsBinaryString(), readAsDataURL(), readAsText()
+    fileReader.readAsArrayBuffer(file);
+    fileReader.onload = function() {
+        console.log(fileReader.result.byteLength);
+    }
+</script>
+
+</html>

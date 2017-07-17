@@ -34,8 +34,11 @@ DOM
 	parentNode
 
 	.style.  所有style属性
-	childElementCount: 子元素个数
-	children: HTMLCollection(类Array)，[i]访问，储存子元素
+	window.getComputedStyle(dom, [null":after"]).height
+	
+	//childElementCount: 子元素个数
+	//children: HTMLCollection(类Array)，[i]访问，储存子元素
+	//box.currentStyle.height
 	firstElementChild: 第一个element子元素
 	lastElementChild: 
 	nextElementSibling: 下一个兄弟element元素
@@ -189,7 +192,7 @@ DOM
 
 	/*可省*/
     var box = document.getElementById("d1");
-  * box.getAttribute("id);  
+  * box.getAttribute("id");  
     box.attributes.getNamedItem("id");
     var typ = document.createAttribute("class");  // 创建新的attr节点
     typ.nodeValue = "democlass";                  // 设置节点value
@@ -197,7 +200,7 @@ DOM
     box.attributes.item(0);
     box.attributes.removeNamedItem("name");
 
-    // class
+    // class, contains(), toggle
     box.classList.add("123");
     box.classList.remove("123");
     box.className += "text100";
@@ -346,6 +349,7 @@ DOM
 	xhr.open("get", "url", false, [username], [userpass]);
 	xhr.setRequestHeader("hi", "tony");
 	xhr.timeout = "1000"; // 设置AJAX请求超时时间
+	xhr.ontimour = functoin(){}
 	xhr.onreadystatechange = function() {
 	        // xhr.readyState
 	        // 0: UNSENT 当前的请求还没发送

@@ -73,7 +73,7 @@ ES6: class, extends
     var url = /(\w+)/\/\([\w.]+)/\(\S*)/;
 
 *11、事件模型
-DOM0:只有冒泡阶段。
+DOM0:绑定冒泡阶段事件。
 DOM2事件流：从顶document沿DOM树至底目标，而后自底向上传播返回document, 即先捕获后冒泡，IE6~8不支持: attachEvent, detachEvent。
 阻止事件流传播：支持addEventListener, stopPropagation(); IE6~8: cancelBubble=true;
 阻止事件默认行为：支持addEventListener, preventDefault(); IE6~8: returnValue=false;

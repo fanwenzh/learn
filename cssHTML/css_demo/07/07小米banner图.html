@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	.banner{
+		width:996px;
+		height:460px;
+		margin:100px auto;
+		border:2px solid red;
+		position:relative;
+	}
+	.banner img{
+		width:100%;
+		height:460px;
+	}
+	
+	.banner .list li{
+		display:none;
+	}
+	.banner .list .on{
+		display:block;
+	}
+	.banner .btn{
+		position:absolute;
+		right:35px;
+		bottom:25px;
+	}
+	.banner .btn li{
+		width:8px;
+		height:8px;
+		background:#898a8c;
+		border-radius:50%;
+		float:left;
+		margin-left:10px;
+		border:2px solid #acadae;	
+	}
+	
+	.banner .btn .on{
+		background:#fff;
+	}
+	
+	.arrow_l,.arrow_r{
+		width:40px;
+		height:69px;
+		background:url(images/icon-slides.png) no-repeat;	
+		position:absolute;
+		/*top:195px;*/
+		top:50%;
+		margin-top:-35px;
+	}
+	
+	.arrow_r{
+		right:0;
+	}
+</style>
+<body>
+	<div class="banner">
+    	
+        <ul class="list">
+        	<li class="on"><a href="#"><img src="images/04d3a6fe-ce98-4461-afce-30642ac555d8.jpg" /></a></li>
+        	<li><a href="#"><img src="images/099233b8-6ded-4444-813e-ad97d4adcda9.jpg" /></a></li>
+        	<li><a href="#"><img src="images/c7d624fb-284e-4b80-bc42-a66b7c8e08bc.jpg" /></a></li>
+        	<li><a href="#"><img src="images/b291ee24-ca34-47ec-b239-b4b26c4aff2e.jpg" /></a></li>
+        	<li><a href="#"><img src="images/2587483c-0ae3-44f4-b746-cfd7f20023bf.jpg" /></a></li>
+        </ul>
+        <ul class="btn">
+        	<li></li>
+        	<li></li>
+        	<li class="on"></li>
+        	<li></li>
+        	<li></li>
+        </ul>
+        
+        <a href="#" class="arrow_l"></a>
+        <a href="#" class="arrow_r"></a>
+    </div>
+</body>
+</html>

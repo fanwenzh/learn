@@ -83,7 +83,49 @@
 先判断空格数量，而后从后往左判断并赋值
 6.给定一个字符串str，判断是不是整体有效的括号字符串：如str"(())", true
 num代表（出现次数和)出现次数的差，遍历结束判断num==0;
-7.给定一个字符串str,返回str的最长无重复字符串的长度。时间空间复杂度O(N)
-4:00
+7.给定一个字符串str,返回str的最长无重复字符串的长度。时间空间复杂度O(N),空间复杂度 O(N)
+哈希表map -> 统计每个字符之前出现的位置
+整形变量pre -> 代表以s[i-1]结尾的情况下，最长无重复子串的长度
 
+// 4队列和栈
+栈：先进后出, 队列：先进先出
+可实现数组和队列的形式
+栈：push, top/peek, pop, size   O(1)时间复杂度操作
+队列: push, pop, front,  (双端队列, 优先级队列类stack)
+深度优先(DFS, 栈), 宽度优先(BFS, 队列)
+递归函数 -> 非递归实现
+1. 为stack添加 返回最小元素的方法
+实现: stackData, stackMin两个stack (是否重复亚茹stackMin两个方案)
+2. 用两个栈实现队列, 支持队列push, pop, front操作
+实现：StackPush, StackPop两个栈互倒数据
+3.  实现一个栈的逆序，但只能用递归函数和这个栈的本身来操作, 不能申请而外的数据结构
+返回并删除栈底元素:
+public int get(stack<int> s){
+	int result = s.pop();
+	if(s.empty()) {
+		return result;
+	} else {
+		int last = get(s);
+		stack.push(result);
+		return last;
+	}
+}
+栈元素逆序:
+public void reverse(stack<int> s) {
+	if(s.empty()){
+		return;
+	} else {
+		int i = get(s);
+		reverse(s);
+		s.push(i);
+	}
+}
+4. 将栈中元素(int)从顶到底从大到小排序，只允许申请一个栈
+实现: stack, res两个栈
+*5. arr数组和大小为w的窗口，返回窗口内最大值的数组
+arr = [4,3,5,4,3], w = 3 => [5,5,5,4,3] // 普通解法: 遍历边框w
+最佳实现双端队列qmax: 记录arr的下标
+6.没有重复数组的arr，生成这个数组的MaxTree函数(每一个子树的最大值为数组头)
+找到每个数的左边和右边第一个比其大的数(利用stack), 每一个数的父节点为左右非null值最小的数, 其中数组中的最大值为root
 
+// 链表
