@@ -168,6 +168,7 @@ class userGroup {
 //     return e > 10;
 // });
 // [].findIndex()
+// 区分indexOf
 
 //### 7.类型化数组 ArrayBuffer
 // Uint8Array 1, Uint16Array 2, Uint32Array 4

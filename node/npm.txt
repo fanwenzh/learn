@@ -1,0 +1,8 @@
+iconv-lite  编码解码
+readline  行输入输出
+zlib 解压缩
+browser-sync 文件监听与浏览器同步
+progress  进度条
+querystring 读取查询字符串
+url 解析url
+nodemon // 自动重新执行node *.js
