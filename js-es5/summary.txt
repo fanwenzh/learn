@@ -158,6 +158,7 @@ DOM
 	// \b: 一个边界符, "w1 w2 w3" -> ""|w1| |w2| |w3|", \B匹配除了边界符以外的
 	* \w: 数字、字母、下划线的任一个字符, [0-9a-zA-Z_], \W
 	* \s: 匹配一个空白符、空格、制表符、换页符, \S
+	.为任意字符
 	// 2.两次元字符
 	// * 0-n, + 1-n, ? 0-1, {n}, {n, }, {n, m}
 
@@ -218,6 +219,8 @@ DOM
     }
 
     function lazyImgs(ele) {
+		// if(ele.isLoad === true) return;
+		if(ele.complete == true) return;
         var oImg = new Image;
         oImg.src = ele.getAttribute("trueImg");
         oImg.onload = function() {
@@ -225,7 +228,7 @@ DOM
             ele.style.display = "block";
             oImg = null;
         }
-        ele.isLoad = true;
+        ele.isLoad = true; //
     }
 
     background: url() no-repeat center center // 添加默认图
@@ -364,6 +367,7 @@ DOM
 	        // 304 本次获取的内容是读取缓存内存中的数据
 	        // 400 客户端传递给服务器的参数出现未知错误
 	        // 401 无权限访问
+			// 403 服务器拒绝处理
 	        // 404 客户端访问的地址不存在
 	        // 500 未知的服务器错误
 	        // 503 服务器已经超负荷

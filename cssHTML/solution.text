@@ -12,6 +12,7 @@
         clear: both;
     }
 
+
 font-family:      微软小黑
 	font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif, Arial, "微软雅黑","新宋体","黑体";
 
@@ -19,10 +20,15 @@ font-family:      微软小黑
 	opacity: 0.9;  // 透明度在IE6~8中不兼容
 	filter: alpha(opacity=90);
 
+超出部分省略
+  display: -webkit-flex!important;  // 12年为-webkit-box
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
 省略号裁剪
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    -webkit-line-clamp:1;
 
 居中样式:
     1) {
