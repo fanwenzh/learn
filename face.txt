@@ -1,0 +1,53 @@
+var a={},b={key:'b'},c={key:'c'}; 
+a[b]=123; 
+a[c]=456; 
+console.log(a[b]); //456，a:{[object object]:456} 
+
+给定一个['baidu.com','wiki.org','yahoo.net'...]，输出['commercial','organization','network'...]
+var reg = /\.[a-z]{3}/;
+['baidu.com','wiki.org','yahoo.net'].map(function(item){
+    var temp = item.match(reg);
+    var res = "";
+	console.log(temp);
+	switch(temp[0]){
+        case ".com": return 'commercial';
+        case ".org": return 'organization';
+        case ".net": return 'network';
+    }    
+})
+
+function qs(arr, left, right) {
+    if (left < right) {
+        let index = left + Math.floor((right - left) / 2);
+        swap(arr, index, left);
+        let l = left + 1,
+            r = right;
+        while (l <= r) {
+            while (l <= r && arr[left] >= arr[l]) l++;
+            while (r >= l && arr[left] < arr[r]) r--;
+            if (l < r){
+                swap(arr, l++, r--);
+            }
+                
+        }
+        swap(arr, left, r);
+        qs(arr, left, r - 1);
+        qs(arr, r + 1, right);
+    }
+}
+
+function swap(item, first, second) {
+    let temp = item[first];
+    item[first] = item[second];
+    item[second] = temp;
+}
+
+reverse() 会改变数组本身，并返回原数组的引用。
+slice() 从数组中取出相应的元素，不改变原数组
+
+console.log(1 +  "2" + "2");
+console.log(1 +  +"2" + "2");
+console.log(1 +  -"1" + "2");
+console.log(+"1" +  "1" + "2");
+console.log( "A" - "B" + "2");
+console.log( "A" - "B" + 2);

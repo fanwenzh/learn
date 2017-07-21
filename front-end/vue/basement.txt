@@ -1,0 +1,128 @@
+观察数组，触发以下方法均可触发视图更新
+.push(), .pop(), .shift(), .unshift(), .splice(), .sort(), .reverse()
+Vue.set(example1.items, indexOfItem, newValue) === example1.items.splice(indexOfItem, 1, newValue)
+example1.items.splice(newLength) // 改变数组长度
+不会触发实时更新:
+.filter(), concat(), slice()
+
+实例:
+var vm = new Vue({
+  el: '#app',
+  data: function(){
+      return{
+        message: 'Hello Vue!'
+      }
+  },
+  created:function(){},
+  mounted:function(){},
+  updated:function(){},
+  destroyed:function(){},
+  watch:{
+      attr:cb(){}
+  }
+  methods:{}, // 可于computed（缓存读取）互用
+  computed:{
+      reverseMessage:function(){
+          get: function(){}, // 计算属性的getter和setter
+          set:function(){},
+          return this.message.split('').reverse().join(''); // this不能绑定，依赖缓存储存
+      }
+  },
+  filters:{  //  严格来说应该是格式化：返回更新值，但是数组当中的.filter(function(val){})返回回调函数为true的值
+      capitalize:function(val, args){ // 可接受参数
+          return val+1;
+      }
+  },
+  components:{}
+})
+
+vm.data === data;
+vm.$el === document.getElementById('app');
+vm.$watch('attr', function(newVal, oldVal){})
+
+渲染时可有{{ 单个js表达式 }}
+
+属性绑定： 
+v-bind:attr="" => :attr=""
+v-on:click="fn(args, $event)" => @click // $event传入原生e事件
+@click.stop.prevent.capture.self self有顺序之别！！ .once v-on:keyup.13="submit" //enter
+keyup.enter, keyup.tab, keyup.delete, keyup.space, 全局修饰 https://cn.vuejs.org/v2/guide/events.html#修饰键
+v-model
+v-if（惰性渲染）, v-else, v-else-if, v-for// 比v-if有更高的优先级
+<li v-for="(item, index) in(of) items" v-if="" key="item.id"> // <span v-for="n in 10">{{n}}</span>
+v-show（肯定渲染）
+
+// 创建根实例
+new Vue({
+    el:'#example'，
+    data:{},
+    methods:{
+        fatherEvent:function(){}
+    }
+})
+// 局部注册, 只能父节点引用
+let child = "<input v-on:click="childFun($event.target.val)">{{title}}</input>"; // .native绑定原生事件, .sync父子间双向绑定
+// 注册组件 Vue.component(tagName, options)
+Vue.component("name" ,{
+    props:[    // 父传子
+        title: String  //验证父信息String, Number, Boolean, Function, Object, Array, Symbol
+        ],
+    data:function(){return {
+        counter: this.initialCounter; // 保存局部变量的值（切记对象为引用类型）
+    };}
+    template:child, 
+    methods:{
+        childFun: function(val){
+            this.$emit("childEvent", val)
+        }
+    }
+})
+<div id="father" v-model="title">
+    <name :myMsg="title" v-on:childEvent="fatherEvent"></name>   
+</div>
+// 也可以进行全局绑定，如 bs-date-input 插件
+
+// 子传父
+$on(eventName) 监听事件
+$emit(eventName) 触发事件
+
+//非父子通信
+var bus = new Vue()
+bus.$emit('event1', 1);
+bus.$on('event1', function(id){})
+
+var myComponent = Vue.extend({}) // 组件复用
+var myComponentInstance = new myComponent();
+
+<a v-on:submit.prevent.prevent="onSubmit">{{message | capitalize}}</a>
+<div :class="{className1: judge, className2: judge}"> or [{className1: judge}, {className2: judge}]
+<div :class="计算属性" :style="{display:['-webkit-box', '-ms-flexbox', 'flex']}"> //多前缀设置
+
+表单控件: v-model忽略所有表单初始化的value, checked, selected
+<textarea></textarea> // 多行输入使用
+多选也可绑定v-model在数组上，https://cn.vuejs.org/v2/guide/forms.html#文本
+vm.selected(data).number(select-data) // 去读方式
+
+<input v-model.lazy="msg"> 
+.lazy 在change而不是input事件中同步
+.number 输入为数字类型
+.trim 去除空格
+
+slot分发设置默认模版
+子组件: <slot name="header"></slot>
+父组件: <p slot="header"></p>
+组件列表https://cn.vuejs.org/v2/guide/components.html
+
+<keep-alive></keep-alive> 将切换出去的组件保存在内存中
+
+访问子组件 ref="profile"
+parent.$refs.profile
+异步组件: 待试验
+Vue.component('async-webpack-example', function (resolve) {
+  // 这个特殊的 require 语法告诉 webpack
+  // 自动将编译后的代码分割成不同的块，
+  // 这些块将通过 Ajax 请求自动下载。
+  require(['./my-async-component'], resolve)
+})
+递归组件，循环引用
+内联模版，<script type="X-Templates">muban 

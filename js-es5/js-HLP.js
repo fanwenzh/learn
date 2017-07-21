@@ -1,10 +1,12 @@
 Array
-join, reverse, sort
+join, reverse //改变数组并返回印用本身
+sort
 push, pop, shift, unshift, length,
-concat, slice, splice
+concat, splice, slice //从原字符串取出子字符串并返回，不改变原字符串
 indexOf, lastIndexOf
 every, filter, forEach, map, some
 reduce, reduceRight
+    [].copyWithin(target, start, end)
 String
 concat, slice(start, end), substr(s, l) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
 indexOf, lastIndexOf
@@ -16,7 +18,7 @@ arguments.callee
 arguments.callee.caller
 call, apply, bind
 RegExp
-exec, test: RegExp.$n
+exec, test, RegExp.$n
 Number
 toFixed, toString(2)
 Bollean
@@ -75,18 +77,16 @@ ie8用jq 1.10 ?
     dom扩展 : ie9及以上支持, addEventListener, removeEventListener
 elememt
 querySelector, querySelectorAll, getElementByClassName
-    *
-    .className: add, contains, remove, toggle
-    .nodeName == "DIV", nodeType == 1
-    // 返回elememt类型
-childElementCount, firstElementChild, lastElementChild, previousSibling, nextElementSibling
-自定义属性
-    <
-    div data - appID = "123" > < /div>
-var appid = div.dataset.appID;
-innerHTML, outerHTML(包括本身), innerText *
-    滚动
-    // 2,3,4由 Safari和Chrome实现
+// *.className: add, contains, remove, toggle
+// .nodeName == "DIV", nodeType == 1
+// 返回elememt类型
+// childElementCount, firstElementChild, lastElementChild, previousSibling, nextElementSibling
+// 自定义属性
+// <div data-appID = "123" > < /div>
+// var appid = div.dataset.appID;
+// innerHTML, outerHTML(包括本身), innerText *
+滚动
+// 2,3,4由 Safari和Chrome实现
 scrollIntoView(ture / false), scrollIntoViewIfNeeded() // 作用对象是元素的容器
 scrollByLines(), scrollByPages() // 对用对象是元素自身
 dom2
@@ -135,13 +135,12 @@ e.dataTrasfer 对象
 video, audio
 
 错误实例:
-    if (value)
-        在url(2 K = 2048 个字符长度限制) 以查询形式发送数据给服务器前, 要进行 encodeURIComponent() 编码
-使用Image发送错误: 避免跨域限制, 所有浏览器支持Image对象, 不一定支持XMLHttpRequest
-var img = new Image()
-img.src = "错误信息";
+    // if (value)在url(2 K = 2048 个字符长度限制) 以查询形式发送数据给服务器前, 要进行 encodeURIComponent() 编码
+    // 使用Image发送错误: 避免跨域限制, 所有浏览器支持Image对象, 不一定支持XMLHttpRequest
+    // var img = new Image()
+    // img.src = "错误信息";
 
-进度事件:
+    进度事件:
     // xhr.onload = uploadComplete;
     // xhr.onerror =  uploadFailed;
     // xhr.upload.onprogress = progressFunction 传输过程不断调用
@@ -166,14 +165,13 @@ xhr.send(form);
 跨域处理：
 1. CORS(Cross - Origin Resource Sharing)
     // 客户端
-Access - Control - Request - Method:
-    Access - Control - Request - Headers: , ,
+    // Access-Control-Request-Method:*
+    // Access-Control-Request-Headers:*
     // 服务器
-    *
-    Access - Control - Allow - Origin: *
-    Access - Control - Allow - Methods: POST, GET
-Access - Control - Allow - Headers: 允许的头部
-Access - Control - Max - Age: 17200
+    // Access - Control - Allow - Origin: *
+    // Access - Control - Allow - Methods: POST, GET
+    // Access - Control - Allow - Headers: 允许的头部
+    // Access - Control - Max - Age: 17200
 Ajax请求
 2. JSONP, 图片ping(不能接收返回数据)
 3. Web Sockets:

@@ -16,7 +16,6 @@ Babel ES6->ES5
     for(let [key, value] of map) //map遍历
     let [x, y, z] = new Set(['a', 'b', 'c']) //set解构
     let { p, p: [x, { y }] } = obj;  // p: 为模式而不是变量，undefined
-    let n = {...{a:3, b:4 }};
     // 写法一
     const clone1 = {
         __proto__: Object.getPrototypeOf(obj),
@@ -75,13 +74,13 @@ Iterator接口: 可用for of 循环
         Object.keys()：返回对象自身的所有可枚举的属性的键名
         JSON.stringify()：只串行化对象自身的可枚举的属性
     ES6:
+    *Object.keys(), Object.values(), Object.entries() // 先转对象，后输出数组，过滤属性名为 Symbol 值的属性
+    *for(let [key, value] of )
         Object.getOwnPropertyNames(obj)  // 返回数组
         Object.getOwnPropertySymbols(obj)
         Reflect.ownKeys(obj)
     obj.__proto__:
         Object.setPrototypeOf(), Object.getPrototypeOf(), Object.create()
-    Object.keys(), Object.values(), Object.entries() // 先转对象，后输出数组，过滤属性名为 Symbol 值的属性
-    for(let [key, value] of )
     NULL传导符:obj?.prop?.user // 遇到null或undefined不再往下传导
     Object.getOwnPropertyDescriptor(obj, key)
     Object.getOwnPropertyDescriptors()
@@ -103,7 +102,7 @@ set
     set.size    // add 对象完全相同(地址相同)===才能去重
     set.add(i);  // for(let i of s){}, NaN可加入，唯一
     set.delete, has, clear
-    [...new Set(array)] or Array.from(new Set(array));// 去重
+*   [...new Set(array)] or Array.from(new Set(array));// 去重
     遍历：.keys, values, entries, forEach, ..., for of
     Set.prototype[Symbol.iterator] === Set.prototype.values
 

@@ -161,8 +161,8 @@ class userGroup {
 // s.add(NaN).add(NaN) // NaN === NaN
 
 //### 6.Array
-// Array.from // 类数组转数组
-// Array.of // 通过多个参数生成数组
+// Array.from // 类数组转数组 apply
+// Array.of // 通过多个参数生成数组 call
 // Array.isArray();
 // [].find(function(e) {
 //     return e > 10;
