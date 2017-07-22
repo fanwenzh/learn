@@ -1,9 +1,9 @@
-var a={},b={key:'b'},c={key:'c'}; 
+1.var a={},b={key:'b'},c={key:'c'}; 
 a[b]=123; 
 a[c]=456; 
 console.log(a[b]); //456，a:{[object object]:456} 
 
-给定一个['baidu.com','wiki.org','yahoo.net'...]，输出['commercial','organization','network'...]
+2.给定一个['baidu.com','wiki.org','yahoo.net'...]，输出['commercial','organization','network'...]
 var reg = /\.[a-z]{3}/;
 ['baidu.com','wiki.org','yahoo.net'].map(function(item){
     var temp = item.match(reg);
@@ -36,18 +36,26 @@ function qs(arr, left, right) {
     }
 }
 
-function swap(item, first, second) {
+3.function swap(item, first, second) {
     let temp = item[first];
     item[first] = item[second];
     item[second] = temp;
 }
 
-reverse() 会改变数组本身，并返回原数组的引用。
+4.reverse() 会改变数组本身，并返回原数组的引用。
 slice() 从数组中取出相应的元素，不改变原数组
 
-console.log(1 +  "2" + "2");
+5.console.log(1 +  "2" + "2");
 console.log(1 +  +"2" + "2");
 console.log(1 +  -"1" + "2");
 console.log(+"1" +  "1" + "2");
 console.log( "A" - "B" + "2");
 console.log( "A" - "B" + 2);
+正负号(+/-)时，会被转换成数字
+在数字前添加 ''，将数字转为字符串
+
+6.常见false值
+0, '0', +0, -0, false, '',null,undefined,null,NaN
+[] 和 {} 为 true
+
+

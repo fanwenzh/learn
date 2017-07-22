@@ -1,6 +1,6 @@
 // 窗口输入输出
 process.argv //doc参数
-process.env //返回用户环境信息
+process.env //返回用户环境信息 .NODE_ENV
 
 process.execPath // 执行的绝对路径
 

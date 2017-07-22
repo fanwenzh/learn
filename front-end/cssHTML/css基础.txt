@@ -9,5 +9,6 @@
 	3.只有定位(static以外)元素才可以显示优先级：z-index:0
 text-indent
 <link rel="stylesheet" type="text/css" href="global.css" />
+element.scrollHeight - element.scrollTop === element.clientHeight
 
 box-shadow: h-shadow v-shadow blur spread color inset;

@@ -11,6 +11,7 @@ D3.js
 
 ## 巩固
 bootstrap
+jq
 源码
 
 ## 书籍
