@@ -12,3 +12,13 @@ text-indent
 element.scrollHeight - element.scrollTop === element.clientHeight
 
 box-shadow: h-shadow v-shadow blur spread color inset;
+
+包含选择符(E F)
+子选择符(E>F)
+相邻选择符(E+F) // 紧跟在E之后的元素F
+兄弟选择符(E~F)
+
+@media screen and (max-width: 768px)
+@media screen and (min-width:769px and max-width: 992px)
+@media screen and (min-width:993px and max-width: 1200px)
+@media screen and (min-width:1201px)

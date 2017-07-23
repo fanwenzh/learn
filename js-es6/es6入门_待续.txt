@@ -34,10 +34,10 @@ Iterator接口: 可用for of 循环
     模板: `${ js执行域 }`
     Unicode操作
 4.正则的扩展
-    str.match(), .replace(), search(), split()
+    str.match(), .replace(), search()/index, split()
     /^.$/u  四字节字符匹配, //y == /^/, //s .可匹配任意单个字符，包括\n
     先行(否定)断言：(?=), (?!), 后行(否定)断言:(?<=), (?<!)
-    解构赋值和替换：
+    解构赋值和替换:
         let {groups: {one, two}} = /^(?<one>.*):(?<two>.*)$/u.exec('foo:bar');
         '2015-01-02'.replace(re, '$<day>/$<month>/$<year>')
     \p{} 匹配Unicode字符
@@ -55,19 +55,19 @@ Iterator接口: 可用for of 循环
     () => {};  // 作用域内arguments, super 不存在
     const numbers = (...nums) => nums; 返回 [1,2,3,4,5]
     foo::bar; // 等同于 bar.bind(foo); 如c++?
-    foo::bar(...arguments); // 等同于 bar.apply(foo, arguments);
+    foo::bar(...arguments); // 等同于 bar.apply(foo, arguments);, arguments非Array
     obj::obj.foo // ::obj.foo, 可采用链式写法
 7.数组扩展:具有Iterator接口
     Math.max(...[14, 3, 77]), arr1.push(...arr2), 合并数组[1, 2, ...more]
-    Array.isArray(), 
+    Array.isArray(), // arguments false
     Array.from(ary, (x)=>x*x) //.map // 将具有长度的对象转换为数组 Array.prototype.slice
-    Array.of(), Array.prototype.copyWithin // [].copyWithin(target, start, end)
-    .find(function(value, index, arr){}), .findIndex(function(){}) // 返回索引
-    .indexOf, 
-    .fill, entries, keys, values, includes
+    Array.of(target1, target2, target3) // 组成元素为target1, 2, 3的数组,length=3
+    .find(function(value, index, arr){}) === .findIndex(function(){}) // 返回[value, index, Array, callee, Symbol(Symbol.iterator)]
+    .indexOf, .includes
+    .fill, entries, keys, values, 
 8.对象扩展
     属性简写，属性名表达式
-    Object.is(a, b) //是否相等， Object.assign(a, ...b) // 将b的属性赋值到a, 浅拷贝
+    Object.is(a, b) //（地址）是否相等===， Object.assign(a, ...b) // assign是扩展a可枚举的属性!
     遍历:
     ES5:
         for...in循环：只遍历对象自身的和继承的可枚举的属性
@@ -75,7 +75,7 @@ Iterator接口: 可用for of 循环
         JSON.stringify()：只串行化对象自身的可枚举的属性
     ES6:
     *Object.keys(), Object.values(), Object.entries() // 先转对象，后输出数组，过滤属性名为 Symbol 值的属性
-    *for(let [key, value] of )
+    *for(let [key, value] of obj)
         Object.getOwnPropertyNames(obj)  // 返回数组
         Object.getOwnPropertySymbols(obj)
         Reflect.ownKeys(obj)

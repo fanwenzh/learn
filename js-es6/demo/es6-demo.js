@@ -3,7 +3,7 @@
 // let, const不能声明两次，而var会忽略第二次
 // let config; {
 //     config = [];
-//     config.unshift(1);
+//     config.unshift(1); //移入
 // }
 
 // ### 2.class, 声明不提升
@@ -164,10 +164,10 @@ class userGroup {
 // Array.from // 类数组转数组 apply
 // Array.of // 通过多个参数生成数组 call
 // Array.isArray();
-// [].find(function(e) {
-//     return e > 10;
+// [].find(function(value, index, array) { // 返回value
+//     return value > 10;
 // });
-// [].findIndex()
+// [].findIndex() //返回index
 // 区分indexOf
 
 //### 7.类型化数组 ArrayBuffer
