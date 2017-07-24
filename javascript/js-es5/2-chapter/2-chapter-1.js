@@ -254,10 +254,6 @@ eval("(" + str + ")"); // 经验：浏览器标志JSON格式
 // JSON对象转JSON格式
 
 // 29数据绑定及dom回流
-// css设定文本超出行宽自动截取，并用...显示
-// text-overflow: ellipsis; // ellipsis: 截取后以...作为省略，clip: 没有省略号
-// overflow: hidden; // 隐藏溢出
-// white-space: nowrap; // 强制不换行
 // js的Dom操作class
 var oUl = document.getElementById('ul1')
 var oLis = oUl.getElementsByTagName('li') // HTMLcollection的实例

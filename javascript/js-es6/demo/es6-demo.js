@@ -202,14 +202,14 @@ class userGroup {
 
 // Object.is({}, {}) //false, 地址不同
 // {} === {}  // false
-// Object.is(NaN, NaN) // true
+// Object.is(NaN, NaN) // true!
 // NaN === NaN  //false
 // Object.is(+0, -0); //false
 // +0 === -0 // true
 
 // let obj = {age:15};
 // let skey = Symbol('test');
-// let obj2 = Object.assign(obj, {name:'fwz'}, {[skey]:'ok'}); // 扩展可枚举的属性, 和Symbol
+// let obj2 = Object.assign(obj, {name:'fwz'}, {[skey]:'ok'}); // assign是扩展obj可枚举的属性!, 和Symbol
 // console.log(obj === obj2, obj2[skey]);  // true 'ok'
 
 // Object.keys(obj)  得到自身可枚举的属性，但得不到原型链上的属性
@@ -297,7 +297,7 @@ class userGroup {
 // test(); // 22, 66
 // test([]); //33, 55
 
-// function test([x = 33, y = 55] = []) {
+// *function test([x = 33, y = 55] = []) {
 //     console.log(x, y);
 // }
 // test(); //33 55

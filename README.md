@@ -7,12 +7,12 @@ sass, bootstrap
 ## skip
 
 ## 待学
-node+mysql
 lodash   
+node+mysql
 elementUI  
-three.js  
 D3.js  
 微信小程序
+three.js  
 
 ## 巩固
 mongodb   

@@ -44,3 +44,23 @@
 // 　　}
 // 　　return quickSort(left).concat([pivot], quickSort(right));
 // };
+
+// _.flattenDeep(arrs)
+// function d(arrs) {
+//     var a = [];
+//     for (let arr of arrs)
+//         if (Array.isArray(arr)) {
+//             a = a.concat(...d(arr)) // concat不改变a
+
+//         } else
+//             a = a.concat(arr)
+//     return a;
+// }
+
+// _.fromPairs(array)
+// function f(array) {
+//     let obj = {}
+//     for (let [key, value] of array)
+//         obj[key] = value;
+//     return obj;
+// }

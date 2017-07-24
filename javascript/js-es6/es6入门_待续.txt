@@ -60,11 +60,11 @@ Iterator接口: 可用for of 循环
 7.数组扩展:具有Iterator接口
     Math.max(...[14, 3, 77]), arr1.push(...arr2), 合并数组[1, 2, ...more]
     Array.isArray(), // arguments false
-    Array.from(ary, (x)=>x*x) //.map // 将具有长度的对象转换为数组 Array.prototype.slice
+    Array.from(ary, (x)=>x*x) //.map // 将具有长度的对象(类数组)转换为数组 Array.prototype.slice // iterable object to convert to an array.
     Array.of(target1, target2, target3) // 组成元素为target1, 2, 3的数组,length=3
-    .find(function(value, index, arr){}) === .findIndex(function(){}) // 返回[value, index, Array, callee, Symbol(Symbol.iterator)]
+    .find(function(value, index, arr){})//value在前！ === .findIndex(function(){}) // 返回[value, index, Array, callee, Symbol(Symbol.iterator)]
     .indexOf, .includes
-    .fill, entries, keys, values, 
+    .fill(value, start, end), entries, keys, values, 
 8.对象扩展
     属性简写，属性名表达式
     Object.is(a, b) //（地址）是否相等===， Object.assign(a, ...b) // assign是扩展a可枚举的属性!
@@ -98,7 +98,7 @@ Iterator接口: 可用for of 循环
         Foo[Symbol.iterator]()
 10. set、map
 set
-    let set = new Set([1, 2, 3, 4, 4]);
+    let set = new Set([1, 2, 3, 4, 4]); // new Set(arr)
     set.size    // add 对象完全相同(地址相同)===才能去重
     set.add(i);  // for(let i of s){}, NaN可加入，唯一
     set.delete, has, clear

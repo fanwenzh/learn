@@ -2,10 +2,10 @@ Array
 join, reverse //改变数组并返回印用本身
 sort
 push, pop, shift, unshift, length,
-concat, splice, slice //从原字符串取出子字符串并返回，不改变原字符串
+concat(合并, 不改变原数组), splice, slice //从原字符串取出子字符串并返回，不改变原字符串
 indexOf, lastIndexOf
 every, filter, forEach, map, some
-reduce, reduceRight
+reduce, reduceRight, item == []
     [].copyWithin(target, start, end)
 String
 concat, slice(start, end), substr(s, l) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)

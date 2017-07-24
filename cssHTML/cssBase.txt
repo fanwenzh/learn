@@ -7,6 +7,7 @@
 	1.定位 > 浮动流 > 标准流
 	2.同级按元素按渲染顺序重叠, 后>前
 	3.只有定位(static以外)元素才可以显示优先级：z-index:0
+	
 text-indent
 <link rel="stylesheet" type="text/css" href="global.css" />
 element.scrollHeight - element.scrollTop === element.clientHeight
