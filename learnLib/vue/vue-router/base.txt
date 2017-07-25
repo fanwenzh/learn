@@ -1,0 +1,68 @@
+https://router.vuejs.org/zh-cn/essentials/dynamic-matching.html
+
+浏览器端 
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<router-link to="/foo">Go to Foo</router-link>  // <a> 标签改变router-view
+<router-view></router-view>
+node端
+new Router({
+    mode: 'history', // HTML5 History 模式
+    base: 'fwz',     // 路由前的url
+    scrollBehavior(to, from, savedPosition) {
+      if(savedPosition) {
+        return savedPosition;  // 原生的 后退/前进 键被按下
+      } else {
+        // 对于所有路由导航，简单地让页面滚动到顶部
+        return { x: 0, y: 0 };
+        // 滚动到to的锚点
+        // return {
+        //   selector: to.hash
+        // }
+      }
+  },
+  routes: [
+      // 复合路由的第一个进行匹配
+      { path: '/user/:id', component: User,  //$route.params, $route.query, $route.hash...
+        children: [{             // 嵌套路由
+            name: 'user' // push({name:'user', params: { userId; 123 }})
+            path: 'profile',
+            components: userProfile
+        }]
+  ]
+})
+// 组件
+const User ={
+    template:'',
+    watch: {
+        $route(to, from){
+            // 响应路由变化
+        }
+    }
+}
+router.push(location)
+router.replace(location) // 无history记录
+router.go(n)
+
+多命名布局：
+<router-view class="view one"></router-view>
+<router-view class="view two" name="a"></router-view>
+<router-view class="view three" name="b"></router-view>
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      components: {
+        default: Foo,
+        a: Bar,
+        b: Baz
+      }
+    }
+  ]
+})
+重定向:
+{ path: '/a', redirect: '/b' }
+{ path: '/a', redirect: to => '/b' }
+{ path: '/a', redirect: { name: 'b'} }
+别名: 当用户访问 /a时，URL 将会被替换成 /b
+{ path: '/a', component: A, alias: '/b' }

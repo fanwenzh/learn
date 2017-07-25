@@ -1,0 +1,20 @@
+grammer:
+@import './base.scss'
+$width: 5rem;
+@mixin message($selector, $top: .1rem){
+    #{$selector}:{
+        @extend .inner
+    }
+}
+.outer {
+    .inner1, .inner2{
+        &:hover{
+            width: $width;
+            top: 50px + double(10px);
+            @include message('.next')
+        }
+    }
+}
+@function double($n){
+    return $n*2;
+}

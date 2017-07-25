@@ -4,12 +4,12 @@ sort
 push, pop, shift, unshift, length,
 concat(合并, 不改变原数组), splice, slice //从原字符串取出子字符串并返回，不改变原字符串
 indexOf, lastIndexOf
-every, filter, forEach, map, some
+every(所有元素返回true时返回true), filter, forEach(遍历), map(不改变原数组), some(有一个元素返回true时返回true)
 reduce, reduceRight, item == []
     [].copyWithin(target, start, end)
 String
-concat, slice(start, end), substr(s, l) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
-indexOf, lastIndexOf
+concat, slice(start, end), substr(s, length) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
+indexOf, lastIndexOf // 返回尾部第一个顺数位置
 trim, toUpperCase, toLowerCase
 match, search, replace, split //四个可RegExp匹配
 localeCompare //字典序比较
@@ -45,7 +45,7 @@ encodeURI, decodeURI 转换所有空格符 % 20
 encodeURIComponent, decodeURIComponent, 转换所有非字母数字字符
 location.assign(url), .href = url.replace
 http: //   www.baidu.com  :8000   / dir /   ?cb=fn    #section
-    location.hostname, port, pathname, search hash
+    location.hostname, port, pathname, search( ? query) hash
 navigator
 userAgent
 screen

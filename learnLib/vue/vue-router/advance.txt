@@ -1,0 +1,58 @@
+全局钩子
+const router = new VueRouter({ })
+router.beforeEach((to, from, next) => {
+    next(); // 跳转到to
+    next(false); // 中断跳转
+    next(url); // 跳转至url
+})
+局部钩子
+routes: [
+    {
+      path: '/foo',
+      component: Foo,
+      meta: {}, // 查路由原信息
+      beforeEnter: (to, from, next) => {
+          // 实例创建前, 不能使用this
+          next(vm => {
+              // 通过回调函数访问this
+          })
+      },
+      beforeRouteUpdate:(to, from, next) => {
+          // 组件被复用时调用, 可访问this
+      },
+      beforeRouteLeave:(to, from, next) => {
+          // 可访问this
+      }
+    }
+  ]
+
+路由过渡动画
+<transition :name="transitionName">
+  <router-view></router-view>
+</transition>
+// 接着在父组件内
+// watch $route 决定使用哪种过渡
+watch: {
+  '$route' (to, from) {  // 检测$router变化
+    const toDepth = to.path.split('/').length
+    const fromDepth = from.path.split('/').length
+    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+  }
+}
+
+watch: {
+    // 如果路由有变化，执行fetchData方法 // 还可以这样简写～
+    '$route': 'fetchData'
+  },
+
+数据获取
+完成前获取数据，完成后获取数据：loading页面
+https://router.vuejs.org/zh-cn/advanced/data-fetching.html
+
+懒加载
+// 按需加载(分块加载)
+Foo = resolve => require(['./Foo.vue'], resolve) // 终于解决了疑惑···
+// 分组按需加载, 同时记载group-foo模块
+const Foo = r => require.ensure([], () => r(require('./Foo.vue')), 'group-foo')
+const Bar = r => require.ensure([], () => r(require('./Bar.vue')), 'group-foo')
+const Baz = r => require.ensure([], () => r(require('./Baz.vue')), 'group-foo')

@@ -1,0 +1,11 @@
+d3.select("querySelector")
+d3.selectAll("querySelectorAll")
+doms.datum(str) // 所有doms绑定text内容为str
+doms.data(arr).text(function(data, index){}) // data和dom逐个匹配遍历
+let s = selector
+.append(s) // 末尾插入元素
+.insert(s [, before]) // 开头加入元素
+.remove() // 删除自身
+
+let p = d3.select("body").selectAll("p").text(function(text, index){})
+p.style("color", "red").style("font-size", "15px");

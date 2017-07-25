@@ -1,0 +1,139 @@
+// 设置响应式属性
+Vue.set(object, key, value)       // 不允许动态添加响应式属性
+this.$set(this.someObject,'b',2)
+this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 }) // 添加属性
+
+this.nextTick(callback) 更新dom
+
+元素／组件过渡, 优先级优于类名
+<transition name="fade" ：duration="{enter:500, leave:800}"
+ v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter" v-on:enter-cancelled="enterCancelled"
+ v-on:before-leave="beforeLeave" v-on:leave="leave" v-on:after-leave="afterLeave" v-on:leave-cancelled="leaveCancelled"
+mode=""></transition> // mode模式: in-out, out-in
+.fade-enter, .fade-leave{}
+.fade-enter-active, .fade-leave-active{}
+.fade-enter-to, fade-leave-to{
+    transition: 0 linear .3s
+    transfrom: translateX(10px);
+    animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in{
+    0%{}
+    100%{}
+}
+还可监听动画事件： transitionend, animationend
+// 推荐库: Velocity.js, animation
+初次渲染过渡
+<transition
+  appear
+  appear-class="custom-appear-class"
+  appear-to-class="custom-appear-to-class" (>= 2.1.8 only)
+  appear-active-class="custom-appear-active-class"
+></transition>
+
+<transition-group name="list" tag="p"> // for渲染，以p标签呈现，要有key //设置为 display: inline-block 或者放置于 flex 中
+<span v-for="item in items" v-bind:key="item" class="list-item">
+    {{ item }}
+</span>
+</transition-group>
+v-move 移除动画：https://cn.vuejs.org/v2/guide/transitions.html
+可复用的过渡, 动态过渡（prop动态传参数）
+// Tweenjs: https://cn.vuejs.org/v2/guide/transitioning-state.html
+// 检测数字变化: v-model.number="number"
+// colorjs:  
+// 检测颜色变化: new Color(this.colorQuery).toRGB()
+
+render : js简化模版编写,渲染重复模版
+https://cn.vuejs.org/v2/guide/render-function.html
+this.$slots, this.$scopedSlots
+
+// 自定义指令
+// 注册一个全局自定义指令 v-focus
+Vue.directive('focus', {
+  // 当绑定元素插入到 DOM 中。
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+// 混合组件, Vue.extend()对象键名冲突， 区对象组件对
+new Vue({
+  mixins: [mixin],
+  created: function () {
+    console.log('组件钩子被调用')
+  }
+})
+全局混合Vue.mixin({})
+
+vue-element(UI), vue-touch, v-router, vuex
+Vue.use(MyPlugin), Vue.use(MyPlugin, { someOption: true })
+vue-router // 
+
+状态管理：
+this.$root.$data
+vuex:
+1. store 存储状态  // 唯一
+子组件获取store状态：this.$store.state.attr
+    获取多个状态: mapState()
+2. getters: {   // state的计算属性
+    doneTodos:(state, attr2)=>{ // 必须传入state
+        return state.stateAttr.filter();
+    }
+}
+import { mapGetters } from 'vuex'
+3. computed:{
+    mapGetters(['doneTodos', 'anotherGetter']); // 映射到局部计算属性
+}
+
+4. mutations:{  //  变化: 更改状态，同步操作
+    increment(state, obj){state.count++} // 直接更改
+}
+this.$store.commit('increment', {})     // 局部用store.commit调用
+// 全局常量标识:
+// export const SOME_MUTATION = 'SOME_MUTATION'
+// import { SOME_MUTATION } from './mutation-types'
+// [SOME_MUTATION] (state) {}
+
+5. Actions:{  //  变化: 更改状态，异步操作
+    incrementAsync({commit, state}, obj){
+        return new Promise((resolve, reject) => {}) // 可以通过返回Promise使用then操作
+    },
+    async actionA({}){}
+}
+this.$store.dispatch("incrementAsync", {}).then()
+
+6. const moduleA = { // 将store划分模块
+    state:{},
+    mutations:{},
+    actions:{},
+    getters:{ // 局部状态 tongguo context.state暴露出来, 根结点状态则通过context.rootState
+        sumWithRootCount(state, getters, rootState, rootGetters){
+            return state.count + rootState.count;
+        }
+    }
+}
+const store = new Vuex.Store({
+    modules:{
+        a: modulesA,  // 注册moduleA
+    }
+})
+this.$store.state.a
+
+// 局部化: 绑定命名空间
+modules: {
+    foo:{
+        namespaced: true; // 注册局部命名空间
+        getters:{
+            someGetter(state, getters, rootState, rootGetters){
+                getters.someOtherGetter   // 'foo/someOtherGetter'
+                rootGetters.someOtherGetter  // 'someOtherGetter'
+            }
+        }
+    }
+}
+// 同一模块多次引用，避免相互污染(绑定)
+state(){
+    return {
+        foo:'bar'
+    }
+}
