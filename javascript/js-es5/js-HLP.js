@@ -73,7 +73,7 @@ nodeType, nodeName, className
 // 因为getAttribute在IE7,8表现不一致P226，推荐style操作
 getAttribute, setAttribute, removeAttribute
 
-ie8用jq 1.10 ?
+ie8用jq
     dom扩展 : ie9及以上支持, addEventListener, removeEventListener
 elememt
 querySelector, querySelectorAll, getElementByClassName

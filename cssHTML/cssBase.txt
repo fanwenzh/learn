@@ -23,3 +23,49 @@ box-shadow: h-shadow v-shadow blur spread color inset;
 @media screen and (min-width:769px and max-width: 992px)
 @media screen and (min-width:993px and max-width: 1200px)
 @media screen and (min-width:1201px)
+
+display
+none: 不同于visibility:hidden, none隐藏不占位, 引起重排
+inline: 内联元素, 一行排列直至换行, 不可设置width,height, 宽度有其内容决定, 只可设置水平方向margin,padding的left,right
+block： 块元素，单独一行显示，可设置width, height, margin, padding
+inline-block: 行内block, 可以设置height，width，margin，padding
+	会出现间距, 消除方法：
+	1.<span></span><span></span>连写;
+	2.margin: -5px;
+	3.font-size:0;
+	4.word-spacing和letter-spacing设置，有浏览器差异
+flex: ie10+, 子元素的float、clear和vertical-align属性将失效
+	容器
+	flex-direction: row | row-reverse | column | column-reverse;
+	flex-wrap: nowrap | wrap | wrap-reverse;
+	flex-flow: <flex-direction> || <flex-wrap>;
+	justify-content:  flex-start | flex-end | center | space-between | space-around;;
+	align-items: flex-start | flex-end | center | baseline | stretch;  	// 一行轴线
+	align-content:flex-start | flex-end | center | space-between | space-around | stretch // 多行轴线
+	子元素
+	order
+	flex-grouw: 放大比例
+	flex-shrink: 缩小比例
+	flex-basis: length | auto
+	flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] // 0 0 30px
+	align-self: auto | flex-start | flex-end | center | baseline | stretch; // 元素的align属性
+
+
+list-item：  列表显示同标签li
+table  // div, ul, li的table布局
+	table-caption
+	table-column-group
+		table-column
+		table-column
+	table-header-group
+		table-row
+			table-cell // 垂直居中
+			table-cell
+	table-row-group
+		table-row
+			cable-cell
+	table-footer-group
+		table-row
+			table-cell
+			table-cell
+	

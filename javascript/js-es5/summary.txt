@@ -216,7 +216,7 @@ DOM
     // class, contains(), toggle
     box.className.add("123");
     box.className.remove("123");
-    box.className += "text100";
+    box.className += " text100";
 
     window.getComputedStyle(box, null(或伪类))["height"];
     box.currentStyle.height // ie6~8
@@ -283,7 +283,6 @@ DOM
     工具
     $("div").each(function(index, item){})
     $.each([1,2,3], function(index, item){})
-    $.makArray()
 
     效果动画
     $.("#box").animate({left:xxx},[speed]during,[easing],[fn])

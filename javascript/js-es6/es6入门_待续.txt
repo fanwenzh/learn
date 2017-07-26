@@ -34,7 +34,7 @@ Iterator接口: 可用for of 循环
     模板: `${ js执行域 }`
     Unicode操作
 4.正则的扩展
-    str.match(), .replace(), search()/index, split()
+    str.match(), .replace(), search()/return index, split()
     /^.$/u  四字节字符匹配, //y == /^/, //s .可匹配任意单个字符，包括\n
     先行(否定)断言：(?=), (?!), 后行(否定)断言:(?<=), (?<!)
     解构赋值和替换:
@@ -115,7 +115,7 @@ set
 map（hash）
     const m = new Map([['1','a'],['2','b']])  // 可直接用obj地址为key
     m.set(obj, 'content'), get, has, delete, size, clear
-    遍历：keys, values, entries, forEach((value, key, map)=>{} // for(let [key, value] of map.entries())
+ *  遍历：keys, values, entries, forEach((value, key, map)=>{} // for(let [key, value] of map.entries())
     WeakMap: 放置内存泄漏，如注册监听事件的listener对象,key释放，function释放
         1.只接受对象作为键名（null除外）2.get, set, has, delete 不支持遍历
 11.Proxy: 设置代理
