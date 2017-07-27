@@ -4,7 +4,7 @@
 _.chunk(array, [size = 1]) // 以size为单位拆分array, 返回二维数组
 _.compact(array); //过滤array中的假值
 
-_.difference(arr1, arr2) // arr1中过滤arr2
+_.difference(arr1, arr2) // arr1中过滤arr2, 
 _.differenceBy(array, [value], [Array | Function | Object | String]) // 在function或string中，array过滤value;
 _.differenceWith([arrays], fun) // 同difference
 _.intersection(arr1, arr2) // 交集

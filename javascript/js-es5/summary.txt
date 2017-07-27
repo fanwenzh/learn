@@ -350,7 +350,7 @@ DOM
 	DOM2事件：当行为触发时，按绑定的先后顺序依次绑定
 
 	绑定鼠标
-	this.setCapture();  //ie\火狐
+	this.setCapture();  //ie\火狐, SetCapture、ReleaseCapture
 	设置目标移动: move.call(target, 位移)
 
 ###7

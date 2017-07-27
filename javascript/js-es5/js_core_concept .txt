@@ -85,7 +85,8 @@ Ajax: new XMLHttpRequest, open, onreadystatechange, send
 JSONP: 定义fn函数 -> src="http://xxx.xxx.xxx?callback=fn" -> fn(obj)在浏览器中执行
 
 13、DOM
-document.documentElement: getElementById, getElementByClassName, querySelector, getAttribute
+document.documentElement: getElementById, 
+element.getElementByTagName, getElementByClassName, querySelector, getAttribute
 14、BOM:window
 Location, History, Navigator, Screen
 

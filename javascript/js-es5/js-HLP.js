@@ -2,7 +2,9 @@ Array
 join, reverse //改变数组并返回印用本身
 sort
 push, pop, shift, unshift, length,
-concat(合并, 不改变原数组), splice, slice //从原字符串取出子字符串并返回，不改变原字符串
+concat(合并, 不改变原数组)
+splice // 改变原数组，返回取出子字符串
+slice //从原字符串取出子字符串并返回，不改变原字符串
 indexOf, lastIndexOf
 every(所有元素返回true时返回true), filter, forEach(遍历), map(不改变原数组), some(有一个元素返回true时返回true)
 reduce, reduceRight, item == []
@@ -74,7 +76,7 @@ nodeType, nodeName, className
 getAttribute, setAttribute, removeAttribute
 
 ie8用jq
-    dom扩展 : ie9及以上支持, addEventListener, removeEventListener
+dom扩展: ie9及以上支持, addEventListener, removeEventListener
 elememt
 querySelector, querySelectorAll, getElementByClassName
 // *.className: add, contains, remove, toggle

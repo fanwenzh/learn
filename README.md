@@ -2,9 +2,10 @@
 js-es5, js-es6  
 vue, vuex  
 jQuery  
-sass, bootstrap    
+sass, mongodb
 
 ## skip
+bootstrap 
 
 ## 待学
 lodash   
@@ -15,7 +16,6 @@ D3.js
 three.js  
 
 ## 巩固
-mongodb   
 源码  
 
 ## 书籍

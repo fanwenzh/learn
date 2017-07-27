@@ -30,14 +30,14 @@ Iterator接口: 可用for of 循环
 3.字符串扩展String
     indexOf() // -1 or index
     .includes(), startsWith(), endsWith() // 返回boolean值
-    .repeat(n), padStart(), padEnd()
+    .repeat(n), padStart(n, val), padEnd(n, val)
     模板: `${ js执行域 }`
     Unicode操作
 4.正则的扩展
     str.match(), .replace(), search()/return index, split()
-    /^.$/u  四字节字符匹配, //y == /^/, //s .可匹配任意单个字符，包括\n
+    /^.$/u  四字节字符匹配, //y == /^/, //s .可匹配任意单个字符，但不包括'\n'
     先行(否定)断言：(?=), (?!), 后行(否定)断言:(?<=), (?<!)
-    解构赋值和替换:
+    解构赋值和替换:(提案)
         let {groups: {one, two}} = /^(?<one>.*):(?<two>.*)$/u.exec('foo:bar');
         '2015-01-02'.replace(re, '$<day>/$<month>/$<year>')
     \p{} 匹配Unicode字符
@@ -50,6 +50,7 @@ Iterator接口: 可用for of 循环
     Math.trunc() // 去除小数部分, ceil, floor
     Math.sign()  // 整数+1, 负数-1, -0返回-0, 其他NaN
     ** 指数运算 Math.pow
+    Math.ceil, round, floor, random, max, min
 6.函数的扩展
     默认值, rest参数, 'use strict'
     () => {};  // 作用域内arguments, super 不存在
@@ -60,7 +61,7 @@ Iterator接口: 可用for of 循环
 7.数组扩展:具有Iterator接口
     Math.max(...[14, 3, 77]), arr1.push(...arr2), 合并数组[1, 2, ...more]
     Array.isArray(), // arguments false
-    Array.from(ary, (x)=>x*x) //.map // 将具有长度的对象(类数组)转换为数组 Array.prototype.slice // iterable object to convert to an array.
+    Array.from(ary, (x)=>x*x) //.map不该变原数组 // 将具有长度的对象(类数组)转换为数组 Array.prototype.slice // iterable object to convert to an array.
     Array.of(target1, target2, target3) // 组成元素为target1, 2, 3的数组,length=3
     .find(function(value, index, arr){})//value在前！ === .findIndex(function(){}) // 返回[value, index, Array, callee, Symbol(Symbol.iterator)]
     .indexOf, .includes
@@ -110,7 +111,7 @@ set
     let intersect = new Set([...a].filter(x => b.has(x)));  // 交集
     let difference = new Set([...a].filter(x => !b.has(x))); // 差集
     WeakSet: 用于存储DOM节点
-        1.成员只能是对象, 2.WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用
+        1.成员只能是对象!, 2.WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用
         add, delete, has  // 但不能遍历
 map（hash）
     const m = new Map([['1','a'],['2','b']])  // 可直接用obj地址为key

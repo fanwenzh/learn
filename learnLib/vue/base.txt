@@ -98,12 +98,11 @@ new Vue({
 })
 // 子传父
 <child @childEventName="fatherEventHandle"></child>
-$on(childEventName) 监听事件
-$emit(childEventName) 触发事件
+$emit(childEventName, childVal) 触发事件
 //非父子通信
 var bus = new Vue()
-bus.$emit('event1', 1);
-bus.$on('event1', function(id){})
+bus.$emit('event1', 1);  监听事件
+bus.$on('event1', function(val){}) 触发事件
 
 var myComponent = Vue.extend({}) // 组件复用
 var myComponentInstance = new myComponent();
