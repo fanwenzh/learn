@@ -6,11 +6,11 @@ sass, mongodb
 
 ## skip
 bootstrap 
+lodash 
 
 ## 待学
-lodash   
 node+mysql
-elementUI  
+elementUI
 D3.js  
 微信小程序
 three.js  

@@ -59,3 +59,6 @@ _.unzip()
 _.unzipWith([arrays], fun)
 _.zipObject([props = []], [values = []]) // 返回obj
 _.zipObjectDeep([props = []], [values = []]) // 极少用
+
+//  Collection
+_countBy(arr, (x) => x + 1) // 返回迭代次数的数组: _.countBy([6.1, 4.2, 6.3], Math.floor) => { '4': 1, '6': 2 }
