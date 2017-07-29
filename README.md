@@ -2,21 +2,18 @@
 js-es5, js-es6  
 vue, vuex  
 jQuery  
-sass, mongodb
+sass, mongodb   
 
 ## skip
-bootstrap 
-lodash 
+bootstrap  
+elementUI  
+lodash  
 
 ## 待学
-node+mysql
-elementUI
+node+mysql  
 D3.js  
-微信小程序
+微信小程序  
 three.js  
-
-## 巩固
-源码  
 
 ## 书籍
 HTTP权威指南  
