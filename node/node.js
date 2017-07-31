@@ -1,25 +1,3 @@
-// ## day1
-console.log()
-console.dir()
-console.error(new Error('错误'))
-console.time()
-console.timeEnd()
-
-// process
-var argv = process.argv; // 获取输入
-var argvs = argv.slice(2);
-process.env //返回用户环境信息
-process.execPath //执行的绝对路径
-
-// fs
-const fs = require('fs')
-const file1 = fs.readFile(url1, 'utf8')
-const file2 = fs.readFileSync(url2, 'utf8')
-
-// process
-process.stdin.readline();
-process.stdin.on('data', (inputStream) => {})
-
 // gbk编码
 const iconv = require('iconv-lite');
 const content2 = iconv.decode(buffer, 'gbk');

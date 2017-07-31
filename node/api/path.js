@@ -16,6 +16,7 @@ path.format() // path.parse的反操作
 path.isAbsolute() // 判断是否绝对路径
 path.normalize() // 根据当前系统，常规化路径 
 path.relative(from, to) // to相对于from的相对路径
+var workDir = path.resolve('.'); // 解析当前路径
 path.resolve(__dirname, '/user/', '../../fwz') // 若成员为父路径， 跳转再拼接， 否则拼接
 path.join(); // url拼接
 
