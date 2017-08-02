@@ -1,3 +1,5 @@
 ls -lbh // 权限, 大小, 数量
 mv url newUrl // 移动文件
 rm -r url // 删除(目录)文件
+
+grep 'temp' url // 查找信息

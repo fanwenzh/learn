@@ -27,9 +27,18 @@ lodash
 react: https://github.com/ruanyf/react-demos   
 高并发？？  
 jQuery Mobile
+mysql  
+tcp/ udp 网络编程
+操作系统
+算法
+
 
 ## 书籍
 图解HTTP  
 HTTP权威指南  
 白帽子讲web安全    
 unix 编程艺术
+SQL 学习指南  
+unix网络编程  
+tcp网络详解  
+javascript函数编程  

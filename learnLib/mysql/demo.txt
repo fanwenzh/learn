@@ -1,0 +1,163 @@
+ // 账户登录
+mysql -u root -p
+// 创建数据库
+CREATE DATABASE databaseName;
+// 实用数据库
+use databaseName
+//  创建表
+CREATE TABLE person
+(
+    person_id SMALLINT UNSIGNED,
+    fname VARCHAR(20),
+    lname VARCHAR(20),
+    gender ENUM('M', 'F'),
+    birth_date DATE,
+    street VARCHAR(20),
+    state VARCHAR(20),
+    country VARCHAR(20),
+    postal_code VARCHAR(20),
+    CONSTRAINT pk_person PRIMARY KEY (person_id) // 主键约束
+);
+// 查看表定义
+DESC person;
+// 创建favorite_food表
+create table favorite_food
+(
+    person_id smallint unsigned,
+    food varchar(20),
+    constraint pk_favorite_food primary key (person_id, food),
+    constraint fk_fav_food_person_id foreign key (person_id)
+    references person (person_id) // 外键约束的person_id来自person表的person_id
+);
+// 设置主键自增模式(orcal有所不同)
+// 改变表的属性
+SET FOREIGN_KEY_CHECKS = 0;
+/* DO WHAT YOU NEED HERE */
+ALTER TABLE person MODIFY person_id SMALLINT UNSIGNED AUTO_INCREMENT;
+SET FOREIGN_KEY_CHECKS = 1;
+
+// 插入数据
+INSERT INTO person
+(person_id, fname, lname, gender, birth_date)
+VALUES (null, 'fan', 'wenzh', 'M', '1991-01-01');
+
+INSERT INTO favorite_food (person_id, food)
+VALUES (1, 'pizza');
+INSERT INTO favorite_food (person_id, food)
+VALUES (1, 'cookies');
+
+SELECT food
+FROM favorite_food
+WHERE person_id = 1
+ORDER BY food
+
+//查看所有table
+SHOW TABLES;
+// 删除表
+DROP TABLE favorite_food
+
+// 子表
+SELECT e.emp_id, e.fname, e.lname
+FROM (SELECT emp_id, fname, laname, start_date, title FROM employee) e;
+
+// 根据fed_id最后3位数字排序
+SELECT cust_id, cust_type_cd, city, state, fed_id
+FROM customer
+ORDER BY RIGHT(fed_id, 3); LEFT // ORDER BY 2, 5 //根据第二和第5列排序
+
+// 通配符
+F%  以F打头的字符串
+%t  以t结尾的字符串
+%bas%  包含'bas'字符串的字符串
+__t_ 包含4个字符，且第三个为t的字符串
+SELECT laname
+FROM employee
+WHERE lname LIKE '_a%e%'
+
+// 正则表达式
+SELECT emp_id, fname, lname
+FROM employee
+WHERE lname REGEXP '^[FG]';
+
+SELECT emp_id, fname, lanme, superior_rmp_id
+FROM employee
+WHERE superior_emp_id IS NOT NULL;
+
+// 多表链接(以特定顺序: mysql的STRAIGHT_JOIN)
+SELECT STRAIGHT_JOIN a.account_id, c.fed_id, e.fname
+FROM customer c INNER JOIN account a
+    ON a.cust_id = c.cust_id
+    INNER JOIN employee emp_id
+    ON a.open_emp_id = e.emp_id
+WHERE c.cust_type_cd = 'B';
+
+// 将子查询结果作为查询表
+SELECT a.account_id, a.cust_id, a.open_date, a.product_cd
+FROM account a INNER JOIN  
+    (SELECT emp_id, assigned_branch_id
+        FROM employee
+        WHERE start_date < '2007-01-01'
+        AND (title = 'Teller' OR title = 'Head Teller')) e
+        ON a.open_emp_id = e.emp_id
+        INNER JOIN
+        (SELECT branch_id
+        WHERE name = 'Woburn Branch') b
+        ON e.assigned_branch_id = b.branch_id;
+
+// 去除集合重复项
+// SELECT val1 key1, val2 key2
+SELECT 1 num, 'abc' str
+UNION 去除重复项 // UNION ALL 保留重复项
+SELECT 9 num, 'xyz' str
+
+// 去除选择的重复项
+SELECT DISTINCT emp_id
+FROM account
+WHERE open_branch_id = 2;
+
+// 统计每个id下有多少个账号
+SELECT open_emp_id, COUNT(*) number // (*)每组存在的行数
+ACCOUNT account
+GROUP BY open_emp_id;
+HAVING COUNT(*) > 4 //condition: 数量大于4的账户
+
+// 统计不同open_emp_id的个数
+SELECT COUNT(DISTINCT open_emp_id)
+FROM account
+
+SELECT MAX(pending_balance - avail_balance) max_uncleared
+FROM account;
+
+// 多列分组
+SELECT product_cd, open_branch_id,
+SUM(avail_balance) hot_balance
+FROM account
+GROUP BY product_cd, open_branch_id; // 绑定两个笛卡尔乘积
+
+// 根据职员入职年份对职员进行分组
+SELECT EXTRACT(YEAR FROM start_date) year, COUNT(*) how_many
+FROM employee
+GROUP BY EXTRACT(YEAR FROM start_date);
+
+//过滤分组
+SELECT product_cd, SUM(avail_balance) prod_balance
+FROM account
+WHERE status = 'active' // 过滤status='active'
+GROUP BY product_cd
+HAVING SUM(avail_balance) >= 10000
+
+// 选取每科最高分
+SELECT subject, max(score) scores
+FROM table
+GROUP BY subject
+HAVING score > 60
+ORDER BY subject_id;
+
+// 查找雇员id与任何主管id不同的雇员
+SELECT emp_id, fname, lname, title
+FROM employee
+WHERE emp_id != ALL (SELECT superior_emp_id // ALL emp_id与集合每行row比较
+                    FROM employee 
+                    WHERE superior_emp_id IS NOT NULL) // NOT IN (1, 2, NULL)
+
+

@@ -1,0 +1,118 @@
+// 配置
+http://www.centoscn.com/mysql/2016/0626/7537.html
+不区分大小写
+
+CHAR 固长字符串，不足空格天填充
+VARCHAR 变长字符串, '单引号转义
+
+
+文本类型
+tinytext, text, mediumtext, longtext
+整数类型
+tinyint, smallint, mediumint, int, bigint
+浮点类型
+float, double
+时间类型
+data, datatime, timestamp, year, time
+
+1.DDL（数据定义语言）
+CREATE DATABASE - 创建新数据库
+ALTER DATABASE - 修改数据库
+CREATE TABLE - 创建新表
+ALTER TABLE - 变更（改变）数据库表
+DROP TABLE - 删除表
+CREATE INDEX - 创建索引（搜索键）
+DROP INDEX - 删除索引
+2.DML 数据操作语言
+SELECT - 从数据库表中获取数据
+UPDATE - 更新数据库表中的数据
+DELETE - 从数据库表中删除数据
+INSERT INTO - 向数据库表中插入数据
+
+//表
+永久表（create），临时表(查询)，虚拟表(CREATE VIEW tab AS condition:P46, 隐藏列，简化数据库)
+
+// 查询: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY
+SELECT cols (*/col as otherName/DISTINCT col：去重)
+FROM table1 AS otherName INTER JOIN table2 ON condition // 连接表
+WHERE condition AND condition (OR， IS, NOT 最好在condition中用!表示, IN, NOT IN) // BETWEEN AND // attr != ALL (select ... 集合)
+OREDR BY col DESC;  // ASC 默认升序 // 排序后不能再group by组合
+
+// 插入
+INSERT INTO table (args)
+VALUES (vals);
+// 更新
+UPDATE table
+SET key = val
+WHREE condition;
+// 删除
+DELETE FROM person
+WHERE condition
+
+获取xml格式的数据
+mysql -u user -p --xml basename
+不同 ：在每个查询末尾添加 for xml 子句即可
+SELECT * FROM favorite_food
+FOR XML AUTO, ELEMENTS
+
+错误提示:
+主键不唯一
+不存在的外键
+列值不合法
+无效的日期转换
+	使用str_to_date函数
+
+where:
+通配符：LIKE
+_ 1个字符
+% 任意数目的字符
+F%  以F打头的字符串
+%t  以t结尾的字符串
+%bas%  包含'bas'字符串的字符串
+__t_ 包含4个字符，且第三个为t的字符串
+
+正则表达式: REGEXP '^[FG]' // 以F或G开头的字符串
+IS NULL // 判断空
+
+5. 多表查询
+JOIN: 笛卡尔积
+内连接(条件链接) 
+SELECT e.fname, e.lname, d.name
+FROM employee e JOIN department d ON condition
+WHERE condition // ON e.dept_id = d.dept_id; condition// USING (dept_id) 
+
+6.集合
+暂时不支持：INTERSECT交集, EXCEPT差集
+UNION 不保留集合 // UNION ALL 保留集合重复项
+SELECT DISTINCT key// 去除重复项
+
+7.数据生成，转换和操作
+字符串拼接：mysql:concat(), oracke:+ ， sql server: || 
+LENGTH(), LEN() // 长度
+position(str in col) // 位置从1开始，0为没有
+locate(strm col, startIndex)
+strcmp(a, b) // a字典序>b为-1， =b为0，<b为1
+insert(str, start, len, otherStr) // 4个参数: 原始字符串，字符串操作的开始位置，需要替换的字符数以及替换字符串, len = 0 时直接插入
+
+数值计算
+mod(10,4) // 模除
+pow(a, b)
+ceil()
+floor()
+round()
+sign() // <0:-1, =0:0, >0:1
+abs()
+
+日期
+cast('' as datetime) // 字符串转日期 // js: exec
+STR_TO_DATE('', '%M %d, %Y');
+CURRENT_DATE(), //当前日期
+CURRENT_TIME(), // 当前时间
+CURRENT_TIMESTAMP() // 日期+时间
+select date_add(current_date(), interval 5 day)// 增加5天 // hour_second, year_mouth
+extract(date) //返回日期中的年份
+
+8.分组 GROUP BY
+	排序在前的覆盖（合并）后面的
+	将select中的内容、方法进行合并
+Max(), Min(), AVG(), Sum(), Count()
