@@ -11,6 +11,7 @@ sass,
 ## 巩固
 es5js: https://zhuanlan.zhihu.com/p/24761475,  https://github.com/wesbos/JavaScript30  
 D3.js: http://www.ourd3js.com/wordpress/
+mysql  
 
 ## skip
 bootstrap  
@@ -19,7 +20,6 @@ jQuery Mobile
 react: https://github.com/ruanyf/react-demos   
 
 ## 待学
-mysql  
 node  
 webgl
 linux基础！！！   
@@ -32,8 +32,10 @@ tcp/ udp 网络编程
 操作系统
 算法
 
+## 已看
+SQL指南
 
-## 书籍
+## 待看书籍
 图解HTTP  
 HTTP权威指南  
 白帽子讲web安全    

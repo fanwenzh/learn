@@ -175,5 +175,44 @@ WHERE 2 = (SELECT COUNT(*)
 
 // 外链接
 SELECT a.account_id, a.cust_id, b.name
-FROM account a LEFT OUTER JOIN bussiness b
+FROM account a LEFT OUTER JOIN bussiness b // 没有匹配b.cust_id的行，b.name为NULL
 ON a.cust_id = b.cust_id;
+
+// 条件逻辑 P195
+SELECT c.cust_id, c.fed_id,
+    CASE
+        WHEN c.cust_type_cd = 'I'
+            THEN CONCAT(i.fname, '', i.lname)
+        WHEN c.cust_type_cd = 'B'
+            THEN b.name
+        ELSE 'unknow'
+    END name
+FROM customer c LEFT OUTER JOIN individual individual
+    ON c.cust_id = i.cust_id
+    LEFT OUTER JOIN business bas
+    ON c.cust_id = b.cust_id;
+
+// 以A开头的name
+SELECT dept_id, name
+FROM department
+WHERE name LIKE 'A%';
+
+// 创建视图
+CREATE VIEW customer_vw
+(cust_id,
+ fed_id,
+ cust_type_id,
+ address,
+ city,
+ state,
+ zipcode
+ )
+ AS
+ SELECT cust_id,
+ 	concat('ends in ', substr(fed_id, 8, 4)) fed_id,
+ 	cust_type_cd,
+ 	address,
+ 	city,
+ 	state,
+ 	postal_code
+ FROM customer;
