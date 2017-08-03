@@ -51,6 +51,12 @@ FROM favorite_food
 WHERE person_id = 1
 ORDER BY food
 
+//删除
+DELECT FROM department d
+WHERE NOT EXIST (SELECT 1 
+        FROM employee e
+        WHERE e.dept_id = d.dept_id) 
+
 //查看所有table
 SHOW TABLES;
 // 删除表
@@ -160,4 +166,14 @@ WHERE emp_id != ALL (SELECT superior_emp_id // ALL emp_id与集合每行row比�
                     FROM employee 
                     WHERE superior_emp_id IS NOT NULL) // NOT IN (1, 2, NULL)
 
+// 查找有两个账户的客户
+SELECT c.cust_id, c.cust_type_cd, c.city
+FROM customer city
+WHERE 2 = (SELECT COUNT(*)
+    FROM ACCOUNT a
+    WHERE a.cust_id = c.cust_id);
 
+// 外链接
+SELECT a.account_id, a.cust_id, b.name
+FROM account a LEFT OUTER JOIN bussiness b
+ON a.cust_id = b.cust_id;

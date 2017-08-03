@@ -9,3 +9,6 @@ getMinutes()
 getSeconds()
 toUTCString()  // "Sun, 23 Jul 2017 18:56:21 GMT"
 toDateString() //"Mon Jul 24 2017"
+
+console.table(array)
+console.trace(ajax请求的url);

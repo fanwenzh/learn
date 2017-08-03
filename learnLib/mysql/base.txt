@@ -36,17 +36,20 @@ INSERT INTO - 向数据库表中插入数据
 SELECT cols (*/col as otherName/DISTINCT col：去重)
 FROM table1 AS otherName INTER JOIN table2 ON condition // 连接表
 WHERE condition AND condition (OR， IS, NOT 最好在condition中用!表示, IN, NOT IN) // BETWEEN AND // attr != ALL (select ... 集合)
-OREDR BY col DESC;  // ASC 默认升序 // 排序后不能再group by组合
+GROUP BY 1, 2 （先按第一列后（再第一组分完的情况下）按第二列分组）
+OREDR BY col DESC;  // ASC 默认升序 
+
+
 
 // 插入
-INSERT INTO table (args)
+INSERT INTO table (keys)
 VALUES (vals);
 // 更新
 UPDATE table
 SET key = val
 WHREE condition;
-// 删除
-DELETE FROM person
+// 删除，
+DELETE FROM table
 WHERE condition
 
 获取xml格式的数据
@@ -75,7 +78,7 @@ __t_ 包含4个字符，且第三个为t的字符串
 IS NULL // 判断空
 
 5. 多表查询
-JOIN: 笛卡尔积
+JOIN: 笛卡尔积, INNER JOIN
 内连接(条件链接) 
 SELECT e.fname, e.lname, d.name
 FROM employee e JOIN department d ON condition
@@ -83,7 +86,7 @@ WHERE condition // ON e.dept_id = d.dept_id; condition// USING (dept_id)
 
 6.集合
 暂时不支持：INTERSECT交集, EXCEPT差集
-UNION 不保留集合 // UNION ALL 保留集合重复项
+UNION 不保留集合重复项 // UNION ALL 保留集合重复项
 SELECT DISTINCT key// 去除重复项
 
 7.数据生成，转换和操作
@@ -116,3 +119,14 @@ extract(date) //返回日期中的年份
 	排序在前的覆盖（合并）后面的
 	将select中的内容、方法进行合并
 Max(), Min(), AVG(), Sum(), Count()
+
+9.子表查询: SELECT 返回子表或行、列数据
+SELECT cols
+FROM table
+WHERE val = (SELECT SUM(*) 
+			FROM account a
+			WHERE a.cust_id = c.cust_id)
+// 关键字
+EXIST, NOT EXIST
+
+10.连接

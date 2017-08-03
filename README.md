@@ -14,20 +14,20 @@ D3.js: http://www.ourd3js.com/wordpress/
 
 ## skip
 bootstrap  
+amazeUI(移动端)  
+jQuery Mobile
+react: https://github.com/ruanyf/react-demos   
 
 ## 待学
-node+mysql  
-amazeUI(移动端)  
+mysql  
+node  
+webgl
 linux基础！！！   
 canvas : https://github.com/supperjet/H5-Animation  
 svg: http://sbco.cc/demo/svg/html/index.html  
 微信小程序  
 three.js  
 lodash  
-react: https://github.com/ruanyf/react-demos   
-高并发？？  
-jQuery Mobile
-mysql  
 tcp/ udp 网络编程
 操作系统
 算法
