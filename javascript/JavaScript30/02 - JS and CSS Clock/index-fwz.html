@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+
+  <style>
+    html {
+      background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
+      background-size:cover;
+      font-family:'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display:flex;
+      flex:1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border:20px solid white;
+      border-radius:50%;
+      margin:50px auto;
+      position: relative;
+      padding:2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width:50%;
+      height:6px;
+      background:black;
+      position: absolute;
+      top:50%;
+      /*添加*/
+      transform: all .1s ease;
+      /* width, height*/
+      transform-origin: 100% 50%;
+      /*transform: rotate(90deg);*/
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+  </style>
+
+  <script>
+  // 1.每次创建Date对象
+  const hourHand = document.querySelector('.hour-hand');
+  const minHand = document.querySelector('.min-hand');
+  const secondHand = document.querySelector('.second-hand');
+  function changeTime() {
+    const date = new Date();
+    // 为了可阅读行，将角度提取出来存放
+    const hourDeg = (date.getHours() + 3)%12*30;
+    const minDeg = (date.getMinutes()*6 + 90)%360;
+    const secondDeg = (date.getSeconds()*6 + 90)%360;
+    // rotate(30deg) NOT rotate("30deg");!
+    hourHand.style.transform =`rotate(${ hourDeg }deg)`;
+    minHand.style.transform = `rotate(${ minDeg }deg)`;
+    secondHand.style.transform = `rotate(${ secondDeg }deg)`;
+  }
+  const timer = window.setInterval(changeTime, 1000);
+  // 2.初始化时间后，每秒钟+1再计算时分秒；
+  // secondDeg += (1 / 60) * 360;
+  // minDeg += ((1 / 60) / 60) * 360;
+  // hourDeg += (((1 / 60) / 60) / 12);
+  </script>
+</body>
+</html>

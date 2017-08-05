@@ -216,3 +216,18 @@ CREATE VIEW customer_vw
  	state,
  	postal_code
  FROM customer;
+
+ // 修改前10条信息
+ UPDATE account
+ SET avail_balamce = avail_balance + 100
+ WHERE product_cd IN ('CHK', 'SAV', 'MM')
+ ORDER BY open_date ASC
+ LIMIT 10;
+
+ // 多表删除(比单表多了链接)
+ DELETE account2, customer2, individual2
+ FROM account2 INNER JOIN customer2
+    ON account2.cust_id = customer2.cust_id
+    INNER JOIN individual2
+    ON customer2.cust_id = individual2.cust_id
+WHERE individual2.cust_id = 1;

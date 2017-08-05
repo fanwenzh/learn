@@ -1,0 +1,116 @@
+### 第一章 Web网络基础
+HTTP(HyperText Transfer Protocal, 超文本传输协议)
+协议：通信规则
+TCP/IP协议族
+    应用层：向用户提供应用服务是的通信活动：FTP, DNS, HTTP
+    传输层: 提供计算机之间的数据传输：TCP, UDP
+    网络层：处理网络上流动的数据包：IP
+    数据链路层：对接物理接口的硬件部分NIC(Network Interface Card, 网络适配卡)，以太网首部
+ARP(Address Resolution Protocal)协议：根据IP(Internet Protocal)地址匹配MAC地址(MAC Access Control Address)
+
+HTTP协议相关
+确保可靠性的TCP协议
+    字节流服务(Byte Stream Service)，将大块数据分割成以报文段（segment）为单位的数据包进行管理
+    三次握手: SYN - SYN/ACK - ACK
+负责域名解析的DNS(Domain Name System)服务
+
+URI: Uniform Resource Identifier 统一资源标识符：ftp, http, tel...
+URL: Uniform Resource Locator 统一资源定位符
+URN: 统一资源名称
+
+http://user:pass@www.example.com:80/dor/index.html?uid=1#ch1
+协议   登录（认证） 服务器地址     端口   文件路径    查询字符串 片段标识符
+
+### 第二章 简析HTTP协议
+无状态协议：
+    cookie保存状态 
+CONNECT：用隧道协议进行连接代理
+    即使用SSL(Secure Sockets Layer, 安全套阶层)和TLS(Transport Layer Security, 传输层安全)协议把通信内容加密后经网络隧道传输
+    格式：CONNECT 代理服务器名：端口号 HTTP版本
+持久连接：HTTP/1.1 默认keep-alive
+    header加入：Connection:keep-alive
+    pipelining：管道化 ？？
+
+### HTTP 报文内的HTTP信息
+    报文：HTTP通信中的基本单位，由8位组字节流组成，通过HTTP通信传输
+编码提升传输效率
+    gzip(GNU zip)
+    compress, deflate
+    identity(不进行编码)
+发送多种数据的多部分对象集合
+    multipart/form-data
+    multipart/byteranges
+
+### 返回结果的HTTP状态码
+    1xx inormational (信息性状态码) 接收的请求正在处理
+    2xx success (成功状态码) 请求正常处理完毕
+    3xx redirection（重定向状态码）需要进行附加操作以完成请求
+    4xx client error (客户端错误状态码) 服务器无法处理请求
+    5xx server error (服务器错误状态码) 服务器处理请求出错
+
+    204 no content 请求成功没有资源
+    206 partial content 请求部分内容Content-Range确定
+    301 moved permanently 永久性重定向
+    302 Found 临时重定向
+    303 post方法改get, 服务器完成
+    304 not modified
+    400 bad request 错误请求参数
+    401 unauthorized 无认证
+    403 forbidden 请求被拒绝，无权限
+    404 not Found
+    500 internal server error 服务器执行请求出错
+    503 service unavailable 服务器超载或停机维护
+
+### 与HTTP协作的web吴福气
+代理：中间转发
+    缓存代理，透明代理
+网关：转发其他服务器通信数据的服务器，可响应资源请求，可连接数据库
+隧道：建立独立通信线路
+
+### HTTP首部
+    通用首部字段
+        Cache-Control: 缓存机制
+        Connection
+        Date ...
+    请求首部字段
+        Accept: 用户代理可处理的媒体类型
+        Accept-Charset: 优先的字符集
+        Accept-Encoding: 优先的内容编码： gizp, deflate
+        Accept-language： 优先的语言
+        Expect: 期待服务器的行为
+        User-Agent： HTTP客户端程序的信息...
+    响应首部字段
+        Accept-Ranges: 接受字节方位请求
+        Age: 资源创建经过的事件
+        Location: 令客户端重定向的URI
+        Server : HTTP服务器的安装信息
+    实体首部字段
+        Allow：资源可支持的HTTP方法，GET
+        Content-Encoding: 实体主体适用的编码方式, gzip
+        Content-Language: 实体主体的自然语言, zh-CN
+        Content-Length: 实体主体的大小（单位：字节）， 15000
+        Content-Location:替代对应资源的URI， http://www.google.com
+        Content-Range: 实体主体的位置范围
+        Content-Type: 实体主体的媒体类型, text/html; charset=UTF-8
+        Expires: 实体主体过期的日期时间
+        Last-Modified: 资源的最后修改日期时间
+    其他：
+        Set-Cookie: 响应首部字段
+            NAME=VALUE; expires=DATE; path=PATH; domain=域名; secure; HttpOnly
+        Cookie: 请求首部字段
+        X-Frame-Options DENY; 防止点击劫持攻击
+        X-XSS-Protection: 1； 将浏览器跨站脚本攻击（XSS）防护机制打开
+        DNT: 1； (Do not trance) 拒绝被追踪
+
+### 第7章 确保Web安全的HTTPS
+HTTP:
+    通信使用明文（不加密），内容可能会被窃听
+    不验证通信方的身份，有可能遭遇伪装
+    无法证明报文的完整性，有可能被篡改
+HTTPS: HTTP Secure, 加安全层
+    HTTP - SSL - TCP - IP
+
+### 第8章 确认访问用户身份的认证 P182
+
+
+

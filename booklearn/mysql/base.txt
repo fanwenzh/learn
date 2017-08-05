@@ -23,6 +23,15 @@ ALTER TABLE - 变更（改变）数据库表
 DROP TABLE - 删除表
 CREATE INDEX - 创建索引（搜索键）
 DROP INDEX - 删除索引
+
+CREATE [UNIQUE][CLUSTERED | NONCLUSTERED]  INDEX  index_name  
+ON {table_name | view_name} [WITH [index_property [,....n]]
+说明：
+UNIQUE: 建立唯一索引。
+CLUSTERED: 建立聚集索引。
+NONCLUSTERED: 建立非聚集索引。
+Index_property: 索引属性。
+
 2.DML 数据操作语言
 SELECT - 从数据库表中获取数据
 UPDATE - 更新数据库表中的数据
@@ -37,9 +46,11 @@ SELECT cols (*/col as otherName/DISTINCT col：去重)
 FROM table1 AS otherName INTER JOIN table2 ON condition // 连接表
 WHERE condition AND condition (OR， IS, NOT 最好在condition中用!表示, IN, NOT IN) // BETWEEN AND // attr != ALL (select ... 集合)
 GROUP BY 1, 2 （先按第一列后（再第一组分完的情况下）按第二列分组）
-OREDR BY col DESC;  // ASC 默认升序 
-
-
+HAVING condition
+OREDR BY col DESC  // ASC 默认升序 
+LIMIT num;
+UNION 
+SELECT ...
 
 // 插入
 INSERT INTO table (keys)
@@ -65,7 +76,7 @@ FOR XML AUTO, ELEMENTS
 无效的日期转换
 	使用str_to_date函数
 
-where:
+where condition
 通配符：LIKE
 _ 1个字符
 % 任意数目的字符
@@ -226,4 +237,7 @@ INTO OUTFILE 'C:\\TEMP\\emp_list.txt' // 写入emp_list.txt文件
 	FIELDS TERMINATED BY '|'  // 每列用|隔开
 	LINKS TERMINATED BY '\n' // 行分隔符，默认\n
 FROM employee;
-// P262 跳
+
+// 插入更新
+insert 
+on duplicate key
