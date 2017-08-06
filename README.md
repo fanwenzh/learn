@@ -8,10 +8,11 @@ mongodb,  http://www.nodepeixun.com/a/nodeshujuku/20170120/133.html
 elementUI,    
 sass,     
 
-## 巩固
+## 巩固/深入
 js: https://github.com/wesbos/JavaScript30  
 D3.js: http://www.ourd3js.com/wordpress/  
-mysql  
+mysql : 范式  
+js: fetch https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch  
 
 ## skip
 bootstrap  
@@ -22,6 +23,7 @@ react: https://github.com/ruanyf/react-demos
 ## 待学
 node  
 webgl  
+readme编写   
 linux基础！！！   
 canvas : https://github.com/supperjet/H5-Animation  
 svg: http://sbco.cc/demo/svg/html/index.html  

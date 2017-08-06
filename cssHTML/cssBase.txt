@@ -44,7 +44,7 @@ flex: ie10+, 子元素的float、clear和vertical-align属性将失效
 	align-content:flex-start | flex-end | center | space-between | space-around | stretch // 多行轴线
 	子元素
 	order
-	flex-grouw: 放大比例
+	flex-grow: 放大比例
 	flex-shrink: 缩小比例
 	flex-basis: length | auto
 	flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] // 0 0 30px

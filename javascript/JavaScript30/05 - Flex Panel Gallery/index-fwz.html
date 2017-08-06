@@ -33,19 +33,25 @@
         vmax——大尺寸的百分比。50vmax = 500px。 */
         
         .panels {
+            display: flex;
             min-height: 100vh;
             overflow: hidden;
         }
         
         .panel {
+            /*添加*/
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            display: flex;
+             /*添加*/
             background: #6B0F9C;
             box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
             color: white;
             text-align: center;
             align-items: center;
-            /* Safari transitionend event.propertyName === flex */
+           /*  Safari transitionend event.propertyName === flex */
             /* Chrome + FF transitionend event.propertyName === flex-grow */
-            /* 还可以写一起?!  */
             transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
             font-size: 20px;
             background-size: cover;
@@ -77,13 +83,19 @@
             margin: 0;
             width: 100%;
             transition: transform 0.5s;
+            flex: 1 0 auto;
         }
+        .panel>*:first-child {transform: translateY(-100%);}
+        .panel.open-active >*:first-child {transform:translateY(0);}
+        .panel>*:last-child {transform: translateY(100%);}
+        .panel.open-active>*:last-child {transform:translateY(0);}
         
         .panel p {
             text-transform: uppercase;
             font-family: 'Amatic SC', cursive;
             text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
             font-size: 2em;
+            transition-duration: .5s;
         }
         
         .panel p:nth-child(2) {
@@ -91,8 +103,10 @@
         }
         
         .panel.open {
+            flex: 5;
             font-size: 40px;
         }
+        
     </style>
 
 
@@ -125,10 +139,19 @@
     </div>
 
     <script>
-        function open(event) {
-            const panel = event.target;
-
+        const panels = document.querySelectorAll('.panel');
+        function toggleOpen() {
+            this.classList.toggle('open');
         }
+        function toggleActive(e) {
+            console.log(e.propertyName);
+            if(e.propertyName.includes('flex')) {
+                this.classList.toggle('open-active');
+            }
+        }
+        panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+        panels.forEach( panel => panel.addEventListener('transitionend', toggleActive));
+        // 改进：监听click事件，字体延迟出现transition .5s .7s;
     </script>
 
 

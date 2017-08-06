@@ -6,9 +6,9 @@
 2. [x] JS + CSS Clock                (20170805)
 3. [x] CSS Variables                 (20170805)
 4. [x] Array Cardio, Day 1           (20170805)
-5. [ ] Flex Panel Gallery
-6. [ ] Type Ahead
-7. [ ] Array Cardio, Day 2
+5. [x] Flex Panel Gallery			 (20170806)
+6. [x] Type Ahead					 (20170806)
+7. [x] Array Cardio, Day 2			 (20170806)
 8. [ ] Fun with HTML5 Canvas
 9. [ ] Dev Tools Domination
 10. [ ] Hold Shift and Check Checkboxes
