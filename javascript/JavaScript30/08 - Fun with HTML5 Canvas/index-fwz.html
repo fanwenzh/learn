@@ -5,15 +5,90 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
+<!-- width, height占位 -->
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
-const canvas = document.querySelector('draw');
+// https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial
+const canvas = document.querySelector('#draw');
 const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+ctx.lineWidth = 90; // px
+ctx.lineCap = "round"; // 结束末端：butt, round,square
+ctx.lineJoin = "round";
+ctx.strokeStyle = "#f00";
+ctx.fillStyle = "#f00";
+
+let lastX = 0;
+let lastY = 0;
+let x = 0;
+let y = 0;
+let canDraw = false;
+let color = 1;
+let direction = true;
+
+function draw(e) {	
+	if(!canDraw) return;
+
+	// 处理PC及移动端
+	if (e.type == "mousemove") {
+		x = e.offsetX;
+		y = e.offsetY;
+	} else {  // touchmove
+		x = e.changeedTouches[0].clientX;
+		y = e.changeedTouches[0].clientY;
+	}
+	
+
+	// 彩色画笔
+	ctx.strokeStyle = `hsl(${ color }, 50%, 50%)`;
+	color++;
+	if(color > 360) color = 0;
+	// 水墨效果
+	// if(color >= 255) color = 0;
+	// color += 1;
+	// 用rgba(0, 0, 0, ${0-1})会出现断点不连续的效果；
+	// ctx.strokeStyle = `rgb(${ color }, ${ color }, ${ color })`;	
+
+	// 控制画笔的粗细
+	if(ctx.lineWidth > 90 || ctx.lineWidth <= 5) {
+		direction = !direction;
+	}
+	if(direction) ctx.lineWidth++;
+	else ctx.lineWidth--;
+
+	ctx.beginPath();
+	ctx.moveTo(lastX, lastY);
+	ctx.lineTo(x, y);
+	ctx.stroke();
+	ctx.closePath();
+
+	[lastX, lastY] = [x, y];
+}
+
+canvas.addEventListener('mousedown', (e) => {
+	canDraw = true;
+	lastX = e.offsetX;
+	lastY = e.offsetY;
+});
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', () => canDraw = false);	
+canvas.addEventListener('mouseout', () => canDraw = false);	
+
+canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('touchend', () => isDrawing = false);
+canvas.addEventListener('touchcancel', () => isDrawing = false);
+
 </script>
 
 <style>
   html, body {
     margin:0;
+  }
+  canvas {
+  	border: 1px solid #000;
   }
 </style>
 

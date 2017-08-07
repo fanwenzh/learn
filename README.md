@@ -13,6 +13,8 @@ js: https://github.com/wesbos/JavaScript30
 D3.js: http://www.ourd3js.com/wordpress/  
 mysql : 范式  
 js: fetch https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch  
+操作系统  
+算法  
 
 ## skip
 bootstrap  
@@ -25,14 +27,12 @@ node
 webgl  
 readme编写   
 linux基础！！！   
-canvas : https://github.com/supperjet/H5-Animation  
+canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing    
 svg: http://sbco.cc/demo/svg/html/index.html  
 微信小程序  
 three.js  
 lodash  
-tcp/ udp 网络编程  
-操作系统  
-算法  
+tcp/ udp 网络编程   
 
 ## 已看
 SQL学习指南  

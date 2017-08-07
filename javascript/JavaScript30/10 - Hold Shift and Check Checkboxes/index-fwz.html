@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hold Shift to Check Multiple Checkboxes</title>
+</head>
+<body>
+  <style>
+
+    html {
+      font-family: sans-serif;
+      background:#ffc600;
+    }
+
+    .inbox {
+      max-width:400px;
+      margin:50px auto;
+      background:white;
+      border-radius:5px;
+      box-shadow:10px 10px 0 rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display:flex;
+      align-items:center;
+      border-bottom: 1px solid #F1F1F1;
+    }
+
+    .item:last-child {
+      border-bottom:0;
+    }
+
+    /*: checked*/
+    input:checked + p {
+      background:#F9F9F9;
+      /*删除标记线*/
+      text-decoration: line-through;
+    }
+
+    input[type="checkbox"] {
+      margin:20px;
+    }
+
+    p {
+      margin:0;
+      padding:20px;
+      transition:background 0.2s;
+      flex:1;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+      border-left: 1px solid #D1E2FF;
+    }
+
+
+  </style>
+   <!--
+   The following is a common layout you would see in an email client.
+
+   When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
+
+  -->
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox">
+      <p>This is an inbox layout.</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check one item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Hold down your Shift key</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Check a lower item</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Everything inbetween should also be set to checked</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Try do it with out any libraries</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Just regular JavaScript</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Good Luck!</p>
+    </div>
+    <div class="item">
+      <input type="checkbox">
+      <p>Don't forget to tweet your result!</p>
+    </div>
+  </div>
+
+<script>
+    // 方法一： 用index记录选中的区间
+    // 1. 实际只记录第一次点击的first即可，last用this代替
+    // 2. 用onOff = lastChecked.checked ? true : false;记录是所有选取消还是选择
+    let firstClick = -1;
+    let lastClick = -1;
+    const checkboxes = Array.from(document.querySelectorAll("input[type='checkbox']"));
+    const length = checkboxes.length;
+    function select(e) {
+      if(e.shiftKey === true ) {
+        if(firstClick === -1) {
+          // 对象地址相同
+          // firstClick = checkboxes.findIndex(item => item === e.target);
+          firstClick = checkboxes.IndexOf(this);
+        } else {
+          lastClick = checkboxes.IndexOf(this);
+        }
+      }
+      if(firstClick !== -1 && lastClick !== -1) {
+        let first = Math.min(firstClick, lastClick);
+        let last = Math.max(firstClick, lastClick);
+        for(let i = first; i <= last; i++) {
+          checkboxes[i].checked = true;
+        }
+        // checkboxes.slice(first, last).forEach(input => input.checked = true);
+        firstClick = lastClick = -1;
+      }
+    }
+
+    // 方法二：
+    // 用inBetween标志选中的区间
+    // function handleCheck(e) {
+    //   let inBetween = false;
+    //   // 先checked变成true后再触发click事件
+    //   if(e.shiftKey && this.checked) {
+    //     checkboxes.forEach(item => {
+    //       if(item === checkboxes[lastClick] || item === this)
+    //         inBetween = !inBetween;
+    //       if(inBetween) {
+    //         item.checked = true;
+    //       }
+    //     })
+    //   }
+    // }
+
+    checkboxes.forEach(item => item.addEventListener('click', select));
+</script>
+</body>
+</html>

@@ -9,9 +9,9 @@
 5. [x] Flex Panel Gallery			 (20170806)
 6. [x] Type Ahead					 (20170806)
 7. [x] Array Cardio, Day 2			 (20170806)
-8. [ ] Fun with HTML5 Canvas
-9. [ ] Dev Tools Domination
-10. [ ] Hold Shift and Check Checkboxes
+8. [x] Fun with HTML5 Canvas         (20170807)
+9. [x] Dev Tools Domination          (20170807)
+10. [x] Hold Shift and Check Checkboxes (20170807)
 11. [ ] Custom Video Player
 12. [ ] Key Sequence Detection
 13. [ ] Slide in on Scroll
