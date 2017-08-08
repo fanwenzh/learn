@@ -16,3 +16,5 @@ console.groupEnd();
 console.time('event')
 console.timeEnd('event')
 console.count()
+
+console.trace()

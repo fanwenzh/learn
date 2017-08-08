@@ -12,11 +12,11 @@
 8. [x] Fun with HTML5 Canvas         (20170807)
 9. [x] Dev Tools Domination          (20170807)
 10. [x] Hold Shift and Check Checkboxes (20170807)
-11. [ ] Custom Video Player
-12. [ ] Key Sequence Detection
-13. [ ] Slide in on Scroll
-14. [ ] JavaScript References vs. Copying
-15. [ ] LocalStorage
+11. [x] Custom Video Player          (20170808)
+12. [x] Key Sequence Detection       (20170808)
+13. [x] Slide in on Scroll           (20170808)
+14. [x] JavaScript References vs. Copying (20170808). 
+15. [x] LocalStorage                 (20170808)
 16. [ ] Mouse Move Shadow
 17. [ ] Sort Without Articles
 18. [ ] Adding Up Times with Reduce

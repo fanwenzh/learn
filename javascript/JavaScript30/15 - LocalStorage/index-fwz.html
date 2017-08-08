@@ -30,7 +30,34 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = [];
-
+  // form事件： reset, submit
+  // localStorage.setItems(key, val.toString())
+  // 可用JSON.stringify(), JSON.parse() obj{text, done:fale} 存储数组
+  function add(e) {
+    // 禁止原html的submit事件
+    e.preventDefault();
+    const val = addItems.querySelector("input[name='item']").value;
+    let list = localStorage.getItem('list');
+    if(!list) list = val;
+    else 
+      list += ',' + val;
+    localStorage.setItem('list', list.toString());
+    show();
+    // 清除input里的内容
+    this.reset();
+  }
+  function show() {
+    // localStorage.getItem('list') 没有元素时为null
+    let list = localStorage.getItem('list') || '';
+    itemsList.innerHTML =  list.split(',').map((item, index) => {
+      return `<li>
+        <input type="checkbox" data-index="item${index}" id="item${index}">
+        <label for="item${index}">${item}</label>
+      </li>
+      `}).join('');
+  }
+  show();
+  addItems.addEventListener('submit', add);
 </script>
 
 

@@ -39,19 +39,16 @@
         }
         
         .panel {
-            /*添加*/
             flex: 1;
-            flex-direction: column;
-            justify-content: center;
-            display: flex;
-             /*添加*/
+            position: relative;
             background: #6B0F9C;
             box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
             color: white;
             text-align: center;
             align-items: center;
-           /*  Safari transitionend event.propertyName === flex */
+            /* Safari transitionend event.propertyName === flex */
             /* Chrome + FF transitionend event.propertyName === flex-grow */
+            /* 还可以写一起?!  */
             transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
             font-size: 20px;
             background-size: cover;
@@ -83,12 +80,7 @@
             margin: 0;
             width: 100%;
             transition: transform 0.5s;
-            flex: 1 0 auto;
         }
-        .panel>*:first-child {transform: translateY(-100%);}
-        .panel.open-active >*:first-child {transform:translateY(0);}
-        .panel>*:last-child {transform: translateY(100%);}
-        .panel.open-active>*:last-child {transform:translateY(0);}
         
         .panel p {
             text-transform: uppercase;
@@ -100,13 +92,38 @@
         
         .panel p:nth-child(2) {
             font-size: 4em;
+            position: absolute;
+            display: block;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .panel p:nth-child(1) {
+            position: absolute;
+            display: block;
+            top: -10%;
+            /*top:10%;*/
+        }
+        
+        .panel p:nth-child(3) {
+            position: absolute;
+            display: block;
+            bottom: -10%;
+            /*bottom: 10%;*/
         }
         
         .panel.open {
-            flex: 5;
-            font-size: 40px;
+            transform: scale(1.2);
+            /*font-size: 40px;*/
         }
         
+        .up {
+            top: 10%;
+        }
+        
+        .down {
+            bottom: 10%;
+        }
     </style>
 
 
@@ -139,23 +156,10 @@
     </div>
 
     <script>
-        const panels = document.querySelectorAll('.panel');
-        function toggleOpen() {
-            this.classList.toggle('open');
-        }
-        function toggleActive(e) {
-            console.log(e.propertyName);
-            if(e.propertyName.includes('flex')) {
-                this.classList.toggle('open-active');
-            }
-        }
-        panels.forEach(panel => panel.addEventListener('click', toggleOpen));
-        panels.forEach( panel => panel.addEventListener('transitionend', toggleActive));
-        // 改进：监听click事件，字体延迟出现transition .5s .7s;
     </script>
 
 
-
 </body>
+
 
 </html>

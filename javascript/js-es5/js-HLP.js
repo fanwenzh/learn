@@ -198,3 +198,16 @@ setInterval(function() {}, 300)
 setTimeout(function() {
     setTimeout(arguments.callee, interval);
 }, 300)
+
+HTMLElement, HTMLCollection, NodeList解析
+Element, Text, Comment等节点的基类为Node, ELEMENT_NODE 1, TEXT_NODE 3, COMMENT_NODE 8
+nodeType = 1
+document.getElementById() // 只取得Element节点
+    .nextElementSibling() // 下一个element节点
+    .nextSibling() // 下一个element节点
+    .parentNode() // 父element节点
+    .tagName == "DIV" //大写
+el.hasOChildNodes()
+el.cloneNode(true) // 深度复制, () 浅复制
+el.hasAttibutes()
+el.attributes.length
