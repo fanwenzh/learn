@@ -243,10 +243,10 @@ console.log(obj instanceof Array);
 // 2.instanceof的特性，只要在当前实例的原型链上，检测结果都是true
 // 3.在浏览器中不允许运用instanceof检测 null, undefined，所属类Null和Undefined不允许在外访问
 // 3、constructor
-var obj = [];
-console.log(obj.constructor === Array); //false
-var num = 1;
-console.log(obj.constructor === Number); //true
+// var obj = [];
+// console.log(obj.constructor === Array); //false
+// var num = 1;
+// console.log(obj.constructor === Number); //true
 // 可以处理基本类型
 // 局限性：把类原型constructor覆盖后，检测出来的结果不准确
 // 4、Object.prototype.toString.call()  //最常用最准确

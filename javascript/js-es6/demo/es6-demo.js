@@ -20,7 +20,7 @@ class User {
         // User.getClassName = function(){
         //     return 'User';
         // }
-        // 绑定在class中的方法，即c = new User, c.getClassName不可用
+        // 绑定在class User中的方法，即c = new User, c.getClassName不可用
     static getClassName() {
             return 'User';
         }
@@ -221,9 +221,12 @@ class userGroup {
 // setPrototypeOf  __proto__
 // getPrototypeOf
 
+// Object.entries()
+// Object.values()
+
 // ### 8字符串
 // var str = 'hello';
-// console.log(str.includes("e", 1)); // 默认0
+// console.log(str.includes("e", 1)); // 默认0，index
 // str.startsWith("e", 2);
 // str.endsWith("e", 2);
 
@@ -234,7 +237,7 @@ class userGroup {
 // function tag(strArr, arg){
 //     console.log(strArr);
 //     console.log(arg);
-//     console.log(arguments)
+//     console.log(arguments);
 // }
 // let name = 'leo';
 // let result = tag`hello${name}`;  // ['hello', ''], leo // 1、 hello 和 断点形成数组, 2、${name}
@@ -311,6 +314,7 @@ class userGroup {
 //### proxy
 // var obj = {name:'leo'};
 // var proxy = new Proxy(obj, {
+//     拦取所有get操作
 //     get:function(target, key){
 //         return 'none';
 //     },
@@ -416,7 +420,7 @@ class userGroup {
 // export class User {};
 // export name = 6;
 
-// 通过default输出的为值，而不是引用！
+// 通过default输出的为值，而不是引用！！！
 
 // // 导入
 // import a, { name as myName } from './m';  // 默认导入function test()

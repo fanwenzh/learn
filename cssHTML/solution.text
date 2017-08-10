@@ -32,14 +32,16 @@ font-family:      微软小黑
     -webkit-line-clamp:1;
 
 居中样式:
-    1) {
+    1) 绝对定位，top, left, transform 50%
+        {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translateY(-50%) translateX(-50%);
             或 margin: 宽高
         }
-    2)  {
+    2)  绝对定位，距离各方向0
+        {
             position: absolute;
             top: 0;
             left:0;
@@ -47,12 +49,30 @@ font-family:      微软小黑
             right: 0;
             margin: 0;
         }
-    3) {
+    3) height = line-height
+    {
         height: 10px;
         line-height: 10px;
         vertical-align: center;
     }
+    4) display: table-cell
+    {
+        .container{
+            display: table;
+            height:100%;
+        }
+        .table_cell{/*将cell垂直居中，如果外层div不为table则tablecell必须有高度*/
+            display:table-cell;
+            vertical-align:middle;
+        }
+    }
     4) flex : ie11
+    5) margin-top: -n px //支持ie6~8, 但不支持%和响应式
+    6）插入空div占位
+
+	/*禁止选中*/
+	-webkit-user-select: none;
+
 删除table表格边框距离:
     border-spacing:0;
     border-collapse:collapse;

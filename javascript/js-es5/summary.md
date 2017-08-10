@@ -1,136 +1,157 @@
-### 1
-	基本数据类型5: Undefined, Null, Number, String, Boolean
-	引用数据类型: Array、Function、Math、Date、JSON、RegExp、Error
-	判断:
-	精确区分: Object.prototype.toString.call(obj) === "[object Array]"
-	模糊区分方法3: .constructor, instanceOf, typeof  
-	isNaN, Array.isArray()
+### 基本数据类型
+- 基本数据类型5: Undefined, Null, Number, String, Boolean
+- 引用数据类型: Array、Function、Math、Date、JSON、RegExp、Error
+判断:
+- 精确区分: Object.prototype.toString.call(obj) === "[object Array]"
+- 模糊区分方法3: .constructor, instanceOf, typeof  
+- isNaN, Array.isArray()
 
-	预解释：
+### 预解释：
+- 理解声明和定义
+	declare 声明 var a;
+	defined 定义 var a = 1;
 	var -> (声明提升)预解析是只提前声明 undefined
 	function -> 预解析时声明并定义(声明提升)
-
+- 内存管理
 	栈内存: 用来提供供js代码执行的环境（函数执行一次形成一个栈内存）
 	堆内存: 用来存储引用数据类型的值 -> 对象存储的是属性名和属性值, 函数存储的是d代码字符串(声明并赋值形成堆内存)
 
 	自执行函数:
 	~function(num){}(100)
+### 面向对象
+- this 
+	1. `foo()`的调用形式被称为Function Invocation Pattern, 注意这里的foo是作为单独的变量出现，而不是属性。foo函数体中的this永远为Global对象，在浏览器中就是window对象。
+	2. `foo.bar()`的调用形式被称为Method Invocation Pattern，注意其特点是被调用的函数作为一个对象的属性出现，必然会有“.”或者“[]”这样的关键符号。
+	3. `new foo()`这种形式的调用被称为Constructor Pattern, 在这种模式下，foo函数内部的this永远是new foo()返回的对象。
+	4. `foo.call(thisObject)`和`foo.apply(thisObject)`的形式被称为Apply Pattern, 在这种模式下，`call`和`apply`的第一个参数就是foo函数体内的this，如果thisObject是`null`或`undefined`，那么会变成Global对象。
+	this 总结： 函数在哪里声明，以及调用含this的方式;
 
-	1.函数中有this, 但是它没有以对象方法的形式调用，而是以函数名的形式执行，this指向的就是全局对象;
-	2.函数中有this，并且这个函数是以对象方法的形式调用，那么this指向的就是调用该方法的对象
-	3.函数中有this，并且包含该函数的对象也同时被另一个对象所包含，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象
-	4.构造函数或类方法中有this，那么它指向由该构造函数或类创建出来的实例对象。
-		DOM中回调函数的this指触发事件的对象
+- 作用域：函数作用域，全局作用域，es6{}作用域
 
+- property相关函数
 	hasOwnProperty, propertyIsEnumberable, isPrototypeOf, Object.getPrototypeOf
 	Object.create()
 
-DOM
+- 设计模式
+	单例: var person = {}
+	工厂: function Persion() {
+		var obj = {};
+		return obj;
+	}
+	构造函数: function Persion(){this.attr1 = 1}
+	构造函数+原型链函数:
+
+- 继承
+	实例继承：__proto__
+	构造函数继承: prototype
+	function C{B().call(this)}
+	es5: Object.create(B)
+	es6: class C: extend B{constructor(){super()}}
+- DOM
 	childNodes:NodeList 文档、元素、元素属性、文本、注释都为节点
-	firstChild: 第一个子节点
-	lastChild: 
-	nextSibling: 下一个节点
-	previousSibling
-	parentNode
+	- node节点操作
+		firstChild: 
+		lastChild: 
+		nextSibling: 
+		previousSibling
+		parentNode
+	- element 节点操作
+		childElementCount: 子元素个数
+		firstElementChild: 第一个element子元素
+		lastElementChild: 
+		nextElementSibling: 下一个兄弟element元素
+		previousElementSibling
+		parentElement
+		children: HTMLCollection(类Array)，[i]访问，储存子元素
 
-	.style.  所有style属性
-	window.getComputedStyle(dom, [null":after"]).height
+	- DOM的增删改
+		createElement
+		document.createDocumentFragment()
+		appendChild
+		insertBefore          // 父节点调用，添加在某一子节点
+		cloneNode(true/false) // 克隆节点内的所有元素/只克隆当前节点
+		replaceChild
+		removeChild
+		get/set/removeAttribute
+
+		document.createDocumentFragment, document.createElement
+	- className, id, tagName, localName. nodeName, textContent,  nodetype
+
+	- 属性
+		.style.  所有style属性
+		box.currentStyle.height // ie6~8
+		window.getComputedStyle(dom, [null":after"]).height
+		*attributes:NamedNodeMap(类Array)  储存div所有属性
+		innerHTML, outerHTML, innerText
+	- 位置内容长度相关
+		clientHeight, clientWidth: padding+内容 
+		clientLeft, clientTop : border宽度
+		offsetHeight, offsetWidth: (padding+内容 = clientXXX) + border宽度
+		offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
+		offsetPartent 返回父节点
+		scrollHeight, scrollLeft: 滚动区域的总宽高
+		scrollTop, scrollWidth: 已滚动(屏幕外)的高度
 	
-	//childElementCount: 子元素个数
-	//children: HTMLCollection(类Array)，[i]访问，储存子元素
-	//box.currentStyle.height
-	firstElementChild: 第一个element子元素
-	lastElementChild: 
-	nextElementSibling: 下一个兄弟element元素
-	previousElementSibling
-	parentElement
+	- 盒子模型：
+		DOM盒子模型
+		clientHeight, clientWidth, clientTop, clientLeft
+		offsetHeight, offsetWidth, offsetTop, offsetLeft, offsetParent
+		scrollHeight, scrollWidth, scrollTop, scrollLeft
 
-    // DOM的增删改
-    createElement
-    document.createDocumentFragment()
-    appendChild
-    insertBefore          // 父节点调用，添加在某一子节点
-    cloneNode(true/false) // 克隆节点内的所有元素/只克隆当前节点
-    replaceChild
-    removeChild
-    get/set/removeAttribute
+		css盒子模型
+		margin, padding, box-sizing:border-box
 
-	*attributes:NamedNodeMap(类Array)  储存div所有属性
-	className, id, tagName, hidden(style属性?), localName. nodeName, textContent,  nodetype
-	clientHeight, clientWidth: padding+内容 
-	clientLeft, clientTop : border宽度
-	offsetHeight, offsetWidth: (padding+内容 = clientXXX) + border宽度
-	offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
-	offsetPartent 返回父节点
-	scrollHeight, scrollLeft: 滚动区域的总宽高
-	scrollTop, scrollWidth: 已滚动(屏幕外)的高度
-	
+### dom深入
+- 获取元素方法 
+	document.getElementById // 上下文是document  //HTMLDocument -> Document
+	document.getElementsByName // 上下文是document
+	element.getElementsByClassName // 元素  // HTMLDivElement -> HTMLElement ->Element
+	element.getElementsByTagName // 元素
+- css方法
+	document.querySelector
+	document.querySelectorAll
+- dom 内置
+	document.documentElement
+	document.body
+	document.forms
+	document.images
+- 视窗宽高(html)
+	document.documentElement.clientWidth == window.innerWidth
+	document.documentElement.clientHeight == windwo.innerHeight
+	document.documentElement.clientTop == 0
+	document.documentElement.clientLeft == 0
+- 屏幕宽高, 多用于兼容IE
+	document.body.clientHeight
+	document.body.clientWidth
+	document.body.clientLeft == 0
+	document.body.clientTop == 0
+	- 原生
 	元素距离左侧和顶部的位置:
 	let { left, top } = util.offset(ele)
 	距离屏幕的高度：
 	.getBoundingClientRect() : {top: 308, right: 381.140625, bottom: 332, left: 317.140625, width: 64…}
-
+	- jq
 	获取页面某一元素的绝对X,Y坐标，可以用offset()：
 	var X = $(‘#DivID’).offset().top;
 	var Y = $(‘#DivID’).offset().left;
 	获取相对(父元素)位置:
 	var X = $(‘#DivID’).position().top;
 	var Y = $(‘#DivID’).position().left;
-
-	DOM盒子模型
-    clientHeight, clientWidth, clientTop, clientLeft
-    offsetHeight, offsetWidth, offsetTop, offsetLeft, offsetParent
-    scrollHeight, scrollWidth, scrollTop, scrollLeft
-
-    css盒子模型
-    margin, padding, box-sizing:border-box
-
-### 2
-	// 获取元素方法 
-	document.getElementById // 上下文是document  //HTMLDocument -> Document
-	document.getElementsByName // 上下文是document
-	document.getElementsByClassName // 元素  // HTMLDivElement -> HTMLElement ->Element
-	document.getElementsByTagName // 元素
-	// css方法
-	document.querySelector
-	document.querySelectorAll
-
-	document.documentElement
-	document.body
-
-	document.forms
-	document.images
-	// 屏幕宽高(html)
-	document.documentElement.clientWidth
-	document.documentElement.clientHeight
-	document.documentElement.clientTop
-	document.documentElement.clientLeft
-	// 屏幕宽高, 多用于兼容IE
-	document.body.clientHeight
-	document.body.clientWidth
-	document.body.clientLeft
-	document.body.clientTop
-
-	// #div.__proto__ -> HTMLDivElement.prototype -> HTMLElement.prototype -> Element.prototype ->
-	// Node.prototype -> EventTarget.prototype -> Object.prototype
-	// document.__proto__ -> HTMLDcoment -> Document -> Node.prototype
+- 继承
+	#div.__proto__ -> HTMLDivElement.prototype -> HTMLElement.prototype -> Element.prototype ->
+	Node.prototype -> EventTarget.prototype -> Object.prototype
+	document.__proto__ -> HTMLDcoment -> Document -> Node.prototype
 
 	Function.prototype.__proto__ === Object.prototype， 函数本身就是Objcet
 	Function.__proto__ === Function.prototype // funcition anonymous(){}
 	Object.__proto__ 没有__proto__;
-	// 函数属性：
+	- 函数属性：
 	// length: 形参的个数
 	// name: 函数名
 	// prototype 类原型，在原型上定义的方法都是当前Fn这个类实例的共有方法
 	// ___proto__ 作为对象的函数，指向Function类的原型对象
 
 	JSON.parse(), JSON.stringify()
-
-	text-overflow: ellipsis; // ellipsis: 截取后以...作为省略，clip: 没有省略号
-	overflow: hidden; // 隐藏溢出
-	white-space: nowrap; // 强制不换行
-
-	Array.prototype.forEach.call(oLis, function(){})
 
 	js中Dom的重排(reflow)和重绘
 	重排：页面中的HTML结构发生改变（增加、删除元素、位置变化），浏览器重新计算DOM结构，并进行渲染
@@ -143,11 +164,9 @@ DOM
 	getComputedStyle() 
 	重绘：某一个元素的样式发生变化（如背景），浏览器只需要重新渲染当前的元素
 
-	document.createDocumentFragment, document.createElement
-
-    //表格排序操作
-    //table // cellspacing, cellpadding = "0"
-    // thead tbody tr th
+    - 表格排序操作
+    table // cellspacing, cellpadding = "0"
+    thead tbody tr th
     var table = document.getElementById("tab");
     // 表格特有属性：第一行rows[0], 所有列cells
     var oThs = table.tHead.rows[0].cells;
@@ -156,20 +175,20 @@ DOM
     // 获取第一行所有列
     var oRows = tBody.rows;
 
-    正则匹配
+- 正则匹配
     var reg = new RegExp("^\\d+" + name + "\\d+$", "gim");
     reg.test(), .exec(): ["大正则捕获内容", index: "开始的索引位置", "原始字符串"] or null
     str.match(reg): 把所有正则匹配都捕获到
 	// 元字符：每一个正则表达式式由元字符和修饰符组成，在//之间具有意义的字符
 	// 1.特殊元字符
 	// \ :转义字符, ^ 开头, [^] 非, $ 结尾, 
-	* \n: 匹配一个换行符, . 匹配除\n以外的任意字符
+	 \n: 匹配一个换行符, . 匹配除\n以外的任意字符
 	// (): 分组, RegExp.$1,
 	// x|y: x或y， [xyz]: xyz任一字符， [^xyz]除了xyz的人一个字符，[a-z]
-	* \d: [0-9], \D 除了0-9以外的所有字符
+	 \d: [0-9], \D 除了0-9以外的所有字符
 	// \b: 一个边界符, "w1 w2 w3" -> ""|w1| |w2| |w3|", \B匹配除了边界符以外的
-	* \w: 数字、字母、下划线的任一个字符, [0-9a-zA-Z_], \W
-	* \s: 匹配一个空白符、空格、制表符、换页符, \S
+	 \w: 数字、字母、下划线的任一个字符, [0-9a-zA-Z_], \W
+	 \s: 匹配一个空白符、空格、制表符、换页符, \S
 	.为任意字符
 	// 2.两次元字符
 	// * 0-n, + 1-n, ? 0-1, {n}, {n, }, {n, m}
@@ -185,9 +204,9 @@ DOM
 	1)在普通元字符后代表出现0-1次，/\d?/ 
 	2)放在一个量词后面的元字符后面取消捕获的贪婪性 +?
 	3)(?:)在分组中?:的意思是只匹配，不捕获
-	4)正则正向预测匹配(?=): str.replace(/(?=(\d{3})+$)/g, ',');
+	4)正则正向预测匹配(?=): str.replace(/(?=(\d{3})+$)/g, ','); // 非?!
 
-### 3
+### css
 	opacity: 0.9;
     /* 透明度在IE6~8中不兼容 */
     filter: alpha(opacity=90);
@@ -220,9 +239,6 @@ DOM
     box.className.remove("123");
     box.className += " text100";
 
-    window.getComputedStyle(box, null(或伪类))["height"];
-    box.currentStyle.height // ie6~8
-
 	/*检查兼容*/
     /MSIE [6-8]/.test(navigator.userAgent)
 	navigator.userAgent.indexOf("MSIE 8.0")
@@ -252,7 +268,22 @@ DOM
 	/*清除哥哥元素浮动对子元素的影响*/
     /*clear:both;*/
 
-###4
+- 优化
+    作用：保证页面打开速度（3s内首页打不开算死亡页面）
+    原理：
+    1）对于首屏内容中的图片：首先给对应的区域一张默认图片（<5kb）
+    首屏内容加载完成后，再加载图片
+    2）对于其他屏中的图片，给一张默认的图片占位，当滚动条滚动到对应区域时，再进行加载
+    扩展：数据异步加载
+    网站性能优化：
+    尽量减少向服务器的请求次数, 减少HTTP请求：
+        css/js文件合并
+        icon图片雪碧图（css sprite）合并
+        图片延迟加载
+        数据异步加载
+        移动端：尽量将css和js写成内嵌式
+
+### jq复习
     //jq
     .attr() // 使用更频繁（两者不通用）
     .prop() // 内置属性
@@ -293,8 +324,8 @@ DOM
     window.jQuery = window.$ = jQuery
     jQuery.extend({ aa: function() {} }) -> $.aa();      //向jq类库中增加其他方法
     jQuery.fn.extend({ bb: function() {} }) -> $().bb(); // 先创建jq对象$(),后执行bb()函数;向jQuery原型上扩展，编写jquery插件
-    
- ### 5
+
+### 事件
  	onclick, mouseover(mouseenter), mouseout(mouseleave), onmousemove, onmousedown, onmouseup, onmousewheel, onscroll
  	onresize, onload, onunload, onfocus, onblur
  	onkeydown, onkeyup, onkeypress -> oninput, onchange代替
@@ -308,39 +339,14 @@ DOM
 		attachEvent("onclick", function(){}), detachEvent("onclick", function(){}) 
 	e = e || window.event
 	e.target = e.target || e.srcElement
-	e.clientX, e.clientY  //移动端 e.touches[0].clientX
-	e.pageX = e.pageX = e.pageX || (e.clientX + (document.documentELement.scrollLeft || document.body.scrollLeft));
+	e.clientX, e.clientY  //移动端 e.touches[0].clientX  // 相对视窗位置
+	e.pageX = e.pageX = e.pageX || (e.clientX + (document.documentELement.scrollLeft || document.body.scrollLeft));  // 相对整个document位置
 	// 阻止默认行为
 	e.preventDefault() // e.returnValue = true
 	e.stopPropagation() // e.cancelBubble = true
 
 	事件委托
 	e.target = e.target || e.srcElement  or e.target.tagName.toLowerCase(), e.target.parentNode.id
-
-	居中样式:
-	.div {
-		position: absolute;
-		top: 50%;
-		left:50%;
-		transform: translate(50%, 50%);
-		/*或 margin: 固定宽高*/
-	}
-	.div {
-		display: table-cell;
-	}
-	/*ie6~7不兼容，主要用于移动端*/
-	.div {
-		position: absolute;
-		top:0;
-		left:0;
-		right: 0;
-		bottom:0;
-		margin: auto;
-	}
-	/*4 插空div*/
-
-	/*禁止选中*/
-	-webkit-user-select: none;
 
     dom2: DOMContentLoaded(页面中的HTML结构加载完成触发)
     box.addEventListener("DOMContentLoaded", function() {}, false);
@@ -355,7 +361,7 @@ DOM
 	this.setCapture();  //ie\火狐, SetCapture、ReleaseCapture
 	设置目标移动: move.call(target, 位移)
 
-###7
+### 服务端基础
 	//协议      域名      端口号 ： 同源           
 	http://www.baidu.com:80  220.123.23.23(外网ip地址) 80(服务器端口号)
 	服务器端口号(0~64435)，80:http, 443:https, 21:FTP
@@ -426,7 +432,7 @@ DOM
         error: function(e) {}
     })
 
-###9
+### html5
 	HTML5新特性：
 	<!--html5: search, url, email, tel, number, range, color, date, time, dataTime-->
     <input type="number" min="60" max="100" step="10" value="50">
@@ -490,7 +496,7 @@ DOM
     onorientationchange(屏幕旋转事件模型)
     event.preventDefault()
 	//e.touches, targeTouchs, changeTouches(touchend)
-	//e.touches[0].clientX, e.touches[0].clientY, pageX, pageY, screenX, screenY
+	//e.touches[0].clientX, e.touches[0].clientY, pageX, pageY,相对于document元素 //screenX, screenY 相对于屏幕
 	触摸事件顺序: touchstart -> mouseover -> mousemove -> mousedown -> mousedup -> click -> touchend
  
     单击和双击(300ms)

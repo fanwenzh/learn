@@ -1,38 +1,76 @@
-Array
-join, reverse //改变数组并返回印用本身
-sort
-push, pop, shift, unshift, length,
-concat(合并, 不改变原数组)
-splice // 改变原数组，返回取出子字符串
-slice //从原字符串取出子字符串并返回，不改变原字符串
-indexOf, lastIndexOf
-every(所有元素返回true时返回true), filter, forEach(遍历), map(不改变原数组), some(有一个元素返回true时返回true)
-reduce, reduceRight, item == []
-    [].copyWithin(target, start, end)
-String
-concat, slice(start, end), substr(s, length) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
-indexOf, lastIndexOf // 返回尾部第一个顺数位置
-trim, toUpperCase, toLowerCase
-match, search, replace, split //四个可RegExp匹配
-localeCompare //字典序比较
-Function
-arguments.callee
-arguments.callee.caller
-call, apply, bind
-RegExp
-exec, test, RegExp.$n
-Number
-toFixed, toString(2)
-Bollean
-valueOf() true / false
-toString()
-"true" / "false"
-Date
+### 数据类型
+- Array
+    // reverse, splice, // copyWidthin 改变数组
+    join, reverse //改变数组并返回印用本身
+    sort // 中文按字典序: str1.localCompare(str2)
+    push, pop, unshift, shift, length,
+    concat(合并, 不改变原数组)
+    splice // 改变原数组，返回取出子数组
+    slice //从原字符串取出子字符串并返回，不改变原字符串
+    indexOf, lastIndexOf
+    every(所有元素返回true时返回true), filter, forEach(遍历), map(不改变原数组), some(有一个元素返回true时返回true)
+    reduce, reduceRight, item == []
+        [].copyWithin(target, start, end)
+- String
+    concat, slice(start, end), substr(s, length) // l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
+    indexOf, lastIndexOf // 返回尾部第一个顺数位置
+    trim, toUpperCase, toLowerCase
+    match, search, replace, split //四个可RegExp匹配
+        str.replace(otherStr, function(subs, index, str){})
+    localeCompare //字典序比较
+- Function
+    arguments.callee
+    arguments.callee.caller
+    call, apply, bind
+- RegExp
+    exec, test, RegExp.$n
+- Number
+    toFixed, toString(2)
+- Bollean
+    valueOf() true / false
+    toString()
+    "true" / "false"
+- Date
 toString, toUTCString
     .now, getTime, getFullYear, getMonth + 1, getDate, getDay, getHours, getMinutes, getSeconds
-Math
+- Math
 max, min, ceil, floor, round, random, abs
 
+### 类型检测方法
+1. typeof
+   返回 字符串，对应其数据类型
+   如："number"、"string"、"object"、"undefined"、"function"、"boolean"
+   局限性：1.typeof null -> "object"
+          2.不能细分数组、正则、对象、null，都返回"object"
+2. intanceof
+    局限性：
+    1.不能处理用字面量方式创建出来的基本数据类型值
+    对于基本数据类型(1, "", true, undefined, null), 字面量方式创建和实例创建方式不同，严格来说，只有实例创建出来的结果才是标准的对象数据类型
+    1 instaceof Number      -> false // 非严谨实例
+    true instanceof Boolean -> false
+    "" instanceof String    -> false
+    new Number(1) intanceof Number -> true
+    typeof new Number(1)    -> "object"
+    2.instanceof的特性，只要在当前实例的原型链上，检测结果都是true
+    3.在浏览器中不允许
+3. constructor
+    var obj = [];
+    console.log(obj.constructor === Array); //false
+    var num = 1;
+    console.log(obj.constructor === Number); //true
+    可以处理基本类型
+    局限性：把类原型constructor覆盖后，检测出来的结果不准确
+4. Object.prototype.toString.call()  //最常用最准确
+    Object.prototype.toString.call([]); // "[object Array]"
+    Object.prototype.toString.call(RegExp); // "[object RegExp]"
+    Object.prototype.toString.call(new Date); // "[object Date]"
+    Object.prototype.toString.call("123"); // "[object String]"
+    Object.prototype.toString.call(true); // "[object Boolean]"
+    Object.prototype.toString.call(null); // "[object Null]"
+    Object.prototype.toString.call(undefined); // "[object undefined]"
+    Object.prototype.toString.call(function() {}); // "[object Function]"
+
+### Object相关
 Object.getOwnPropertyDescriptor;
 Object.defineProperty;
 Object.getPrototypeOf;
@@ -56,7 +94,7 @@ go, back, forward
 
 视口大小:
     document.documentElement.clientHeight, document.documentElement.clientWidth
-移动设备
+(显示屏大小)移动设备
 window.innerHeight, window.innerWidth
 
 DOM:
@@ -166,10 +204,11 @@ xhr.send(form);
 
 跨域处理：
 1. CORS(Cross - Origin Resource Sharing)
-    // 客户端
+    // 客户端添加Origin报文头
+    // Origin: url
     // Access-Control-Request-Method:*
     // Access-Control-Request-Headers:*
-    // 服务器
+    // 服务器返回允许报文头
     // Access - Control - Allow - Origin: *
     // Access - Control - Allow - Methods: POST, GET
     // Access - Control - Allow - Headers: 允许的头部
@@ -186,7 +225,7 @@ socket.onmessage = function(e) {
     var data = e.data;
 }
 socket.send("data");
-
+4. node 代理（证书未了解？）
 
 惰性载入: 保存兼容判断结果
 函数柯里化
@@ -202,12 +241,13 @@ setTimeout(function() {
 HTMLElement, HTMLCollection, NodeList解析
 Element, Text, Comment等节点的基类为Node, ELEMENT_NODE 1, TEXT_NODE 3, COMMENT_NODE 8
 nodeType = 1
-document.getElementById() // 只取得Element节点
-    .nextElementSibling() // 下一个element节点
-    .nextSibling() // 下一个element节点
-    .parentNode() // 父element节点
+document.getElementById // 只取得Element节点
+    .nextElementSibling // 下一个element节点
+    .nextSibling // 下一个element节点
+    .parentNode // 父element节点
     .tagName == "DIV" //大写
-el.hasOChildNodes()
+el.hasChildNodes()
 el.cloneNode(true) // 深度复制, () 浅复制
 el.hasAttibutes()
 el.attributes.length
+el.nodeName == "DIV" // BODY, #text, 

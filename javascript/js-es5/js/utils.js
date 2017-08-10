@@ -22,9 +22,10 @@ var utils = (function() {
         // return 'JSON' in window ? JSON.parse(jsonStr) : eval("(" + jsonStr + ")");
         return flag ? JSON.parse(jsonStr) : eval("(" + jsonStr + ")");
     }
-    // 时间格式处理方法
-    /*  输入 str = "2015/3/20 23/5/19" format = "{0}年{1}月{2}日 {3}:{4}:{5}"
-     *   输出 "2015年03月20 23:05:19"
+    /**
+     *  时间格式处理方法
+     *  输入 str = "2015/3/20 23/5/19" format = "{0}年{1}月{2}日 {3}:{4}:{5}"
+     *  输出 "2015年03月20 23:05:19"
      */
     function myFormatTime(str, format) {
         var reg = /^(\d{4})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:\s+)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})(?:-|\/|\.|:)(\d{1,2})$/g;
@@ -99,7 +100,7 @@ var utils = (function() {
         if (typeof tagName === "string") {
             for (var k = 0; k < ary.length; k++) {
                 var curEleNode = ary[k];
-                if (curEleNode.nodeName.toLowerCase() !== tagName.toLowerCase()) {
+                if (curEleNode.nodeName !== tagName.toUpperCase()) {
                     ary.splice(k, 1);
                     k--;
                 }

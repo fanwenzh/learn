@@ -175,7 +175,7 @@ var obj = {
                 num += 20;
                 console.log(num);
             }
-        })(num) // 全局num -> 20, 局部obj.num -> 30 或 this.num
+        })(num) //this.num也是全局, 全局num -> 20, 局部obj.num -> 30 
 };
 var fn = obj.fn;
 fn(); // 形成栈内存作用域

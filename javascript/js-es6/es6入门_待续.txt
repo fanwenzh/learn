@@ -82,9 +82,14 @@ Iterator接口: 可用for of 循环
         Reflect.ownKeys(obj)
     obj.__proto__:
         Object.setPrototypeOf(), Object.getPrototypeOf(), Object.create()
+    复制：
+    var two = Object.assign({}, one);
+    for(let key in obj)
+
     NULL传导符:obj?.prop?.user // 遇到null或undefined不再往下传导
     Object.getOwnPropertyDescriptor(obj, key)
     Object.getOwnPropertyDescriptors()
+
 9. Symbol // 模块引用, 模拟私有属性
     var k = Symbol('key') // 没有new, 可转为字符串，每次调用返回不同的Symbol
     Symbol.for('key') // 现在全局搜索key，没有则返回新的Symbol，否则返回同一Symbol

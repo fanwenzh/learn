@@ -1,3 +1,7 @@
+## 进行中
+~~vue源码学习 0.10.0~~                                     [20170808 - 20170810]
+vue源码学习 2.x                                            [20170810 - ]
+
 ## 前端学习
 js-es5, https://pan.baidu.com/disk/home/2015js  
 js-es6, https://pan.baidu.com/disk/home/es6实战  
@@ -12,7 +16,6 @@ sass,
 js: https://github.com/wesbos/JavaScript30  
 D3.js: http://www.ourd3js.com/wordpress/  
 mysql : 范式  
-js: fetch https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch  
 操作系统  
 算法  
 
@@ -36,9 +39,9 @@ tcp/ udp 网络编程
 
 ## 已看
 SQL学习指南  
-
-## 待看书籍
 图解HTTP  
+
+## 待看书籍  
 HTTP权威指南  
 白帽子讲web安全    
 unix 编程艺术  
