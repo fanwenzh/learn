@@ -177,6 +177,10 @@ var obj = {
             }
         })(num) //this.num也是全局, 全局num -> 20, 局部obj.num -> 30 
 };
+// 对于self也是window的理解
+// {}作用域, this不是在函数内调用
+var obj1 = { self: this }; // obj1.self === window!!
+var obj2 = new Object({ a: this, b: 1 }) // obj2.a === window!!
 var fn = obj.fn;
 fn(); // 形成栈内存作用域
 // this.num *= 4 -> window.num *= 4 -> 240

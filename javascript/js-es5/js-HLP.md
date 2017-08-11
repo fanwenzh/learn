@@ -225,7 +225,7 @@ socket.onmessage = function(e) {
     var data = e.data;
 }
 socket.send("data");
-4. node 代理（证书未了解？）
+4. node 代理（证书未了解！）
 
 惰性载入: 保存兼容判断结果
 函数柯里化

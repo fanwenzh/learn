@@ -55,7 +55,7 @@ Iterator接口: 可用for of 循环
     默认值, rest参数, 'use strict'
     () => {};  // 作用域内arguments, super 不存在
     const numbers = (...nums) => nums; 返回 [1,2,3,4,5]
-    foo::bar; // 等同于 bar.bind(foo); 如c++?
+    foo::bar; // 等同于 bar.bind(foo); 如c++
     foo::bar(...arguments); // 等同于 bar.apply(foo, arguments);, arguments非Array
     obj::obj.foo // ::obj.foo, 可采用链式写法
 7.数组扩展:具有Iterator接口
@@ -181,6 +181,7 @@ map（hash）
     new Promisze(function(resolve, reject){
     }).then(function(){}, function(){}).catch();
     Promise.all([]), Promise.race([]), Promise.resolve(), Promise.reject(), .done(), finally()
+    all: .then(function(){arguments[0]}), arguments[0]为返回值
     Promise.try (Bluebird、Q和when)
         (async () => f())().then(...).catch(...)  // f同步函数同步执行，异步函数异步执行
 14.Iterator和for...of循环

@@ -61,7 +61,7 @@ CONNECT：用隧道协议进行连接代理
     500 internal server error 服务器执行请求出错
     503 service unavailable 服务器超载或停机维护
 
-### 与HTTP协作的web吴福气
+### 与HTTP协作的web服务器
 代理：中间转发
     缓存代理，透明代理
 网关：转发其他服务器通信数据的服务器，可响应资源请求，可连接数据库
@@ -111,6 +111,22 @@ HTTPS: HTTP Secure, 加安全层
     HTTP - SSL - TCP - IP
 
 ### 第8章 确认访问用户身份的认证 P182
+HTTP／1.1使用的认证方式：
+ BASIC认证（基本认证）!
+ DIGEST认证（摘要认证）
+ SSL客户端认证 
+ FROMBASE认证（基于表单认证）
+session管理及cookie应用
+ 弥补http协议中不存在的状态管理功能
 
-
-
+ ### 第九章 HTTP追加协议
+    ajax解决局部更新问题
+    comet解决服务端内容与客户端更新问题
+1. SPDY介于TCP(SSL)和HTTP之间
+解决：
+    多路复用：单一TCP连接，无限制多个HTTP请求
+    分配请求的优先级
+    压缩HTTP首部
+    服务器实时向客户端推送数据
+    服务器提示资源已缓存304
+2. 全双工个通信websocket
