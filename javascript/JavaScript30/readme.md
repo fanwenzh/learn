@@ -17,8 +17,8 @@
 13. [x] Slide in on Scroll           (20170808)
 14. [x] JavaScript References vs. Copying (20170808). 
 15. [x] LocalStorage                 (20170808)
-16. [ ] Mouse Move Shadow
-17. [ ] Sort Without Articles
+16. [x] Mouse Move Shadow            (20170813)
+17. [x] Sort Without Articles        (20170813)
 18. [ ] Adding Up Times with Reduce
 19. [ ] Webcam Fun
 20. [ ] Speech Detection

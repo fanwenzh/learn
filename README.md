@@ -1,6 +1,15 @@
 ## 进行中
+
+
+## 告一段落
+1. Vue
 ~~vue源码学习 0.10.0  [20170808 - 20170810]~~    
-vue源码学习 2.x                                            [20170810 - ]
+vue源码学习 2.4       [20170810 - 201708013]  
+重点学习：
+- 引入时定义Vue.prototype相关(重点:observer, watcher, dep的MVVM实现)![辅助理解](http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/)
+- 创建Vue时先策略合并option,Vue实例初始化相关
+- Visual Dom 实现策略![辅助理解](https://segmentfault.com/a/1190000004029168)
+细节实现学习
 
 ## 前端学习
 js-es5, https://pan.baidu.com/disk/home/2015js  
