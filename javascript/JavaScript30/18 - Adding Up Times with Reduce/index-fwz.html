@@ -187,15 +187,26 @@
         const lis = Array.from(document.querySelectorAll('li'));
         // reduce: ie9+
         // array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
-        // 不能直接reduce
-        const seconds = lis.reduce(function(total, item) {
-            time = item.dataset.time.split(':');
-            time = parseInt(time[0]) * 60 + parseInt(time[1])
-            total += time;
-        }, 0);
-        let hours = seconds / 3600;
+        // total和item不同类型时不能直接reduce
+        // let seconds = lis.reduce(function(total, item) {
+        //     time = item.dataset.time.split(':');
+        //     time = parseInt(time[0]) * 60 + parseInt(time[1])
+        //     total += time;
+        // }, 0);
+        let seconds = lis.map(node => node.dataset.time.split(':'))
+            .map(([mins, secs]) => parseInt(mins) * 60 + parseInt(secs))
+            .reduce((total, sec) => total + sec);
+        // 标准答案命名，更加清晰
+        // let seconds = timeNodes
+        //     .map(node => node.dataset.time)
+        //     .map(timeCode => {
+        //         const [mins, secs] = timeCode.split(':').map(parseFloat);
+        //         return (mins * 60) + secs;
+        //     })
+        //     .reduce((total, vidSeconds) => total + vidSeconds);
+        let hours = Math.floor(seconds / 3600);
         seconds = seconds % 3600;
-        let minutes = sedconds / 60;
+        let mintues = Math.floor(seconds / 60);
         seconds = seconds % 60;
         console.log(hours, mintues, seconds)
     </script>

@@ -81,7 +81,7 @@ vuex:
     }
 }
 import { mapGetters } from 'vuex'
-3. computed:{
+3. 原vue中的/computed:{
     mapGetters(['doneTodos', 'anotherGetter']); // 映射到局部计算属性
 }
 

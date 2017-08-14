@@ -74,8 +74,8 @@ font-family:      微软小黑
 	-webkit-user-select: none;
 
 删除table表格边框距离:
-    border-spacing:0;
-    border-collapse:collapse;
+    border-spacing: 0;
+    border-collapse: collapse;
 
 css省略号动画: 
 .loading:after {

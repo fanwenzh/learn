@@ -19,8 +19,8 @@
 15. [x] LocalStorage                 (20170808)
 16. [x] Mouse Move Shadow            (20170813)
 17. [x] Sort Without Articles        (20170813)
-18. [ ] Adding Up Times with Reduce
-19. [ ] Webcam Fun
+18. [x] Adding Up Times with Reduce  (20170814)
+19. [x] Webcam Fun                   (20170814)
 20. [ ] Speech Detection
 21. [ ] Geolocation
 22. [ ] Follow Along Link Highlighter

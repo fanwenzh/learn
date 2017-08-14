@@ -63,7 +63,7 @@ table  // div, ul, li的table布局
 			table-cell
 	table-row-group
 		table-row
-			cable-cell
+			table-cell
 	table-footer-group
 		table-row
 			table-cell
