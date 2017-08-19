@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>👀👀👀Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <ul class="menu">
+            <li><a href="">Home</a></li>
+            <li><a href="">Order Status</a></li>
+            <li><a href="">Tweets</a></li>
+            <li><a href="">Read Our History</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+        <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+        <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
+        <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+        <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+    </div>
+
+    <style>
+        .hover {
+            background-color: white;
+        }
+    </style>
+    <script>
+        const as = document.querySelectorAll('a');
+        // document.body.addEventListener('click', function(e) {
+        //     // a便签的默认事件会跳转，刷新页面
+        //     e.preventDefault();
+        //     if (e.target.tagName === 'A') {
+        //         as.forEach(a => a.classList.remove('hover'))
+        //             // for (let i = 0; i < as.length; i++) {
+        //             //     as[i].classList.remove('hover')
+        //             // }
+        //     }
+        //     e.target.classList.add('hover')
+        // })
+
+        // span默认填充父节点
+        const highlight = document.createElement('span');
+        highlight.classList.add('highlight');
+        document.body.appendChild(highlight);
+
+        function highlightLink(e) {
+            e.preventDefault();
+            // if (e.target.tagName !== 'A') return;
+            const linkRect = this.getBoundingClientRect();
+            // console.log(linkRect);
+            const rect = {
+                width: linkRect.width,
+                height: linkRect.height,
+                // 距离顶部的高度和滚轴的高度
+                top: linkRect.top + window.scrollY,
+                left: linkRect.left + window.scrollX
+            }
+            highlight.style.width = `${rect.width}px`
+            highlight.style.height = `${rect.height}px`
+            highlight.style.transform = `translate(${rect.left}px, ${rect.top}px)`
+        }
+        as.forEach(a => a.addEventListener('mouseenter', highlightLink));
+    </script>
+</body>
+
+</html>

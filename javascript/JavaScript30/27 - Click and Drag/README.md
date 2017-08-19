@@ -22,3 +22,11 @@ window.screen.width, .height // 显示屏宽高
 window.screenLeft, .screenTop, .screenX, .screenY // 视窗相对显示器高度
 
 ```
+2. css
+```
+// perspective：旋转木马效果
+http://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
+// 子元素inline-flex布局, 即flex:1 且平均分配
+// 父元素设置width: 100%, 子元素撑满父元素
+// width: cale(100% - 10px), 计算属性  
+```

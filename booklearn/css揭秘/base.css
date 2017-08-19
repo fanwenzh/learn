@@ -1,0 +1,227 @@
+/*行高时字体1.5倍  */
+
+.case {
+    /*字号是父级元素的125%  */
+    /*font-size: 125%  */
+    font-size: 20px;
+    line-height: 1.5;
+    /*currentColor变量: 与文本相同颜色  */
+}
+
+
+/* 2. 背景与边框 */
+
+.background {
+    /*背景绘制区域  */
+    background-clip: padding-box;
+    background-origin: content-box;
+    width: calc(100% - 20px);
+    /*外边框颜色  */
+    outline: 5px solid deeppink;
+    /*渐变  */
+    /* repeat-radial-gradient(60deg, #fb3 0 15px, #58a 0 30px) 重复渐变*/
+    background: linear-gradient(90deg, #fb3 20%, #58a 80%);
+    /* ie11: round平铺, stretch拉伸  */
+    /*border-image: 图片 裁剪位置(上右下左) 重复性  */
+    border-image: url(border.png) 30% 40% round repeat;
+}
+
+
+/* 3. 形状 */
+
+.shape {
+    /*指定水平和垂直半径  */
+    border-radius: 100px / 75px;
+    /*平行四边形  */
+    transform: skewX(-45deg);
+}
+
+
+/*渐变实现切角p95  */
+
+.shape {
+    background: #58a;
+    background: linear-gradient(-45deg, transparent 15px, #58a 0) right, linear-gradient(45deg, transparent 15px, #655 0) left;
+    background-size: 50% 100%;
+}
+
+
+/*弧形切角(内凹圆角)  */
+
+.shape {
+    background: #58a;
+    background: radial-gradient(circle at top left, transparent 15px, #58a 0) top left, radial-gradient(circle at top right, transparent 15px, #58a 0) top right, radial-gradient(circle at bottom right, transparent 15px, #58a 0) bottom right, radial-gradient(circle at bottom left, transparent 15px, #58a 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+
+/*梯形  */
+
+
+/*可以用伪类进行图像覆盖  */
+
+.trapezoid {
+    transform: perspective(.5em) rotateX(5deg) scaleY(1.3);
+    /*固定下底边  */
+    transform-origin: bottom;
+}
+
+
+/*圆形复杂:如饼状图，首选svg!  */
+
+
+/* <svg>
+    <circle r="30" cx="50" cy="50"/>
+</svg> */
+
+circle {
+    fill: yellowgreen;
+    stroke: #455;
+    stroke-width: 30;
+    stroke-dasharray: 20 10;
+}
+
+
+/*或border-radius + 伪类覆盖实现  */
+
+
+/* 4.视觉效果 */
+
+div {
+    /*投影,基于矩形投影  */
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, .5), 5px 0px 5px 05px black;
+    /*滤镜, 可实现基于内容形状的投影  */
+    filter: blur() grayscale() drop-shadow();
+    /* drop-shadow(2px 2px 10px rgba(0,0,0,.5));
+     * blur(5px) 高斯模糊
+     * grayscale(100%) 灰度图转换
+     * 滤镜组合实现染色效果
+     * filter: sepia(1) saturate(4) hue-rotate(295deg);
+     * ...
+     */
+}
+
+
+/*伪类实现毛玻璃效果  */
+
+main {
+    position: relative;
+    background: hsla(0, 0%, 100%, .3);
+    overflow: hidden;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(20px);
+    margin: -30px;
+}
+
+
+/*折页效果  */
+
+
+/* 5.字体排版 */
+
+div {
+    /*折行: none, manual, auto  */
+    hyphens: auto;
+}
+
+
+/*换行  */
+
+dd:after {
+    content: "\A";
+    white-space: pre;
+    /*缩进字符宽度  */
+    tab-size: 2;
+    /*字体发光  */
+    text-shadow: 0 0 .1em, 0 0 .3em;
+    /*文字凸起  */
+    text-shadow: 0 1px hsl(0, 0%, 85%), 0 2px hsl(0, 0%, 80%), 0 3px hsl(0, 0%, 75%), 0 4px hsl(0, 0%, 70%), 0 5px hsl(0, 0%, 65%), 0 5px 10px black;
+}
+
+
+/*斑马线  */
+
+tr:nth-child(even) {
+    background: rgba(0, 0, 0, .2);
+}
+
+
+/* 环形文字wvg */
+
+
+/* <div class="circular">
+<svg viewBox="0 0 100 100">
+<path d="M 0,50 a 50,50 0 1,1 0,1 z" id="circle" />
+        <text><textPath xlink:href="#circle">
+            circular reasoning works because
+        </textPath></text>
+    </svg>
+</div> */
+
+.circular path {
+    fill: none;
+}
+
+
+/* 6.用户体验 */
+
+
+/* 提示禁用 */
+
+:disabled,
+[disabled],
+[aria-disabled="true"] {
+    cursor: not-allowed;
+}
+
+
+/* 自定义复选框 */
+
+input[type="checkbox"] {
+    position: absolute;
+    /*裁剪可见区域  */
+    clip: rect(0, 0, 0, 0);
+}
+
+input[type="checkbox"]:checked+label::before {
+    content: '\2713';
+    background: yellowgreen;
+}
+
+
+/*蒙版弱化背景  */
+
+
+/* 1.添加遮挡层 */
+
+.overlay {
+    /* 用于遮挡背景 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .8);
+}
+
+
+/*7.结构与布局  */
+
+
+/* 自适应内部元素 */
+
+figure {
+    /*即最宽的单词、图片或具有固定宽度的盒元 素  */
+    width: min-content;
+    /*垂直居中  */
+    align-self: center;
+}

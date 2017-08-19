@@ -20,15 +20,15 @@
 16. [x] Mouse Move Shadow            (20170813)
 17. [x] Sort Without Articles        (20170813)
 18. [x] Adding Up Times with Reduce  (20170814)
-19. [x] Webcam Fun                   (20170814)
-20. [ ] Speech Detection
-21. [ ] Geolocation
-22. [ ] Follow Along Link Highlighter
-23. [ ] Speech Synthesis
-24. [ ] Sticky Nav
-25. [ ] Event Capture, Propagation, Bubbling, and Once
-26. [ ] Stripe Follow Along Nav
-27. [ ] Click and Drag
-28. [ ] Video Speed Controller
-29. [ ] Countdown Timer
-30. [ ] Whack A Mole
+19. [ ] Webcam Fun                   (20170814)   摄像头+canvas实现照相保存
+20. [ ] Speech Detection             (20170815)   浏览器语音识别，非常有趣！chrome支持
+21. [ ] Geolocation                  (20170815)   定位信息    
+22. [x] Follow Along Link Highlighter(20170815)   el.getBoundingClientRect()
+23. [x] Speech Synthesis             (20170815)   语音合成，输出，chrome
+24. [x] Sticky Nav                   (20170815) 
+25. [x] Event Capture, Propagation, Bubbling, and Once (20170815) 
+26. [x] Stripe Follow Along Nav      (20170816) 
+27. [x] Click and Drag               (20170816)   全面解析视窗与元素的位置关系
+28. [x] Video Speed Controller       (20170817)
+29. [x] Countdown Timer              (20170817)
+30. [x] Whack A Mole                 (20170817)
