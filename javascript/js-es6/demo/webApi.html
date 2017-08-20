@@ -15,8 +15,18 @@
     //    fileReader.readAsBinaryString(), readAsDataURL(), readAsText()
     fileReader.readAsArrayBuffer(file);
     fileReader.onload = function() {
-        console.log(fileReader.result.byteLength);
-    }
+            console.log(fileReader.result.byteLength);
+        }
+        // postMessage
+        // window.postMessage(JSON.stringify(obj), targetOrigin);
+        // window.addEventListener('message', function(e){})
+        // worker: 非dom操作交后台执行
+    var worker = new Worker('new.js')
+    worker.addEventListener('message', function(e) {
+        console.log(e.textConent);
+    })
+    worker.postMessage('arguments'); // start the worker
+    worker.close();
 </script>
 
 </html>

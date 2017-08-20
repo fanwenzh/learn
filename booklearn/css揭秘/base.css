@@ -222,6 +222,42 @@ input[type="checkbox"]:checked+label::before {
 figure {
     /*即最宽的单词、图片或具有固定宽度的盒元 素  */
     width: min-content;
-    /*垂直居中  */
+    /*垂直居中：未实现  */
     align-self: center;
+}
+
+
+/* 8. 过渡与动画 */
+
+div {
+    /*1秒划分4关键帧  */
+    animation: 1s blink 3 steps(4);
+}
+
+
+/*打字动画  */
+
+div {
+    /*文本宽度  */
+    width: 15ch;
+    animation-play-state: paused;
+}
+
+div:focus {
+    animation-play-state: running;
+}
+
+
+/*环形路径  */
+
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.avatar {
+    animation: spin 3s infinite linear;
+    /*150px = 路径的半径  */
+    transform-origin: 50% 150px;
 }

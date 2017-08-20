@@ -43,7 +43,7 @@ lodash
 tcp/ udp 网络编程   
 
 ## 已看
-- css揭秘, 力荐好书！
+- css揭秘, 力荐！
 - SQL学习指南 ![node](https://github.com/mysqljs/mysql) 基础入门
 - 图解HTTP  
 - HTML5与css3实战指南

@@ -209,7 +209,7 @@ xhr.send(form);
     // Access-Control-Request-Method:*
     // Access-Control-Request-Headers:*
     // 服务器返回允许报文头
-    // Access - Control - Allow - Origin: *
+    // Access - Control - Allow - Origin: * // 
     // Access - Control - Allow - Methods: POST, GET
     // Access - Control - Allow - Headers: 允许的头部
     // Access - Control - Max - Age: 17200
@@ -225,7 +225,13 @@ socket.onmessage = function(e) {
     var data = e.data;
 }
 socket.send("data");
-4. node 代理（证书未了解！）
+4. postmessage, ie11
+    postMessage(JSON.stringify(data), targetOrigin)
+```
+    window.frames[0].postMessage('getcolor','http://lslib.com');
+    window.addEventListener('message',function(e){})
+```
+5. node 代理（证书未了解！）
 
 惰性载入: 保存兼容判断结果
 函数柯里化
