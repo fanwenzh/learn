@@ -1,6 +1,13 @@
 https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5
 https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 
+##  git初始化配置
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/fanwenzh/doubanMovie.git
+git push -u origin master
+
 ## 本地配置
 git init  // 初始化项目
 git add filename //添加到列表 -u 添加已被add 的文件 .添加所有变化 -A两者集合

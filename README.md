@@ -33,7 +33,7 @@ jQuery Mobile
 ## 待学
 node  
 webgl  
-readme编写   
+python   
 linux基础！！！   
 canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing    
 svg: http://sbco.cc/demo/svg/html/index.html  

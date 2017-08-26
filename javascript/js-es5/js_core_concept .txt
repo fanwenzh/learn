@@ -60,7 +60,7 @@ CommonJS模块特点：
     CMD则是加载完[所有依赖模块]后，再进入程序，遇到需要执行的模块才会执行相应的操作
 
 8、继承
-ES5: prototype, apply, call, bind
+ES5: 1.prototype, 2.apply, call, bind
 ES6: class, extends
 
 9、函数式编程（柯里化）
@@ -89,5 +89,7 @@ element.getElementByTagName, getElementByClassName, querySelector, getAttribute
 14、BOM:window
 Location, History, Navigator, Screen
 
+15、内存泄露
+https://github.com/wengjq/Blog/issues/1
 
 http://mp.weixin.qq.com/s/I7A1iC8Et6uOGZ234DsTlA
