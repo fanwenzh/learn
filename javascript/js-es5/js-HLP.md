@@ -4,7 +4,7 @@
     join, reverse //改变数组并返回印用本身
     sort // 中文按字典序: str1.localCompare(str2)
     push, pop, unshift, shift, length,
-    concat(合并, 不改变原数组)
+    concat(合并, 不改变原数组) // 复制一份
     splice // 改变原数组，返回取出子数组
     slice //从原字符串取出子字符串并返回，不改变原字符串
     indexOf, lastIndexOf

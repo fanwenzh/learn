@@ -23,6 +23,7 @@ vue源码学习 2.4       [20170810 - 201708013]
 ## 巩固/深入
 D3.js: http://www.ourd3js.com/wordpress/  
 算法  
+python   
 
 ## skip
 bootstrap  
@@ -33,7 +34,6 @@ jQuery Mobile
 ## 待学
 node  
 webgl  
-python   
 linux基础！！！   
 canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing    
 svg: http://sbco.cc/demo/svg/html/index.html  
@@ -43,15 +43,18 @@ lodash
 tcp/ udp 网络编程   
 
 ## 已看
-- css揭秘, 力荐！
+- css揭秘, 推荐！
 - SQL学习指南 ![node](https://github.com/mysqljs/mysql) 基础入门
 - 图解HTTP  
 - HTML5与css3实战指南
+## 其他
+设计中的设计 -- 原研哉  
+或者本来单纯 -- 丰子恺  
 
 ## 待看书籍  
+tcp网络详解  
 HTTP权威指南  
 白帽子讲web安全    
 unix 编程艺术  
 unix网络编程  
-tcp网络详解  
 javascript函数编程  
