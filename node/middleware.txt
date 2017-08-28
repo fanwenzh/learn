@@ -6,5 +6,6 @@ progress  进度条
 querystring 读取查询字符串
 url 解析url
 nodemon // 自动重新执行node *.js
+http-proxy-middleware // 请求代理中间件
 
 yarn 服务端离线缓存依赖管理：https://yarnpkg.com/zh-Hans/

@@ -104,3 +104,15 @@ toUpperCase, toLowerCase
 trim, concat(浅复制) // 记住
 ```
 ## 第4章 强制类型转换
+```js
+// 假值表
+undefined, null, false, +0、-0和NaN, ""
+// ~x -> -(x+1)
+.valueOf()
+```
+## 第5章 语法
+```js
+var a = 42
+// 为undefined设置默认值
+function foo( a = 42, b = a + 1 ) {}
+```

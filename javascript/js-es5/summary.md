@@ -534,6 +534,9 @@
     // cookie存储内容大小有限制, 同源4kb, 有过期时间，无痕浏览器禁用cookie，可被浏览器、杀毒软件查找并删除; cookie的size单位为byte, 兼容所有浏览器
     // localStorage: 同源5MB，不兼容ie6~8
 
+// 非数字、字母转义
+	encodeURIComponent, decodeURIComponent
+	encodeURI, decodeURI
     
 
 
