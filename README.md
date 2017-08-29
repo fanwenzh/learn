@@ -19,6 +19,7 @@ vue源码学习 2.4       [20170810 - 201708013]
 - elementUI,    
 - sass,   
 - ![javascript30](https://github.com/wesbos/JavaScript30)  (20170817) 
+- 前端关键路径优化总结  
 
 ## 巩固/深入
 D3.js: http://www.ourd3js.com/wordpress/  
@@ -34,6 +35,7 @@ jQuery Mobile
 ## 待学
 node  
 webgl  
+shell  
 linux基础！！！   
 canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing    
 svg: http://sbco.cc/demo/svg/html/index.html  

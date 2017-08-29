@@ -205,8 +205,10 @@ var myObject = {['1'+'2']:'a'}
 通过array.attr = data 形式增加的属性，不改变array.length值
 最佳实践：array['attr'] = data
 // 3.3.4 复制对象
-var a2 = JSON.parse( JSON.stringify( a ) )   //浅复制，仅复制可枚举的基本类型（非引用)
-var a3 = Object.assign(a0,a1...) //一层深复制，所有类型复制给a3
+var a2 = JSON.parse( JSON.stringify( a ) )   //浅复制，仅复制Number、String、Array等能够被json表示的数据结构
+var a3 = Object.assign(a0,a1...) //浅复制，所有类型复制给a3
+// 深复制
+jQuery.extend()
 为什么是一层：http://blog.csdn.net/waiterwaiter/article/details/50267787
 // 3.3.5 属性描述符
 var myObject = {
