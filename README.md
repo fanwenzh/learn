@@ -19,7 +19,8 @@ vue源码学习 2.4       [20170810 - 201708013]
 - elementUI,    
 - sass,   
 - ![javascript30](https://github.com/wesbos/JavaScript30)  (20170817) 
-- 前端关键路径优化总结  
+- 前端关键路径优化总结 
+- ![pug](https://pugjs.org/zh-cn/api/reference.html) 
 
 ## 巩固/深入
 D3.js: http://www.ourd3js.com/wordpress/  
@@ -51,7 +52,7 @@ tcp/ udp 网络编程
 - HTML5与css3实战指南
 ## 其他
 设计中的设计 -- 原研哉  
-或者本来单纯 -- 丰子恺  
+活着本来单纯 -- 丰子恺  
 
 ## 待看书籍  
 tcp网络详解  

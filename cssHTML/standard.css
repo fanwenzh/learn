@@ -33,3 +33,40 @@ Visual 视觉外观，相关属性包括：color / background / list-style / tra
 .g-header {
   @extend %clearfix;
 } */
+
+/* 属性声明顺序规范 */
+.declaration-order {
+  /*Position（定位）*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: none;
+  float: right;
+
+  /*Box model（盒模型）*/
+  width: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: 0;
+
+  /*Typographic（和文字相关的）*/
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  word-break: break-all;
+  line-height: 3em;
+
+  /*Visual（其他视觉上的）*/
+  cursor: pointer;
+  background: #00FF00 url(img.png) no-repeat fixed top;
+  outline: none;
+  opactity: 0;
+  visibility: hidden;
+  transform: rotate(7deg);
+  transition: width 2s;
+  animation: mymove 5s infinite;
+}
