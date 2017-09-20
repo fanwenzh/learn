@@ -193,78 +193,7 @@ var CarFactory = {
 //     // ajax请求
 //   }
 // })
-// 桥接模式（暴露内部接口）: 主要作用把抽象和现实分离开，使他们完全独立
-$(function() {
-  // 1、前台业务逻辑
-  var i = document.getElementById('input', bridgeHandler);
-  // 桥模式分离: 降低耦合性
-  function bridgeHandler() {
-    var msg = this.value
-    sendReq(msg)
-  }
-  //  2、后台逻辑
-  function sendReq(msg) {
-    console.log('发送后台数据' + msg)
-  }
-})
 
-// 享元模式
-// 划分私有(闭包or私有实现), 公有变量(prototype)
-// 优化重复的代码
 
-// 发布订阅者模式（观察者模式）
-var Publish = function(name) {
-  this.name = name
-  // 记录所有的订阅者
-  this.subscribers = []
-}
-// Publish类的实例对象发布消息
-Publish.prototype.deliver = function (news) {
-  var publish = this
-  this.subscribers.forEach(function(fn) {
-    fn(publish, news) // 把新消息发布给订阅者
-  })
-  return this // 链式编程
-} 
 
-// 订阅者属于方法类
-// (具体订阅实例的)订阅者订阅的方法
-Function.prototype.subscribe = function(publish) {
-  var sub = this
-  // for循环即可
-  // some: 其中一个返回true， 整体返回true
-  var alreadyExists = publish.subscribers.some(function(item) {
-    return item === sub
-  })
-  if(!alreadyExists) {
-    publish.subscribers.push(this)
-  }
-  return this
-}
-// (具体订阅实例的) 订阅者取消订阅的方法
-Function.prototype.unsubscribe = function(publish) {
-  var sub = this
-  // 或splice(index, 1)
-  pubslih.subscribers = pubslih.subscribers.filter(function(item){
-    return item !== sub
-  })
-  return this
-}
 
-// 命令模式：封装方法调用的方式
-// 用于消除调用操作的对象和实现操作的对象之间的耦合
-// 用命令类中间层保存命令方法的封装，简化执行方法
-function MakeStart(obj) {
-  return function() {
-    obj.start()
-  }
-}
-function MakeStop(obj) {
-  return function() {
-    obj.stop()
-  }
-}
-var startCommand = new MakeStart(obj)
-startCommand()
-var stopCommand = new MakeStop(obj)
-stopCommand()

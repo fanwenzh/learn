@@ -26,6 +26,8 @@ vue源码学习 2.4       [20170810 - 201708013]
 D3.js: http://www.ourd3js.com/wordpress/  
 算法  
 python   
+pug  
+git
 
 ## skip
 bootstrap  
@@ -61,3 +63,5 @@ HTTP权威指南
 unix 编程艺术  
 unix网络编程  
 javascript函数编程  
+《女性的起源》  
+《失控》 

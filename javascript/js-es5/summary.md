@@ -85,7 +85,7 @@
 		innerHTML, outerHTML, innerText
 	- 位置内容长度相关
 		clientHeight, clientWidth: padding+内容 
-		clientLeft, clientTop : border宽度
+		clientLeft, clientTop : border(边框)宽度
 		offsetHeight, offsetWidth: (padding+内容 = clientXXX) + border宽度
 		offsetLeft, offsetTop, 相对于版面或父坐标offsetPartent的位置信息
 		offsetPartent 返回父节点
@@ -100,6 +100,22 @@
 
 		css盒子模型
 		margin, padding, box-sizing:border-box
+muse-ui
+```js
+	// 获取距离的document的offset
+	let getOffset = function (el) {
+	  let box = el.getBoundingClientRect()
+	  let body = document.body
+	  let clientTop = el.clientTop || body.clientTop || 0
+	  let clientLeft = el.clientLeft || body.clientLeft || 0
+	  let scrollTop = window.pageYOffset || el.scrollTop
+	  let scrollLeft = window.pageXOffset || el.scrollLeft
+	  return {
+	    top: box.top + scrollTop - clientTop,
+	    left: box.left + scrollLeft - clientLeft
+	  }
+	}
+```
 
 ### dom深入
 - 获取元素方法 

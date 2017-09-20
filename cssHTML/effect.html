@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- material design（动态更新的视觉设计语言） -->
+	<!-- http://wiki.jikexueyuan.com/project/material-design/whatis-material-design/environment.html -->
+	<title>Document</title>
+	<style>
+		/* 选择线条展开 */
+		.c1 {
+			width: 200px;
+			height: 5px;
+			background-color: green;
+			transition: transform .5s ease-out;
+			/* scaleX(0) 或  visibility: hidden => visible*/
+			transform: scaleX(0.01);  
+		}
+		.c1:hover {
+			transform: scaleX(1);
+		}
+		/* fi */
+	</style>
+</head>
+<body>
+	<!-- div 线条没有到展开 -->
+	<div class="c1"></div>
+	<!-- muse ui: ripple效果 -->
+	<div class="container">
+		<!-- 绑定width, height, 设置 -->
+		<div class="ripple-wrapper">
+			<!-- v-for 绑定circles数组，渲染波浪 -->
+			<div class="ripple"></div>
+		</div>
+	</div>	
+	<script>
+	// muse ui: ripple效果, internal/touchRipple
+	// 计算 ripple 位置、大小 
+	setRippleSize () {
+      const el = this.$refs.innerCircle
+      const height = el.offsetHeight
+      const width = el.offsetWidth
+      const size = Math.max(height, width)
+
+      let oldTop = 0
+
+      if (el.style.top.indexOf('px', el.style.top.length - 2) !== -1) {
+        oldTop = parseInt(el.style.top)
+      }
+
+      el.style.height = `${size}px`
+      el.style.top = `${(height / 2) - (size / 2) + oldTop}px`
+	    }
+	  }
+	getRippleStyle (event) {
+      const el = this.$refs.holder
+      const elHeight = el.offsetHeight
+      const elWidth = el.offsetWidth
+      const offset = domUtil.getOffset(el)
+      const isTouchEvent = event.touches && event.touches.length
+      const pageX = isTouchEvent ? event.touches[0].pageX : event.pageX
+      const pageY = isTouchEvent ? event.touches[0].pageY : event.pageY
+      // 鼠标点击位置相对offsetParent的位置
+      const pointerX = pageX - offset.left
+      const pointerY = pageY - offset.top
+      // 距离四个角的位置
+      const topLeftDiag = this.calcDiag(pointerX, pointerY)
+      const topRightDiag = this.calcDiag(elWidth - pointerX, pointerY)
+      const botRightDiag = this.calcDiag(elWidth - pointerX, elHeight - pointerY)
+      const botLeftDiag = this.calcDiag(pointerX, elHeight - pointerY)
+      const rippleRadius = Math.max(
+        topLeftDiag, topRightDiag, botRightDiag, botLeftDiag
+      )
+      const rippleSize = rippleRadius * 2
+      // 默认 ：transform-origin: left top 
+      // 移动初始点
+      const left = pointerX - rippleRadius
+      const top = pointerY - rippleRadius
+      return {
+        directionInvariant: true,
+        height: rippleSize + 'px',
+        width: rippleSize + 'px',
+        top: top + 'px',
+        left: left + 'px'
+      }
+    }
+    // 触碰开始、结束函数，绑定监听
+    start (event, isRippleTouchGenerated) {
+      if (this.ignoreNextMouseDown && !isRippleTouchGenerated) {
+        this.ignoreNextMouseDown = false
+        return
+      }
+      this.ripples.push({
+        key: this.nextKey++,
+        color: this.color,
+        opacity: this.opacity,
+        style: this.centerRipple ? {} : this.getRippleStyle(event)
+      })
+      this.ignoreNextMouseDown = isRippleTouchGenerated
+    },
+    end () {
+      if (this.ripples.length === 0) return
+      this.ripples.splice(0, 1)
+      this.stopListeningForScrollAbort()
+    },
+    stopListeningForScrollAbort () {
+      if (!this.handleMove) this.handleMove = this.handleTouchMove.bind(this)
+      document.body.removeEventListener('touchmove', this.handleMove, false)
+    },
+    startListeningForScrollAbort (event) {
+      this.firstTouchY = event.touches[0].clientY
+      this.firstTouchX = event.touches[0].clientX
+      document.body.addEventListener('touchmove', this.handleMove, false)
+    }
+
+
+	</script>
+</body>
+</html>

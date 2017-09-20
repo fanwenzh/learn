@@ -116,9 +116,9 @@ each val, index in ['〇', '一', '二']
 
 ## 混入mixin
 //- 定义
-mixin list
+mixin list(arguments)
   ul
-    li foo
+    li foo #{arguments[0]}
     li bar
     li baz
 //- 使用
