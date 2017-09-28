@@ -8,6 +8,8 @@ vue源码学习 2.4       [20170810 - 201708013]
 - Visual Dom ![实现策略](https://segmentfault.com/a/1190000004029168)
 细节实现学习
 2. mysql : 范式  
+3. canvas
+canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Finale  
 
 ## 已学习
 - ![js-es5](https://github.com/fanwenzh/learn/tree/master/javascript/js-es5)
@@ -21,12 +23,12 @@ vue源码学习 2.4       [20170810 - 201708013]
 - ![javascript30](https://github.com/wesbos/JavaScript30)  (20170817) 
 - 前端关键路径优化总结 
 - ![pug](https://pugjs.org/zh-cn/api/reference.html) 
+- ![canvas](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing)
+- ![shell](https://billie66.github.io/TLCL/book/)
 
 ## 巩固/深入
-D3.js: http://www.ourd3js.com/wordpress/  
 算法  
 python   
-pug  
 git
 
 ## skip
@@ -37,15 +39,13 @@ jQuery Mobile
 
 ## 待学
 node  
-webgl  
-shell  
-linux基础！！！   
-canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing    
-svg: http://sbco.cc/demo/svg/html/index.html  
-微信小程序  
 three.js  
-lodash  
+webVR 
+linux    
+微信小程序  
 tcp/ udp 网络编程   
+D3.js: http://www.ourd3js.com/wordpress/  
+svg: http://sbco.cc/demo/svg/html/index.html  
 
 ## 已看
 - css揭秘, 推荐！

@@ -117,12 +117,12 @@ each val, index in ['〇', '一', '二']
 ## 混入mixin
 //- 定义
 mixin list(arguments)
-  ul
+  ul&attribute(attributes)
     li foo #{arguments[0]}
     li bar
     li baz
 //- 使用
-+list
++list(class='btn') // 括号传入attributes
 +list
 
 ## 纯文本 |, .
