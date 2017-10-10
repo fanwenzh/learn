@@ -25,6 +25,7 @@ canvas : https://github.com/supperjet/H5-Animation, https://developer.mozilla.or
 - ![pug](https://pugjs.org/zh-cn/api/reference.html) 
 - ![canvas](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Compositing)
 - ![shell](https://billie66.github.io/TLCL/book/)
+- ![three.js](http://www.hewebgl.com/article/getarticle/26) , Three.js入门指南  
 
 ## 巩固/深入
 算法  
@@ -38,8 +39,7 @@ jQuery Mobile
 ![react](https://github.com/ruanyf/react-demos)   
 
 ## 待学
-node  
-three.js  
+node   
 webVR 
 linux    
 微信小程序  
@@ -62,6 +62,6 @@ HTTP权威指南
 白帽子讲web安全    
 unix 编程艺术  
 unix网络编程  
-javascript函数编程  
+javascript函数编程   
 《女性的起源》  
 《失控》 
