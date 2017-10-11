@@ -237,15 +237,28 @@ var light = new THREE.SpotLight(0xffff00, 1, 100, Math.PI / 6, 25);
 // 固定位置
 light.position.set(x1, y1, z1);
 light.target.position.set(x2, y2, z2); 
-// 跟随物体
+// 聚光灯跟随物体
 light.target = cube; 
 
-// 阴影
+// 阴影: three.js 入门
 // 在Three.js中，能形成阴影的光源只有THREE.DirectionalLight与THREE.SpotLight；而相对地，能表现阴影效果的材质只有THREE.LambertMaterial与THREE.PhongMaterial。
 // 聚光灯阴影
 renderer.shadowMapEnabled = true; // 设置渲染阴影
 xxx.castShadow = true; // 设置对于光源以及所有要产生阴影的物体
 xxx.receiveShadow = true; // 设置接收阴影的物体调用
 // 平行光
+// 需要设置shadowCameraNear、shadowCameraFar、shadowCameraLeft、shadowCameraRight、shadowCameraTop以及shadowCameraBottom
+light.shadowCameraVisible = true  // 显示摄像机位置
+light.shadowDarkness // 0-1 阴影的深浅
+renderer.shadowMapSoft = true // 软阴影效果? 
+
+```
+
+## 第9章 着色器 - 未理解
+```js
+// const, attribute, uniform, varying
+varying vec2 vUv; // 声明类型为vec2的vUv变量
+vUv = uv
+gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0)
 
 ```
