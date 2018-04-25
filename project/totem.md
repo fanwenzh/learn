@@ -10,6 +10,6 @@ mock server两大任务:
 <!-- swagger-node + Mock.js + swagger-tools -->
 
 ### 组件开发过程
-！！！
+
 
 校验工具： validator

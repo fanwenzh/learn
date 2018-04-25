@@ -30,6 +30,8 @@ font-family:      微软小黑
     text-overflow: ellipsis;
     white-space: nowrap;
     -webkit-line-clamp:1;
+    &:hover
+        white-space: normal
 
 居中样式:
     1) 绝对定位，top, left, transform 50%

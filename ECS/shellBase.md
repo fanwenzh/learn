@@ -92,6 +92,7 @@ wc filename # 打印行数、字数、字节数 -l  行数
 ### grep 打印匹配行
 grep pattern filename
 grep -rn '====' a.js # 在a.js文件中查找===字符串，并且显示行号
+brew list|grep python # 查看python
 
 ### head/tail 打印文件开头/结尾
 head -n 5 ls-output.txt # 打印5行

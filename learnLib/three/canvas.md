@@ -3,7 +3,7 @@ https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Finale
 ## canvas
 ```js
 // 行内元素定义高宽，css可能出现扭曲
-<canvas id="tutorial" width="150" height="150"></canvas>
+// <canvas id="tutorial" width="150" height="150"></canvas>
 var canvas = document.getElementById('tutorial')
 canvas.setAttribute('width',132); // 函数添加属性
 canvas.setAttribute('height',150);
