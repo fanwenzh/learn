@@ -194,6 +194,12 @@ for place in sys.path:
 # 处理缺失值, 补充字典值
 table.setdefault(item) # 键不存在，添加元素, 存在则不添加
 table.defaultdict(item) # 指定元素默认值
+
+import os
+print os.getcwd()
+print os.path.abspath(os.curdir)
+print os.path.abspath('.')
+
 # 库
 from collections import Counter # 计数器
 breakfast = ['spam', 'eggs', 'spam']
@@ -382,6 +388,12 @@ from decimal import Decimal
 import numpy as np
 arr = np.array([1,2,3,4]) # 创建数组 a[0, 0]
 arr = np.arange(10, dtype=float) # 0.0-10.0
+np.mat() # 数组化为矩阵
+mt = np.mat([[1,2],[3,4]]) # 矩阵mt
+mt.getA() # np.asarray(self) 转换为ndarray类型
+mt.getA1() # 转换为1维矩阵
+mt.getH() # 复数时为对偶矩阵，实数时为转置
+mt.getI() # 返回可逆矩阵的逆
 m = np.zeros((3,4)) # 3*4 为0的矩阵
 m = np.ones((1,3)) # 全为1.0
 m = np.empty((1,3)) # 空数组，近似0[(1, 5, 9), (2, 6, 10), (3, 7, 11), (4, 8, 12)]
