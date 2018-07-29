@@ -58,7 +58,7 @@ Iterator接口: 可用for of 循环
     foo::bar; // 等同于 bar.bind(foo); 如c++
     foo::bar(...arguments); // 等同于 bar.apply(foo, arguments);, arguments非Array
     obj::obj.foo // ::obj.foo, 可采用链式写法
-7.数组扩展:具有Iterator接口
+7.数组扩展:具有Iterator接口: for...of: value, for ...in: key
     Math.max(...[14, 3, 77]), arr1.push(...arr2), 合并数组[1, 2, ...more]
     Array.isArray(), // arguments false
     Array.from(ary, (x)=>x*x) //.map不该变原数组 // 将具有长度的对象(类数组)转换为数组 Array.prototype.slice // iterable object to convert to an array.

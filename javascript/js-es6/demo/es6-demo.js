@@ -106,6 +106,33 @@ asyncFun(3, 2).then(function(res) {
     })
     */
 
+function createPromise(url) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url,
+            dataType: 'json',
+            success(arr) {
+                resolve(arr)
+            },
+            error(err) {
+                reject(err);
+            }
+        })
+    })
+}
+
+Promise.all([createPromise(url1), createPromise(url2)])
+    .then(function(arr) {
+        let [res1, res2] = arr
+    }, function(err) {
+        console.log(err)
+    })
+
+Promise.race([
+    $.ajax({url1}),
+    $.ajax({url2})
+])
+
 //### 4 symbols
 // 私有属性
 // let name = Symbol('name');

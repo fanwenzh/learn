@@ -14,6 +14,7 @@ int()
 float()
 str() 
 bool()
+# v.clip() 截取
 ``` 可创建多行字符串 
 ```python 
   len(str) // 获取长度 
@@ -458,6 +459,8 @@ df.mean(axis = 1,skipna = False) # skipna参数默认是 True 表示排除缺失
 df.sort_index()#行名字排序
 df.sort_index(axis=1)#列名字排序
 df.sort_index(axis=1,ascending = False) # 数据默认是按升序排序的，也可以降序排序, 等等函数
+df.median() # 中位数
+df.std() # 标准差
 # 数据规整
 pd.concat([df1, df2], axis=0) # 纵向拼接
 pd.concat([df1, df2], axis=1) # 横向拼接

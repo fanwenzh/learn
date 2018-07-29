@@ -1,7 +1,15 @@
 // 配置
 http://www.centoscn.com/mysql/2016/0626/7537.html
-不区分大小写
+## 创建数据库
+mysql -u root -p # root用户登录
+create database bank
+# 创建lrngsql用户，并赋予bank操作权限
+grant all privileges on bank.* to 'lrngsql'@'localhost' identified by 'xyz' 
+quit 
+mysql -u lrngsql -p # 以用户lrngsql登录
+use bank # 使用bank数据库
 
+不区分大小写
 CHAR 固长字符串，不足空格天填充
 VARCHAR 变长字符串, '单引号转义
 
@@ -14,6 +22,12 @@ tinyint, smallint, mediumint, int, bigint
 float, double
 时间类型
 data, datatime, timestamp, year, time
+
+约束 constraint
+非空约束(not null)
+唯一性约束(unique)
+主键约束(primary key) PK
+外键约束(foreign key) FK
 
 1.DDL（数据定义语言）
 CREATE DATABASE - 创建新数据库
@@ -43,7 +57,9 @@ INSERT INTO - 向数据库表中插入数据
 
 // 查询: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY
 SELECT cols (*/col as otherName/DISTINCT col：去重)
-FROM table1 AS otherName INTER JOIN table2 ON condition // 连接表
+WHERE a BETWEEN 3000 AND 5000
+// 连接表
+FROM table1 AS otherName INTER JOIN table2 ON condition 
 WHERE condition AND condition (OR， IS, NOT 最好在condition中用!表示, IN, NOT IN) // BETWEEN AND // attr != ALL (select ... 集合)
 GROUP BY 1, 2 （先按第一列后（再第一组分完的情况下）按第二列分组）
 HAVING condition
@@ -89,6 +105,8 @@ __t_ 包含4个字符，且第三个为t的字符串
 IS NULL // 判断空
 
 5. 多表查询
+// INNER JOIN
+// LEFT JOIN:取所有left表元素，用right匹配, RIGHT JOIN // 
 JOIN: 笛卡尔积, INNER JOIN
 内连接(条件链接) 
 SELECT e.fname, e.lname, d.name
@@ -138,7 +156,7 @@ WHERE val = (SELECT SUM(*)
 			FROM account a
 			WHERE a.cust_id = c.cust_id)
 // 关键字
-EXIST, NOT EXIST
+EXIST, NOT EXIST, IN, NOT IN, ANY, ALL
 
 10.连接
 外连接 // left 表示左表可以
