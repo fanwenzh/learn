@@ -1,3 +1,18 @@
+# 原理
+window.addEventListener('hashchange', function() {
+  console.log(location.hash); // url
+})
+
+// 查询方式
+<router-link :to="{ name:'login', query:{id:1}}">样式1<router-link> // this.$route.query.id
+<router-link :to="{ name:'register', params:{namme:'abc'}}">样式2<router-link> // this.$route.parmas.name
+routes:[
+  {name: 'login', path: '/login', component:Login}, 
+  {name: 'register', path:'/register/:name', component:Register},
+  // 路由添加meta判断，beforeEach在路由跳转时用to.meta.isChecked判断跳转权限
+  {name: 'music', path: '/music', component:Music, meta:{isChecked:true}},
+]
+
 全局钩子
 const router = new VueRouter({ })
 router.beforeEach((to, from, next) => {

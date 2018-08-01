@@ -1,6 +1,0 @@
-vue-resouce pass
-Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
-Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
-https://github.com/pagekit/vue-resource/blob/develop/docs/http.md
-
-

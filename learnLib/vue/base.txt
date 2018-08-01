@@ -1,3 +1,12 @@
+# SPA搜索引擎优化SEO: 预渲染:需要history模式
+npm i prerender-spa-plugin -D
+# 骨架屏
+npm i -g lavas // lavas init
+
+<div rel='test'></div>
+mouted时或后才能调用this.$rels.test
+this.$nextTick(function(){})
+
 观察数组，触发以下方法均可触发视图更新
 .push(), .pop(), 
 .shift(), .unshift(), .splice(), .sort(), .reverse()
@@ -8,7 +17,8 @@ example1.items.splice(newLength) // 改变数组长度
 
 实例:
 var vm = new Vue({
-  el: '#app',
+  el: '#app', // el:document.getElementById('app'), // 省去vue内部类型判断
+  // template: '<div>test {{message}}</div>',
   data: function(){
       return{
         message: 'Hello Vue!'
@@ -19,7 +29,11 @@ var vm = new Vue({
   updated:function(){},
   destroyed:function(){},
   watch:{
-      attr:cb(){}
+      attr:cb(){},
+      attr2: {
+        deep: tre,
+        handler:function(newV, oldV) {}
+      }
   }
   methods:{}, // 可于computed（缓存读取）互用
   computed:{
@@ -29,6 +43,7 @@ var vm = new Vue({
           return this.message.split('').reverse().join(''); // this不能绑定，依赖缓存储存
       }
   },
+  // {{ data | capitalize }}
   filters:{  //  严格来说应该是格式化：返回更新值，但是数组当中的.filter(function(val){})返回回调函数为true的值
       capitalize:function(val, args){ // 可接受参数
           return val+1;
@@ -44,11 +59,11 @@ vm.$watch('attr', function(newVal, oldVal){})
 渲染时可有{{ 单个js表达式 }}
 
 属性绑定： 
-v-bind:attr="" => :attr=""
+v-bind:attr="" => :attr="" // 单项绑定：页面到内存
 v-on:click="fn(args, $event)" => @click // $event传入原生e事件
 @click.stop.prevent.capture.self self有顺序之别！！ .once v-on:keyup.13="submit" //enter
 keyup.enter, keyup.tab, keyup.delete, keyup.space, 全局修饰 https://cn.vuejs.org/v2/guide/events.html#修饰键
-v-model
+v-model // 双向绑定
 v-if（惰性渲染）, v-else, v-else-if, v-for// 比v-if有更高的优先级
 <li v-for="(item, index) in(of) items" v-if="" key="item.id"> // <span v-for="n in 10">{{n}}</span>
 v-show（肯定渲染）
@@ -83,7 +98,7 @@ Vue.component("name" ,{
 </div>
 // 也可以进行全局绑定，如 bs-date-input 插件
 
-// 父传子
+// 父传子 v-bind:attr == :attr
 <child :temp="fatherAttr"></child>
 new Vue({
     props:{

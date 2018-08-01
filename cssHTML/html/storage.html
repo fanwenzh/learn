@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // manifest文件：浏览器缓存
+
+    // sessionStorage
+    sessionStorage.setItem('keyname', 'value')
+    sessionStorage.keyname = 'value'
+    let v = sessionStorage.getItem('keyname')
+    v = sessionStorage.keyname
+    // localStorage
+    localStorage.setItem('keyname', 'value')
+    localStorage.getItem('keyname')
+    localStorage.keyname = 'value'
+    localStorage.clear()
+    localStorage.removeItem('keyname')
+
+    window.addEventListener('storage', function(e) {
+      e.key
+      e.oldValue
+      e.newValue
+      e.url // 修改页面的url地址
+      e.storageArea // sessionStorage, localStorage
+    }, false)
+  </script>
+</body>
+</html>

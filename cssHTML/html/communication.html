@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <iframe src="http://www.fwz.com/test/" frameborder="0" onload="hello"></iframe>
+  <video id='myVideo' autoplay></video>
+  <script>
+    // rfc-http:
+    // http 1.0: 短连接
+    // http 1.1: 长连接 Connection: keep - alive
+    // http 2.0: 加入状态管理
+    // 缓存：Cache-Control, Date, Expires
+    // xss:跨站脚本攻击（1.DNS污染,2.拿别人网站代码在自己浏览器运行）
+
+    // 协议      域名      端口号 ： 同源           
+    // http://www.baidu.com:80  220.123.23.23(外网ip地址) 80(服务器端口号)
+    // 服务器端口号(0~64435) ，80: http, 443: https, 21: FTP
+    // search: ? name = fanwenzh & age=18: url的传参
+    // query: name = fanwenzh & age=18
+
+    // 跨域双向通信:封装socket.io
+    var sock = new WebSocket('ws://location:8080')
+    sock.send('data')
+    sock.onmessage= function(e){
+      // 0: 正在连接, 2:正在关闭连接, 3:已关闭连接
+      if(e.readyState == 1) { // 已建立连接
+        console.log(e.data)
+      }
+    }
+    sock.onopen=function(e){} // 开始通信
+    sock.onclose=function(){}
+    sock.close() // 关闭端口
+
+    // Server-Sent Events API: 服务器向客户端单项通信
+    // 服务端需指定header, Content-Type: text/event-stream, Cache-Control: no-cache
+    var source = new EventSource('serverUrl')
+    source.onmessage = function(e) {
+      console.log(e.data)
+    }
+    source.onopen=function(){}
+    source.onerror=function(){}
+
+    // 音视频实时通信、文件传输Real Time Communication, WebRTC
+    // http://www.hzcourse.com/web/refbook/detail/6221/208: 陆凌牛
+    // 检测
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+    window.URL = window.URL || window.webkitUrl
+    var video = document.getElementById('myVideo')
+    video.play()
+    // 去当前浏览器摄像头视频流
+    navigator.getUserMedia({video: true, audio:true}, function(stream){
+      window.src = window.URL.createObjectURL(stream)
+    },
+    function(err){
+      console.log(err)
+    })
+    // canvas 快照
+    var ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0)
+    document.getElementById('img').src = canvas.toDataURL('image/png')
+
+    // XMLHttpRequest API
+    // 获取表单数据
+    var form = docuemnt.getElementById('form1') // form.append(key, value)
+    var gormData = new FormData(form)
+    // 建立请求
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    // xhr.responseType = 'arraybuffer' // 接收二进制数据，如图片，默认为text, xhr.responseText
+    // var bb = new Blob([this.response]) // 需要用Blob接收
+    xhr.send()
+    xhr.ontimeout = function(){}
+    // xhr.setRequestHeader(key, value)
+    xhr.timeout = 1000
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if ((xhr.status >= 200 && xhr < 300) || xhr.status == 304) {
+          console.log(xhr.responseText)
+          // xhr.responseURL
+          // xhr.responseXML.getElementByTagName('xmlTagName')
+          JSON.stringify(jObject) // JSON.parse(str)
+        }
+      }
+    }
+    // AJAX 2.0
+    xhr.upload.onload	// 上传完成
+    xhr.upload.onprocess = function (e) {// 上传进度
+      console.log(e.loaded/e.total + '%')
+    } 
+    // 跨域服务端
+    // Access-Control-Allow-Origin:* // 指定允许地址http://www,baidu.com
+    // Access-Control-Allow-Methods: POST, GET
+    // Access-Control-Allow-Header:
+
+    // JSONP
+    function fn(data){ }
+      var url = "http://matchweb.sports.qq.com/kbs/calendar?columnId=100000&cb=fn";
+      var script = document.createElement('script');
+      script.setAttribute('src', url);
+      // 把script标签加入head，此时调用开始
+      document.getElementsByTagName('head')[0].appendChild(script);
+    // jq实现
+      $.ajax({
+        url: url,
+        // type: "get",
+        dataType: "jsonp", //格式为jsonp!
+        // data: null,
+        // async: true,
+        // cache: false, // url添加随机数，get请求不要缓存
+        jsonpCallback: "fn", //自定义传递给服务器测函数名为fn,而不是jquery生成的随机函数名
+        jsonp: "cb",         //把传递函数名的形参callback变为cb, 即&cb=fn
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (e) { }
+      })
+
+
+    // webWorker
+    // 标准：https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage
+    // arg为js文件或代码, 如传输一个计算量大的函数, 传给pc线程池
+    let worker = new Worker('demo.js');
+    // var worker2 = new Worker('demo.js', 'threadName') // 可创建线程共享的worker
+    // worker.addEventListener("message", function(e){}, false)
+    worker.onmessage = function (event) {
+      var res = event.data;
+      postMessage(res);
+    }
+    worker.postMessage(message) // 传入数据
+    // demo.js: http://blog.csdn.net/zdy0_2004/article/details/70199241
+    // 共享线程
+    let shareWorker = new SharedWorker('shared.js');
+    worker.port.addEventListener('message', function (e) {
+      log.innerText = e.data;
+    }, false);
+    worker.port.start();
+    get.addEventListener('click', function (e) {
+      worker.port.postMessage('get');
+    }, false);
+    // share.js
+    var data;
+    onconnect = function (e) {
+      var port = e.ports[0];
+      port.onmessage = function (e) {
+        if (e.data == 'get') {
+          port.postMessage(data);
+        } else {
+          data = e.data;
+        }
+      }
+    }
+    worker.port.close()
+
+    // MessageChannel:跨域页面间通信
+    // var mc = new MessageChannel()
+    // 一个channel两个端口实现通信
+    // var port1 = mc.port1
+    // var port2 = mc.port2
+    // port1.start() // 激活端口开始监听
+    // port1.close() // 关闭端口
+    var channel = new MessageChannel();
+    var para = document.querySelector('p');
+    var ifr = document.querySelector('iframe');
+    var otherWindow = ifr.contentWindow;
+    ifr.addEventListener("load", iframeLoaded, false);
+    function iframeLoaded() {
+      // 传输信息及端口， *为targetUrl
+      otherWindow.postMessage('Hello from the main page!', '*', [channel.port2]);
+    }
+    channel.port1.onmessage = handleMessage;
+    function handleMessage(e) {
+      // e.origin, e.data
+      para.innerHTML = e.data;
+    }
+
+
+  </script>
+</body>
+</html>

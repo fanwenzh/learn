@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="global.css" />
+	
+	<style lang="">
+		/* media Queries: @media 设备类型 and (设备提醒) {样式代码}
+			@media screen and (max-width: 768px){}
+			@media not screen and (min-width:769px and max-width:992px){}
+			@media all and (min-width:993px and max-width:1200px){}
+			@media only screen and (min-width:1201px){} 
+		*/
+		/* 属性选择 */
+		/* [id*test]{} [attr*=val] 
+		[id^test]{}/* [attr^=val] 以val开头
+		[id$test]{}[attr$=val] 以val结尾 */
+		div:after{content: 'test'} 
+		div:before{content: url(test.sav)}
+		div:first-child{} /* :last-child, nth-child(n), nth-last-child(n) */
+		div:hover{} /* :active, :focus :enabled, :disabled */
+		/* 包含选择符(E F)
+		子选择符(E>F)
+		相邻选择符(E+F) // 紧跟在E之后的元素F
+		兄弟选择符(E~F) */
+		
+		/* 文字与字体相关 */
+		div {
+			text-shadow: 5px 5px 5px gray; /* 可设置多阴影 */
+			color: navy;
+			font-size: 50px;
+			font-weight: bold;
+			font-family: '宋体';
+			/* 文本中单词自动换行 */
+			word-break: keep-all; /* normal, break-all*/
+			word-wrap: break-word; /* 长单词与URL换行 */
+		}
+		/* 指定字体 */
+		@font-face {
+			font-size:1.1rem; /*根据html根元素字体大小定义大小*/
+			font-family: Webfpmt;
+			src: url('font/test.otf');
+		}
+
+		/* 盒模型 */
+		div {
+			/* 
+			none: 不同于visibility:hidden, none隐藏不占位, 引起重排
+			inline: 内联元素, 一行排列直至换行, 不可设置width,height, 宽度有其内容决定, 只可设置水平方向margin,padding的left,right
+			block： 块元素，单独一行显示，可设置width, height, margin, padding
+			inline-block: 行内block, 可以设置height，width，margin，padding
+			会出现间距, 消除方法：
+			1.<span></span><span></span>连写;
+			2.margin: -5px;
+			3.font-size:0;
+			4.word-spacing和letter-spacing设置，有浏览器差异 */
+			display: none;
+			overflow: hidden; /* 内容超出: scroll, visible*/
+			/* overflow-x: overflow-y: */
+			text-overflow: ellipsis; /* 文字组超出用...代替, hidden */
+			white-space: nowrap; /* 不折叠 */
+			/* box-shadow: h-shadow v-shadow blur spread color inset; */
+			/* 长度与边界 */
+			box-sizing:border-box; /* content-box */
+			text-align:center;
+		}
+		
+		/* 背景与边框 */
+		div{
+			background-clip: padding; /* 背景显示范围：margin, border, content */
+			background-origin: border; /* 背景绘制原点： margin, content */
+			/* background-size: x y; auto, contain, cover, 50% */
+			background-image: url(test.png); /* 可显示多张照片 */
+			background-repeat: no-repeat; /* space, round */
+			background-position: 3%; 
+			/* 渐变  */
+			background: linear-gradient(to bottom right, orange 20%, red 70%); /* 30deg, up, right */
+			background: radial-gradient(at 30px 50px, orange, red); /* ellipse closest-side  */
+			border-radius: 40px 20px;
+			border-image: url(test.png);
+		}
+
+		/* 变形 */
+		div {
+			/* 缩放scale(x, y, z), skew倾斜, translate移动, rotateXYZ(35deg) */
+			transform-origin: left bottom; /* top, center, bottom, right, 0% */
+			transform: scale(0.5, 2) skew(30deg, 30deg) translate(50px, 50px) rotate(45deg);
+			/* http://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/ */
+			/* matrix(0, 0, 0, 0, 30, 30) translate(30, 30) */
+			/* matrix(s, 0, 0, s, 0, 0);  scale(x, y)*/
+			/* matrix(cosθ,sinθ,-sinθ,cosθ,0,0), rotate(θdeg)  */
+			/* transform: matrix3d(sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, 0, 0, 0, 0, 1)  */ 
+			transform: matrix(0, 0, 0, 0, 30, 30);
+		}
+		
+		/* 动画transitions */
+		div {
+			/* transition: property transition-duration transition-timeing-function delay */
+			transition: background-color 1s ease-in .3s;
+		}
+		@keyframes musicMove {
+			0% {
+					-webkit-tarnsform: rotate(0deg);
+					transform: rotate(0deg);
+			}
+			100% {
+					-webkit-transform: rotate(360deg);
+					transform: rotate(360deg);
+			}
+		}
+		.move {
+			/*animation: name duration time-function delay iteration-count direction  */
+			animation: musiceMove 1s linear 0s infinite both;
+			/* animation-name, animation-duration, animation-timing-function, animation-iteration-count, animation-direction */
+			/*  name: object.style.animationName="mymove"
+				*  duration: object.style.animationDuration="3s"
+				*  time-function: linear cubic-bezier(n,n,n,n)
+				*  delay: object.style.animationDelay="2s"
+				*  iteration-count: infinite, n
+				*  direction: normal(正常) alternate(反向) both(来回)
+				*/
+			/* 停在最后一帧 */
+			animation-fill-mode: forwards;
+		}
+
+		/* 布局 */
+		div{
+			float:left; /* right */
+			/* https://developer.mozilla.org/zh-CN/docs/Web/CSS/position */
+			position: fixed; /* relative相对自身, absolute相对上级, sticky */
+			column-count: 3;
+			display: box;
+			/* http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html */
+				/* flex: ie10+, 子元素的float、clear和vertical-align属性将失效
+				# 容器
+				flex-direction: row | row-reverse | column | column-reverse;
+				flex-wrap: nowrap | wrap | wrap-reverse;
+				flex-flow: <flex-direction> || <flex-wrap>;
+				justify-content:  flex-start | flex-end | center | space-between | space-around;;
+				align-items: flex-start | flex-end | center | baseline | stretch;  	// 一行轴线
+				align-content:flex-start | flex-end | center | space-between | space-around | stretch // 多行轴线
+				# 子元素
+				order
+				flex-grow: 放大比例
+				flex-shrink: 缩小比例
+				flex-basis: length | auto
+				flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] // 0 0 30px
+				align-self: auto | flex-start | flex-end | center | baseline | stretch; // 元素的align属性
+			*/
+			display: flex;
+			width: calc(50% +100px); /* 父节点50% */
+		}
+
+		/* 颜色 */
+		div {
+			color: rgba(250, 230, 30, 0.5);
+			opacity: 1;
+			/* 滤镜 */
+			filter: grayscale(50%); /* sepia, saturate, hue-rotate, invert, opacity, contrast, blur */
+			-webkit-filter: grayscale(50%);
+		}
+
+		/* 兄弟元素margin水平不重叠，垂直重叠
+		百分比单位是相对于父级
+		浮动元素不继承宽度: width:50%; // 相对于父级
+		行内元素(非block)margin无效
+		绝对定位与固定定位有宽高
+		显示优先级：
+		1.定位 > 浮动流 > 标准流
+		2.同级按元素按渲染顺序重叠, 后>前
+		3.只有定位(static以外)元素才可以显示优先级：z-index:0 */
+	
+		/* element.scrollHeight - element.scrollTop === element.clientHeight */
+		
+	</style>
+</head>
+<body>
+	
+</body>
+</html>
