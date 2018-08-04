@@ -1,36 +1,53 @@
+let json = eval("("+ text + ")") // str转换Object(json)
 // 数据类型
 // Array
 	[].reverse, .splice, copyWidthin(target, start, end) // 改变数组
 	[].join, reverse // 改变数组并返回引用本身
-	sort // 中文按字典序：str1.localCompare
+	sort(fn) // 中文按字典序：str1.localCompare
 	[].push, pop, unshift, shift, lenth
 	concat // 合并复制
 	splice // 改变原数组，取出子数组
 	slice // 不改变原数组，取出子数组
 	indexOf, lastIndexOf
 	every(fn), some, filter, forEach, map(不改变原数组)
-	reduce, reduceRight
+	reduce, reduceRight, Array.isArray()
 // String
 	cancat(+), slice(start, end), substr(s, length) // / l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
-	indexOf, lastIndexOf
+    indexOf, lastIndexOf
+    charAt(), charCodeAt() // 输出。字母编码
 	trim, toUpperCase, toLowerCase
 	match, search, replace, split // 四个函数可与RegExp匹配
 	str.replace(otherStr, function(subs, index, str){})
 	localeCompare() // 字典序比较
 // Number
-	toFixed, toString(2)
+	toFixed(2) 两位小数, toString(2), parseInt(str, 16) 按16进制解析str, parseFloat()
 // Bollean
 	true.valueOf() // true、false
 	toString // 'true'、'false'
 // Date
-	toString, toUTString
+	toString, toUTString, Date.parse() // 返回毫秒数 Date.UTC(year, month, day, hour, minute, second)
 	.now, getTime, getFullYear, getMonth + 1, getDate, getDay, getHours, getMinutes, getSeconds
 // Math
-	max, min, ceil, floor, round, random, abs
+    max, min, ceil, floor, round, random, abs
+// RegExp: 2-chapter-3.js
+    (/i$/gi).test(), // true or false
+    .exec() // .index, .input
+    str.match(reg)
+    // 1.特殊元字符
+    // \ :转义字符, ^ 开头, $ 结尾, 
+    // \n: 匹配一个换行符, . 匹配除\n以外的任意字符
+    // (): 分组, RegExp.$1,
+    // x|y: x或y， [xyz]: xyz任一字符， [^xyz]除了xyz的人一个字符，[a-z]
+    // \d: [0-9], \D 除了0-9以外的所有字符
+    // \b: 一个边界符, "w1 w2 w3" -> ""|w1| |w2| |w3|", \B匹配除了边界符以外的
+    // \w: 数字、字母、下划线的任一个字符, [0-9a-zA-Z_], \W
+    // \s: 匹配一个空白符、空格、制表符、换页符, \S
+    // 2.两次元字符
+    // * 0-n, + 1-n, ? 0-1, {n}, {n, }, {n, m}
 // Function
 	arguments.callee // 自身
 	arguments.callee.caller // 调用的函数
-	call, apply, bind
+	call(target, a, b ...), apply(target, arr), bind
 // JSON
 	JSON.stringify()
 	JSON.parse()
@@ -41,6 +58,7 @@
    如："number"、"string"、"object"、"undefined"、"function"、"boolean"
    局限性：1.typeof null -> "object"
           2.不能细分数组、正则、对象、null，都返回"object"
+          isNaN()
 2. intanceof
     局限性：
     1.不能处理用字面量方式创建出来的基本数据类型值
@@ -75,6 +93,8 @@ Object.defineProperty
 Object.getPrototypeOf
 Object.keys(); // for in 可枚举类型
 Object.getOwnPropertyNames(); // 无论是否可枚举，输出自定义属性名
+Object.create(a) // 继承a的属性
+Object.assign(obj, other) // other扩展obj  
 .isPrototypeOf()
 .hasOwnProperty()
 .delete(key)
@@ -84,7 +104,7 @@ Object.getOwnPropertyNames(); // 无论是否可枚举，输出自定义属性�
 	encodeURIComponent, decodeRIComponent // 转换所有非字幕数字字符
 	location.assign(url), .href = url.replace
 	// http: //   www.baidu.com  :8000   / dir /   ?cb=fn    #section
-    //     location.hostname, port, pathname, search( ? query) hash
+    //.protocol, .hostname,      .port, .pathname, .search( ? query) hash
     navigator
     userAgent
     screen
@@ -101,6 +121,7 @@ Object.getOwnPropertyNames(); // 无论是否可枚举，输出自定义属性�
         // 返回Node类型 - IE9后返回节点
     nextSibling, previousSibling, parentNode, firstChild, lastChild
     方法: appendChild(node), insertBefore, removeChild, replaceChild
+    contains(), innerText
 // document
     .title, domain, URL
     forms, images // 集合
@@ -150,3 +171,16 @@ el.cloneNode(true) // true为深复制
 el.hasAttributes()
 el.attributes.length
 el.nodeName == "DIV"
+
+var timeId = setTimeout(() => {
+}, timeout);
+clearTimeout(timeId)
+var timeId2 = setInterval(()=>{}, timeout)
+clearInterval(timeId2)
+
+// 事件委托
+oDiv.addEventListener("click", function(e) {
+    let target = e.target
+    switch(target.id) {
+    }
+})

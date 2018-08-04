@@ -9,6 +9,8 @@
 
 //#########################################################
 
+// mongod --dbpath ../data/ // 打开mongodb
+
 // 连接本地数据库
 var mongoose = require('mongoose');
 //"mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]"
@@ -61,6 +63,7 @@ TestModel.findById(_id, function(err, doc) {})
 var condition = { name: 'test4' };
 var update = { $set: { age: 10 } }; //
 TestModel.update(condition, update, { multi: true }, function(err) {}) // multi:删除多条, 默认删除1条
+TestModel.findOneAndUpdate({ID: id}, {$set: {attr: value}}, function(err, doc){})
 
 // 删除
 TestModel.remove(conditions, funciton(err) {})

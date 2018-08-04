@@ -59,3 +59,6 @@ buf.writeInt16LE(1)
     // 解决问题
     // 1.尝试解决，2.问题整理需求，3.抽象关键词，4，google
     // stackoverflow
+
+// const net = require('net) // TCP 原生Socket
+// const io = require('sockit.io) // 封装

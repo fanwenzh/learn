@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="d3.js" charset="utf-8"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    window.onload = function (){
+      // d3.select('body').append('svg').attr('width', 800)
+      // d3.select('body').append('div').style('width', '300px')
+
+      let datas = [
+        { name: '1月', value: 2180 },
+        { name: '2月', value: 1750 },
+        { name: '3月', value: 968 },
+        { name: '4月', value: 3560 },
+      ];
+
+      //求和 -> 每个的数值
+      //创建generator
+      let line = d3.line() // 线性generator
+        .x(json => parseInt(json.name) * 50) // x轴 
+        .y(json => json.value / 20); // y轴
+      //调用generator
+      let res = line(datas);
+
+        //显示
+      d3.select('body').append('svg')
+        .attr('width', 800)
+        .attr('height', 600)
+        .append('path')
+        .attr('d', res) // path的路径数据
+        .attr('stroke', 'black')
+        .attr('fill', 'none');
+
+      // d3.max(arr), .min(), .extent()
+      // d3.color('rgba(30%,45%,71%,0.5)'); //解析成RBGa对象
+
+      // .set, .map
+      let set = d3.set([
+        { name: 'blue', age: 18 },
+        { name: 'alex', age: 22 },
+        { name: 'tom', age: 21 },
+        { name: 'jim', age: 25 },
+      ], json => json.name);
+      
+      // .get
+      console.log(set.has('aaa'));
+
+      // 随机数生成器random numbers
+      let gen = d3.randomNormal(20, 60);
+      console.log(gen())
+
+      // 工具:异步队列
+      d3.queue()
+        .defer((a, b, cb) => { //延迟
+          setTimeout(function () {
+            cb(null, a + b);
+          }, Math.floor(Math.random() * 4000));
+        }, 12, 5)
+
+        .defer((a, b, cb) => {
+          setTimeout(function () {
+            cb(null, a / b);
+          }, Math.floor(Math.random() * 4000));
+        }, 22, 35)
+        .await((err, res1, res2) => { // 输出
+          if (err) {
+            alert('错了');
+          } else {
+            console.log(res1, res2);
+          }
+        });
+
+      // 格式化
+      let gen = d3.format("08.3f"); // 不足左侧补0, 保留3位小数
+      console.log(gen(73));
+      gen = d3.timeFormat('%Y-%m-%d');
+      gen(Date.now())
+
+      // 事件
+      let ev = d3.dispatch('msg', 'xxx');
+      ev.on('msg', (a, b, c) => {
+        console.log('事件被触发了', a, b, c);
+      });
+      ev.call('msg', 5, 1, 2, 3);
+    } 
+  </script>
+</body>
+</html>

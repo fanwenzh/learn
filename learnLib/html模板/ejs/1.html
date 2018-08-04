@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 在node中执行 -->
+  <%= a+b%>
+  <%= str1%>
+  <%- str2%>  <-- 非转义输出 -->
+  <ul>
+    <!-- <% 输出js %> -->
+    <% for(let i=0; i<arr.length; i++) {%>
+      <li> <%= arr[i]%> </li>
+    <% } %>
+  </ul>
+
+  <!-- 模块 -->
+  <%- include('component/header.html') %>
+  <%- include('component/footer.html') %>
+  <!-- 通过header_path变量改变不同的引用 -->
+  <%- include(header_path) %>
+
+</body>
+</html>
