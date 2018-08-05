@@ -11,7 +11,10 @@
   <div id="text"></div>
   <script>
     function init() {
+      // e,dataTrabsfer 属性传递
+      // 可拖放目标: dragstart, drag, dragend
       var source = document.getElementById('dragme')
+      // 可放置目标: dragenter, dragover, dragleave, drop
       var dest = document.getElementById('text')
       source.addEventListener('dragstart', function(e){
         // 向dataTransfer对象追加数据

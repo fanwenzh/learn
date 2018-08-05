@@ -61,4 +61,4 @@ buf.writeInt16LE(1)
     // stackoverflow
 
 // const net = require('net) // TCP 原生Socket
-// const io = require('sockit.io) // 封装
+// const io = require('sockit.io) // 封装  

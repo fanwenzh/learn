@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 不会自动添加后缀名 -->
+  <% include ./common/header.html %>
+    <% arr.forEach(item => { %>
+      <p>
+        <%= item %>
+      </p>
+      <% }) %>
+        <p>data: <%= b.ID %>
+        </p>
+        <h1>tes</h1>
+        <form action="/upload1" method="post" enctype="multipart/form-data">
+          <input class="file" type="file" name="file" multiple>
+          <input class="submit" type="button" value='上传'>
+          <input type="submit" value="原生submit">
+        </form>
+        <script>
+          let sub = document.querySelector('.submit')
+          let h = document.querySelector('h1')
+          let file = document.querySelector('.file')
+
+
+          sub.addEventListener('click', e => {
+            let form = new FormData
+            form.append('file', file.files[0])
+            console.log(file.files)
+            let xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4) {
+                if (xhr.status == 200) {
+                  h.innerText == 'OK'
+                }
+              }
+            }
+            xhr.open('post', 'http://localhost:8081/upload2')
+            xhr.send(form)
+          })
+        </script>
+
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 const Mysql = require('mysql-pro')
 const config = require('../config')
 
-let db = new Mysql({
+const db = new Mysql({
   mysql: {
     host: config.db_host,
     port: config.db_port,

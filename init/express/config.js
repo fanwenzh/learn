@@ -8,7 +8,7 @@ module.exports = {
   logpath: path.resolve('log/access.log'),
 
   // secret
-  secret_key : ['whatthefuck'],
+  secret_key: ['whatthefuck'],
 
   // database
   db_host: 'localhost',

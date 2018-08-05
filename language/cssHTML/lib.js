@@ -16,3 +16,4 @@ touch // 触屏
 fastclick // 去掉200ms延时
 vconsole // 提示输出
 zepto // 移动端jquery
+brower-sync // 同步
