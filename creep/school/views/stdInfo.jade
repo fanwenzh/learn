@@ -1,0 +1,32 @@
+doctype
+html
+    head
+        meta(charset='utf-8')
+        script(type="text/javascript" src="https://cdn.staticfile.org/jquery/3.1.1/jquery.min.js")
+        link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/main.css')
+        title 学生信息
+body
+    div.col-xs-5.col-md-3.col-xs-offset-4
+        div.row-centered
+            h3 个人信息
+        div.col-md-12
+            div.col-md-10
+                p 学号:
+                    span #{sid}
+            div.col-md-10
+                p 性别:
+                    span #{sex}
+            div.col-md-10
+                p 姓名:
+                    span #{username}
+            div.col-md-10
+                p 全拼:
+                    span #{usernamePY}
+        div.row-centered
+            a(href='/stdScore')
+                input.btn.btn-default(type='button' value='成绩查询')
+            a(href='/LessonInfo')
+                input.btn.btn-default(type='button' value='课程查询')
+            a(href='/selectLesson')
+                input.btn.btn-default(type='button' value='选课')

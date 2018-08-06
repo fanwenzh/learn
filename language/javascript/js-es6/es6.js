@@ -5,10 +5,10 @@
 //     npm install -g traceur
 
 // 1.let, const
-    块作用域，不声明提升
+    // 块作用域，不声明提升
 // 2.解构:destructuring不成功为 undefined
     let a = {a1:1, a2:2};
-    let {a1, a2} = a;            // 实现Symbol.Iterator接口的类都能被解析（有generator函数）
+    let {a1, a2: bieming} = a;            // 实现Symbol.Iterator接口的类都能被解析（有generator函数）
     let [a = 3, ...b] = [1, 2, 3]; // 函数设置默认值, 不完全解构
     ({x} = {x:1}) // 对象的单属性解构加()
     for(let [key, value] of map) //map遍历
