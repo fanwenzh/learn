@@ -2,6 +2,7 @@
 npm i prerender-spa-plugin -D
 # 骨架屏
 npm i -g lavas // lavas init
+# vue2-animate: 基于vue的css动画库
 
 <div rel='test'></div>
 mouted时或后才能调用this.$rels.test
@@ -114,6 +115,7 @@ new Vue({
 // 子传父
 <child @childEventName="fatherEventHandle"></child>
 $emit(childEventName, childVal) 触发事件
+this.$attrs.fatherFn()
 //非父子通信
 var bus = new Vue()
 bus.$emit('event1', 1);  监听事件
