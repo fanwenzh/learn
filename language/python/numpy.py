@@ -49,7 +49,7 @@ np.bitcount(I, minlength=len(A)) # 统计基于I的A元素个数
 np.nonzero(m)
 np.diag(1+np.arange(4), k=-1) # 对角函数
 np.array(100, (6,7,8)) # 在三维6*7*8的矩阵里100的下标
-np.tile( np.array([[0,1],[1,0]]), (4,4)) # 将矩阵2*2长宽扩展为4倍
+np.tile( np.array([[0,1],[1,0]]), (4,4)) # 将矩阵2*2长宽扩展为4倍, np.tile(val, (x, y))
 np.linspace(0,1,12, endpoint=True)[1:-1] # 线性空间除去头尾的数组
 np.atleast_2d(m) # 如果m小于2维，转换为2维[] => [[]]
 np.cumsum(m) # 返回各位置前面元素叠加的矩阵

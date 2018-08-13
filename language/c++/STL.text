@@ -13,7 +13,7 @@
 		v.size(), c.empty()
 
 ### queue:
-	q.pop(), q.push(), q.front(), q.back(), q.empty()
+	q.pop(), q.push(x), q.front(), q.back(), q.empty(), q.size()
 
 	deque:双端队列
 		q.push_back(), q.push_front()
@@ -24,7 +24,7 @@
 		priority_queue<int,vector<int>,greater<int>/less<int> >q;
 		
 ### stack
-	s.push(), s.pop(), s.top(), s.size(), s.empty()
+	s.push(x), s.pop(), s.top(), s.size(), s.empty()
 
 ### pair
 	pair<t1, t2> p(key, value), make_pair(k, v)
