@@ -1,4 +1,4 @@
-## 算法复习
+算法复习
 1 二叉树
 1.1 层级遍历
 queue队列，广度（宽度）优先
@@ -7,8 +7,7 @@ nlast: 下一行的最右节点，nlast随新入栈的节点更新
 1.2序列化和反序列化（重建二叉树）
 先序，中序，后序，层级序列化（需添加结束符）
 
-## 先序测试
-```C
+先序测试
 vector<vector<int> > printTree(TreeNode* root) {
     vector<vector<int>> res;
     vector<int> curL;
@@ -36,7 +35,7 @@ vector<vector<int> > printTree(TreeNode* root) {
     }
     return res;
 }
-```
+
 2 排序:http://blog.csdn.net/fanwenzh/article/details/70174573
 时间复杂度O(n2) 冒泡排序, 选择排序, 插入排序（ 与数组有序性相关）
 时间复杂度O(nlogn) 归并排序， 快速排序(划分值调整到首或尾, 递归调用), 堆排序(建堆, 堆顶和堆底输出堆顶, 调整堆logk), 希尔排序(递减步长的插入排序)
@@ -47,8 +46,7 @@ vector<vector<int> > printTree(TreeNode* root) {
 1） 数组较小： 插入排序
 2） 数组较大： 快速排序或其他O(nlogn) 排序， 按其常量系数选择排序算法
 
-# 二叉树合并
-```C
+二叉树合并
 Node* reduce(Node* t1, Node* t2){
     if(t1 == NULL)return t2;
     if(t2 == NULL)return t1;
@@ -57,7 +55,7 @@ Node* reduce(Node* t1, Node* t2){
     t1->right = reduce(t1->right, t2->right);
     return t1;
 }
-```
+
 题目：
 1. 有序数组排序， 最小调整范围为k：
 1) 插入排序;
@@ -76,7 +74,7 @@ Node* reduce(Node* t1, Node* t2){
 7. 给定一个整型数组arr， 返回排序后相邻两数的最大差值： 1234789， 返回7 - 4 = 3；
 桶排序思想： 划分1 - 9 为 n（题中为7） 个桶的区间， 查找最大差值, 时间复杂度O(n), 空间复杂度O(n)
 
-## 3字符串
+3字符串
 回文, 子串(不连续), 子序列(不连续), 前缀树(Trie树), 后缀树和后缀数组, 匹配, 字典序
 1) 规则判断 2) 数字运算（ 大整数加减乘除） 3) 与数组相关的操作（ 调整， 排序， 划分） 4) 字符计数（ hash表， 固定数组长度， 滑动窗口， 寻找无重复字符子串） 5) 动态规划 6) 搜索类型 7) 高级算法与数据结构问题（ 难）
 1. 完全独立的t1和t2树， 判断t1中是否有t2树拓扑结构完全相同的子树
@@ -100,7 +98,7 @@ num代表（出现次数和)出现次数的差，遍历结束判断num= = 0;
 哈希表map - > 统计每个字符之前出现的位置
 整形变量pre - > 代表以s[i - 1] 结尾的情况下， 最长无重复子串的长度
 
-## 4队列和栈
+4队列和栈
 栈： 先进后出, 队列： 先进先出
 可实现数组和队列的形式
 栈： push, top / peek, pop, size O(1) 时间复杂度操作
@@ -112,8 +110,7 @@ num代表（出现次数和)出现次数的差，遍历结束判断num= = 0;
 2. 用两个栈实现队列, 支持队列 push, pop, front操作
 实现： StackPush, StackPop两个栈互倒数据
 3. 实现一个栈的逆序， 但只能用递归函数和这个栈的本身来操作, 不能申请而外的数据结构
-```C
-// 返回并删除栈底元素:
+返回并删除栈底元素:
     public int get(stack < int > s) {
         int result = s.pop();
         if (s.empty()) {
@@ -124,7 +121,7 @@ num代表（出现次数和)出现次数的差，遍历结束判断num= = 0;
             return last;
         }
     }
-// 栈元素逆序:
+栈元素逆序:
     public void reverse(stack < int > s) {
         if (s.empty()) {
             return;
@@ -134,7 +131,6 @@ num代表（出现次数和)出现次数的差，遍历结束判断num= = 0;
             s.push(i);
         }
     }
-```
 4. 将栈中元素(int) 从顶到底从大到小排序， 只允许申请一个栈
 实现: stack, res两个栈 
 * 5. arr数组和大小为w的窗口， 返回窗口内最大值的数组
@@ -143,7 +139,7 @@ arr = [4, 3, 5, 4, 3], w = 3 => [5, 5, 5, 4, 3] // 普通解法: 遍历边框w
 6. 没有重复数组的arr， 生成这个数组的MaxTree函数(每一个子树的最大值为数组头)
 找到每个数的左边和右边第一个比其大的数(利用stack), 每一个数的父节点为左右非null值最小的数, 其中数组中的最大值为root
 
-## 5链表
+链表
 单链表, 双链表, 普通链表, 循环链表
 1. 给定整数n， 如何在节点值有序的环形链表中插入一个节点值为num的节点， 并保证链表有序
     1. 链表为空, 节点指向自己
@@ -173,7 +169,7 @@ arr = [4, 3, 5, 4, 3], w = 3 => [5, 5, 5, 4, 3] // 普通解法: 遍历边框w
     1) 找到入环节点, 判断两者是否等
     2) 开始到入环节点是否有相交节点(题7)
 
-## 6二分搜索
+二分搜索
 有序序列O(logN), 有序循环数组; // 重点在边界条件判定
 mid = left + (right - left)/2; //以防溢出
 1.返回局部最小位置: a[i]< a[i-1]&&a[i]<a[i+1], 二分查找O(logN)
@@ -194,7 +190,7 @@ mid = left + (right - left)/2; //以防溢出
 6.求整数k的n次方
     10^75 = 10^64 * 10^8 * 10^2 * 10
 
-## 7二叉树
+二叉树
 先序遍历, 非递归
 stack: 先压右后压左
 中序遍历,非递归
@@ -214,13 +210,12 @@ stack: 不断压左节点，弹出输出，再输入加入右节点，至stack�
         (3)如果1、2都不成立，那么从stack弹出c并打印，令h等于c
     3.一直重复2，直到stack为空
 
-## 8二叉树按层遍历, 队列queue
+二叉树按层遍历, 队列queue
 last, nlast 打印层级
 1.给定二叉树头结点head, 并已知二叉树节点值的类型为32整型, 设计序列化(转字符串)和反序列化方案
     按先序（中序，后序）str="", "#"表示空节点null, ”!“表示节点值的结束
 子树\平衡二叉树(AVL树)左右子节点的高度差不超过1
 判断是否为平衡二叉树（后续遍历）
-```C
 public boolean isBalance(Node head) {
     boolean res = true;
     getHeight(head, 1, res);
@@ -239,9 +234,8 @@ public int getHeight(Node head, int level, boolean& res) {
         res = false;
     return Math.max(LH, RH);
 }
-```
 
-## 9搜索二叉树，每棵树的头结点的值逗比各自左子树上的所有节点值大，比右节点值小，即中序排列后为从小到大递增序列
+搜索二叉树，每棵树的头结点的值逗比各自左子树上的所有节点值大，比右节点值小，即中序排列后为从小到大递增序列
 2. 给定head, 判断是否为搜索二叉树
 中序遍历, 逐个比较
 满二叉树的节点个数 N = 2^L - 1
@@ -270,7 +264,7 @@ public int getHeight(Node head, int level, boolean& res) {
 对每棵子树执行, 对root, 处理h的左子树得到最大距离Lmax1, 及左子树距离root的最远距离lmax2, 同理处理右子子树得Rmax1, Rmax2, 比较Rmax1, Rmax2 和 Lmax1 + Rmax2 + 1
 8.给头结点head, 所有结点值不一样，找到含有节点最多的搜索二叉子树，并返回头结点
 
-## 10位运算: & | ^ ~ << >> >>>
+位运算: & | ^ ~ << >> >>>
 1. 布隆过滤器:k个哈希函数(输出域>=m), bitArray长度为m(映射结果)
 大小为m, 样本数量为n, 失误率为p
 m = - (n*ln p) / (ln2)^2, k = ln2 * m/n, 实际失误率p 
@@ -278,12 +272,12 @@ m = - (n*ln p) / (ln2)^2, k = ln2 * m/n, 实际失误率p
 a = a^b, b = a^b, a = a^b
 异或运算^满足交换律和结合律, p^p=0, p^0=p
 
-## 11排列组合
+排列组合
 组合法、划分法、隔板法
 卡特兰数公式:
 蓄水池算法
 
-## 12大数据
+大数据
 hash函数：大范围输入域，固定范围输出域
 hash函数的优劣：输出域均匀分布
 Map-Reduce
@@ -291,36 +285,7 @@ Map-Reduce
 2. Reduce阶段: 
 hashMap, bitMap
 
-## 13动态规划：暴力搜索、记忆搜索、动态规划
+动态规划：暴力搜索、记忆搜索、动态规划
 1.钱数arr=[5,10,25,1],组成aim=1000块的方法总数
-```C
-// 记忆搜搜：时间复杂度O(arr*aim的平方)
-public int coins2(int[] arr, int aim) {
-  if (arr == null || arr.length == 0 || aim < 0) {
-    return 0;
-  }
-  int[][] map = new int[arr.length + 1][aim + 1]
-  return process2(arr, 0, aim, map)
-}
-public int process2(int[] arr, int index, int aim, int[][] map) {
-  int res = 0;
-  if (index == arr.length) {
-    res = aim == 0?1:0;
-  } else {
-    int mapValue = 0;
-    for (int i = 0; arr[index]*i <= aim; i++) {
-      mapValue = map[index + 1][aim-arr[index]*i];
-      if (mapValue != 0) { // 匹配数不为0
-        res += mapValue == -1?0:mapValue; // 匹配数不为空，则已进行计算
-      } else {
-        res += process2(arr, index + 1, aim -arr[index]*i, map);
-      }
-    }
-  }
-  map[index][aim] = res == 0? -1: res;
-  return res;
-}
-// 动态规划：申请空间记录每一个暴力搜索的计算结果(规定计算顺序的记忆搜索)，时间复杂度O(arr*aim)
-背包、换钱、字符串替换(插入代价ic, 删除代价dc, 替换代价rc)
- 
-```
+记忆搜搜
+public int coins2()
