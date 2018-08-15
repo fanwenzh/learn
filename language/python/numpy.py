@@ -1,5 +1,10 @@
 # 多维数据
 import numpy as np
+
+x = np.linspace(0, 1, 12, endpoint=True)[1:-1]  # 线性空间除去头尾的数组
+# np.random.normal(mean,stdev,size), 均值为mean，标准差为stdev的正太分布
+x = np.rnadom.normal(0, 1, 20)
+
 arr = np.array([1,2,3,4]) # 创建数组 a[0, 0]
 arr = np.arange(10, dtype=float) # 0.0-10.0
 np.mat() # 数组化为矩阵
@@ -42,7 +47,7 @@ np.dsplit(c,3) # 深度拆分
 # Z - Z%1 == np.floor(Z) == np.ceil(Z)-1 == Z.astype(int) == np.trunc(Z)
 np.random.uniform(0,1,100) # 随机100个0~1的数
 np.random.randint(0,10,100) # 随机100个0~10
-np.random.random((3,3,3)) # 随机3*3*3
+np.random.random((3,3,3)) # 随机3*3*3, 其值为0~1
 np.random.shuffle(m) # 随机打乱
 np.bitcount(A) # 统计A各元素的个数
 np.bitcount(I, minlength=len(A)) # 统计基于I的A元素个数
@@ -50,14 +55,14 @@ np.nonzero(m)
 np.diag(1+np.arange(4), k=-1) # 对角函数
 np.array(100, (6,7,8)) # 在三维6*7*8的矩阵里100的下标
 np.tile( np.array([[0,1],[1,0]]), (4,4)) # 将矩阵2*2长宽扩展为4倍, np.tile(val, (x, y))
-np.linspace(0,1,12, endpoint=True)[1:-1] # 线性空间除去头尾的数组
+
 np.atleast_2d(m) # 如果m小于2维，转换为2维[] => [[]]
-np.cumsum(m) # 返回各位置前面元素叠加的矩阵
+np.cumsum(m) # 返回各位置前面元素叠加的矩阵(累加)
+np.diff(m) # 后一个元素减前一个元素组成的矩阵(累减)
 m.argmax() # 返回最大值的坐标
 m.argmin()
 U, S, V = np.linalg.svd(Z) # Singular Value Decomposition 矩阵分解
 np.argpartition(-m,n)[:n] # 返回m数组前n个最大值的坐标
-np.diff(m) # 后一个元素减前一个元素组成的矩阵
 yi = np.interp(x, y, xi, method) # y = f(x)函数插值xi的值, method: nearest, linear默认, spline
 
 # 查找Z中与v最相近的值
@@ -146,3 +151,4 @@ df1.append(s, ignore_index=False) # ignore_index=False 表示索引不变; ignor
 df.duplicated() # 查看重复数据：
 df.drop_duplicated() # 移除重复数据：
 z.groupby('open').sum() # open列值相等的(其他列)以相加的形式合并
+

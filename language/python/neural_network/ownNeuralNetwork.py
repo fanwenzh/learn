@@ -41,6 +41,7 @@ class neuralNetwork:
     final_inputs = np.dot(self.who, hidden_outputs)
     final_outputs = self.activation_function(final_inputs)
     return final_outputs
+  pass
 
 # 初始化
 input_nodes= 784 # 24*24

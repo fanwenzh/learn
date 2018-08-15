@@ -8,6 +8,10 @@ git commit -m "first commit"
 git remote add origin https://github.com/fanwenzh/doubanMovie.git
 git push -u origin master
 
+# 设置
+git config --global user.name "name"
+git config --global user.email "something@"
+
 ## 本地配置
 git init  // 初始化项目
 git add filename //添加到列表 -u 添加已被add 的文件 .添加所有变化 -A两者集合
@@ -17,7 +21,7 @@ git commit -m ‘commit hint‘ //提交缓存文件 -a 自动提交已跟踪文
 git rm fileName --cached// 删除add后的缓存中的fileName  -f 在本地删除file文件 
 git reset HEAD <file> //取消提交暂存区的file文件
 git rm log/\*.log 删除所有log/ 目录下扩展名为.log的文件，注意添加
-git log //显示所有历史更新 -p展开每次提交差异，-2显示最近两次更新，--word-diff 显示单词级别的更新
+git log //显示所有历史更新 -p展开每次提交差异，-2显示最近两次更新，--word-diff 显示单词级别的更新 --graph 显示图
 git reflog // 记录每一次的命令
 git reset --hard <commit ID号>  回滚版本
 git reset --hard HEAD^ // 恢复到上一次更新的版本（回到未来）
