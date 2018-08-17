@@ -228,3 +228,8 @@ import torchvision      # 数据库模块
 # 20.RNN 
 # Recurrent Neeural Network: 循环神经网络
 # LSTM RNN: long-short term memory 
+
+# 31.gpu加速
+# 将数据、神经网络移至GPU即可, 即添加.cuda()
+
+# 35.batch normalization

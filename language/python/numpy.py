@@ -4,6 +4,11 @@ import numpy as np
 x = np.linspace(0, 1, 12, endpoint=True)[1:-1]  # 线性空间除去头尾的数组
 # np.random.normal(mean,stdev,size), 均值为mean，标准差为stdev的正太分布
 x = np.rnadom.normal(0, 1, 20)
+np.random.uniform(0, 1, 100)  # 随机100个0~1的数
+np.random.randint(0, 10, 100)  # 随机100个0~10
+umpy.random.randn(3,5) #从标准正态分布中返回3*5个样本值
+# 返回3*5随机样本位于[0, 1)中, 同np.random.random((3, 5))  # 随机3*5, 其值为0~1
+numpy.random.rand(3, 5)
 
 arr = np.array([1,2,3,4]) # 创建数组 a[0, 0]
 arr = np.arange(10, dtype=float) # 0.0-10.0
@@ -45,9 +50,7 @@ np.hsplit(a,3) # 对a纵向拆分 or np.split(a,3,axis = 1)
 np.vsplit(a,3) # 对a横向拆分 or np.split(a,3,axis = 0)
 np.dsplit(c,3) # 深度拆分
 # Z - Z%1 == np.floor(Z) == np.ceil(Z)-1 == Z.astype(int) == np.trunc(Z)
-np.random.uniform(0,1,100) # 随机100个0~1的数
-np.random.randint(0,10,100) # 随机100个0~10
-np.random.random((3,3,3)) # 随机3*3*3, 其值为0~1
+
 np.random.shuffle(m) # 随机打乱
 np.bitcount(A) # 统计A各元素的个数
 np.bitcount(I, minlength=len(A)) # 统计基于I的A元素个数
