@@ -29,6 +29,7 @@ class neuralNetwork:
     output_error = targets - final_outputs
     hidden_error = np.dot(self.who.T, output_error) 
 
+    # 以 (Y - A2)**2 为cost function(代价函数)做梯度下降
     self.who += self.lr * np.dot(output_error*final_outputs*(1-final_outputs), hidden_outputs.T)
     self.wih += self.lr * np.dot(hidden_error*hidden_outputs*(1-hidden_outputs), inputs.T)
 

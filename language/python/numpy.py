@@ -1,14 +1,19 @@
 # 多维数据
 import numpy as np
+import time
+start = time.time()
+end = time.time()
 
 x = np.linspace(0, 1, 12, endpoint=True)[1:-1]  # 线性空间除去头尾的数组
 # np.random.normal(mean,stdev,size), 均值为mean，标准差为stdev的正太分布
-x = np.rnadom.normal(0, 1, 20)
+x = np.random.normal(0, 1, 20)
 np.random.uniform(0, 1, 100)  # 随机100个0~1的数
 np.random.randint(0, 10, 100)  # 随机100个0~10
-umpy.random.randn(3,5) #从标准正态分布中返回3*5个样本值
+np.random.randn(3,5) #从标准正态分布中返回3*5个样本值
+np.random.randn(5) # 1*5, 非横向量, 非列向量，即不能转置
 # 返回3*5随机样本位于[0, 1)中, 同np.random.random((3, 5))  # 随机3*5, 其值为0~1
 numpy.random.rand(3, 5)
+numpy.random.rand(5) # 1*5
 
 arr = np.array([1,2,3,4]) # 创建数组 a[0, 0]
 arr = np.arange(10, dtype=float) # 0.0-10.0
@@ -106,6 +111,15 @@ np.einsum('i->', A)       # np.sum(A)
 np.einsum('i,i->i', A, B) # A * B  #对应位置相乘
 np.einsum('i,i', A, B)    # np.inner(A, B) # 对应位置相乘相加 np.dot(A, B)
 np.einsum('i,j', A, B)    # np.outer(A, B) # 法向量
+# 向量运算
+np.exp(A) # 将A所有元素exp
+np.log(A)
+np.maximum(A, 0)
+np.abs(A)
+v**2 # +-*/ 所有运算自动转换为向量运算
+np.dot(w.T, x)
+np.sum(v, axis=0) # axis=1
+m/np.sum(a, axis=0) # m/m.sum(axis=0, keepdims=True)
 
 # pandas
 # https://www.joinquant.com/post/603903d2c8f565caa6712bd53bad4a7a?f=stydy&m=python

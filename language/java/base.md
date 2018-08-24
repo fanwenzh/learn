@@ -138,14 +138,16 @@ Dog dog2 = (Dog)animal; // 存在转换风险
 Collection: 
 sort() - 默认比较：comparable接口 即 compareTo()方法, 临时比较：Comparator接口， 即compare()方法
 List: ArrayList // 泛型数组列表
-add(int index, E object), addAll(int index, Arrays.asList(arr)),(Course)get(index) // get方法返回Object类型，需要强制转换
+add(int index, E object), addAll(int index, Arrays.asList(arr)),
+(Course)get(index) // get方法返回Object类型，需要强制转换
 size(), set(int index, E object), remove(int index, E object), removeAll(int index, Arrays.asList(arr)), 
 clear, contains(Object obj)存引用 - equals, containsAll, isEmpty, 
 toArray, indexOf, lastIndexOf, subList(int start, int end)
 clone(), removeRange(int fromIndex, int toIndex)
+// 迭代器
 Iterator it = arrayListName.iterator(); it.hasNext();(arrayListName) it.next();
 for(Object obj : arrList)(arrayListName)obj;
-LinkedList: 构造同步List: List list = Collections.synchronizedList(new LinkedList(...));
+LinkedList: 构造同步List: List list = Collections.synchronizedList(new LinkedList(...)); // 链表List
 Vector: 同步ArrayList, 抛出ConcurrentModificationException异常
 Stack:push, pop, peel, empty, search
 // 集合与数组之间的转换
@@ -172,7 +174,6 @@ Scanner console = new Scanner(System.in);
 console.next()
 Scanner in = new Scanner(Path.get("myfile.txt")) // 文件读取
 PrintWriter out = new PrintWriter("myfile.txt") // 文件写入
-
 
 List与Set不同点：
 contains(Object obj) - equals()
@@ -257,6 +258,7 @@ public double getTotalBalance(){ // 对所有获取方法加锁，同理writeLoc
 	try{}
 	finally {readLock.unlock();}
 }
+
 // 阻塞队列，推荐：上层开发包
 import java.util.concurrent.*
 BlockingQueue<File> queue = new ArrayBlockingQueue<>(10);
