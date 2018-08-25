@@ -1,4 +1,6 @@
 man command-name # 查看help
+#!/bin/bash
+#! 指定解析器
 
 ## 文件（目录）操作
 ### 1. cd 目录切换
