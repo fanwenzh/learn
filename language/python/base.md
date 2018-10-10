@@ -14,7 +14,6 @@ int()
 float()
 str() 
 bool()
-# v.clip() 截取
 ``` 可创建多行字符串 
 ```python 
   len(str) // 获取长度 
@@ -82,7 +81,7 @@ tuple(list)
 tuple.sort()
 t = (1,) # 避免括号歧义
 t.index(i)
-t.count()
+t.count(el)
 t[0:4] # 切片结果仍是元组
 
 # 字典 (js的Object)

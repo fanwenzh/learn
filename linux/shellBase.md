@@ -85,6 +85,9 @@ ls -l /usr/bin > ls-output.txt # 将command 显示信息输出到 ls-output.txt�
 cat file # 读取文件并复制他们到标准输出
 cat # 无file参数连接标准输入
 cat < input.txt
+0 -- stdin(标准输入)
+1 -- stdout(标准输出)
+2 -- stderr(错误输出)
 
 管道 | 
 ls -l /usr/bin | sort | uniq | less # sort 排序
@@ -109,8 +112,15 @@ echo $((expression))
 echo Front-{A,B,C}-Back  # Front-A-Back Front-B-Back Front-C-Back
 echo {Z..A} # Z Y X W V U T S R Q P O N M L K J I H G F E D C B A
 $USER # 用户名
+val='str'
+echo $val or ${val}
+${#val} # 获得字符串长度
+### 数组
+arr=(1,2,3,4,5)
+arr[0]="test1" # 定义索引对
+
 $1 # 引用
-echo "this is a    test" # 防止单词分割
+echo "this is a test" # 防止单词分割
 
 ### 键盘操作
 clear

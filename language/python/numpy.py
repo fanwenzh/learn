@@ -6,14 +6,15 @@ end = time.time()
 
 x = np.linspace(0, 1, 12, endpoint=True)[1:-1]  # 线性空间除去头尾的数组
 # np.random.normal(mean,stdev,size), 均值为mean，标准差为stdev的正太分布
-x = np.random.normal(0, 1, 20)
+x = np.random.normal(0, 1, 20) # 随机高斯分布
 np.random.uniform(0, 1, 100)  # 随机100个0~1的数
-np.random.randint(0, 10, 100)  # 随机100个0~10
-np.random.randn(3,5) #从标准正态分布中返回3*5个样本值
+np.random.randint(0, 10, 100)  # 随机100个0~10整数
+np.random.randn(3,5) #从【标准正态分布】中返回3*5个样本值
 np.random.randn(5) # 1*5, 非横向量, 非列向量，即不能转置
 # 返回3*5随机样本位于[0, 1)中, 同np.random.random((3, 5))  # 随机3*5, 其值为0~1
-numpy.random.rand(3, 5)
+numpy.random.rand(3, 5) # 随机浮点
 numpy.random.rand(5) # 1*5
+np.random.random() # 同上, 随机浮点0~1，(3,2)
 
 arr = np.array([1,2,3,4]) # 创建数组 a[0, 0]
 arr = np.arange(10, dtype=float) # 0.0-10.0
