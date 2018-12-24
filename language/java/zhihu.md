@@ -2,29 +2,58 @@ https://www.zhihu.com/question/56110328
 
 ## 输入输出流
 ```java
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // br.read() 读一个字符, br.readLine() 读字符串
+/*
+	do{
+		c = (char) br.read(); // r.readLine()
+		System.out.println(c);
+	} while(c != 'q'); // !str.equals("end")
+*/
 FileInputStream readfile = FieInputSteam(File file) // String Path
 byte buffer[] = new byte[2500];// 创建字节数组
 int off = readfile.read(buffer, 1, 2000) ;
 String str = new String(buffer, 0, b, "Default");
 readfile.close()
-.read() // 1个字节
-.read(byte[] b)
-.read(byte[] b, int off, int len) // off: 偏移量
-.skip(long n)
+	.read() // 1个字节
+	.read(byte[] b)
+	.read(byte[] b, int off, int len) // off: 偏移量
+	.skip(long n)
 
-FileOutputStream(File file, boolean append)
+InputStream f = new FieInputSteam(File file);
+OutputStream os = FileOutputStream(File file, boolean append)
 FileOutputStream(String pathname, boolean append)
-close()
-write(byte[] b)
-write(byte[] b, int off, int len)
-write(int b)
+	.close()
+	.write(byte[] b)
+	.write(byte[] b, int off, int len)
+	.write(int b)
+// OutputStreamWriter // 写入缓冲区
 
-File类
-File(String pathname)
+文件和i/o
+// File(String pathname)
+File d = new File(dirname);
+// InputStream f = new FileInputStream(d)
+d.mkdir(); // 创建目录
+d.isDirectory(), d.list() // 包含的文件和文件夹列表
+
+// Scanner 获取用户输入
+Scanner scan = new Scanner(System.in);
+scan.next() // 空格结束
+/* if(scan.hasNext()){   
+		String str1 = scan.next();
+		System.out.println("输入的数据为："+str1);  
+	}  */
+if(scan.hasNextLine()){   // enter结束
+	String str2 = scan.nextLine();
+	System.out.println("输入的数据为："+str2);  
+}  
+Scanner console = new Scanner(System.in);
+Scanner in = new Scanner(Path.get("myfile.txt")) // 文件读取
+PrintWriter out = new PrintWriter("myfile.txt") // 文件写入
 
 ```
 
-## 继承
+<!-- instanceof -->
+## 继承:仅支持单继承
 ```java
 class Manager extends Employee {
 	Manager() {

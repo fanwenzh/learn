@@ -1,5 +1,5 @@
 ## 1
-@SpringBootApplication: springboo应用
+@SpringBootApplication: springboot应用
 @RestController
 
 打包插件：spring-boot-maven-plugin 

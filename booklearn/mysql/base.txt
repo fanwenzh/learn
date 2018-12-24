@@ -1,3 +1,10 @@
+// 关系对
+1对1： 1.外键关联, 2.主键关联
+1对多: 多数据表添加外键关联1数据表
+多对多：新建关系表R
+// 删除数据库所有表
+SELECT CONCAT('drop table ',table_name,';') FROM information_schema.`TABLES` WHERE table_schema='数据库名';
+
 // 配置
 http://www.centoscn.com/mysql/2016/0626/7537.html
 ## 创建数据库

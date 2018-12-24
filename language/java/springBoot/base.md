@@ -11,8 +11,10 @@ public class UserService {
     return this.userDAO.queryUserList();
   }
 }
+
+// @SpringBootApplication = @Configuration + @ComponentScan(同级和及子包) 
 @Configuration
-@ComponentScan(basePackages="cn.itcast.sprintboot.javaconfig")
+@ComponentScan(basePackages={"cn.itcast.sprintboot.javaconfig"})
 public class SpringConfig {
   @Bean   // 注册bean
   public UserDAO getUserDAO() {

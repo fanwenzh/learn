@@ -1,266 +1,651 @@
+# 4 java反射与泛型
+# 4.1 反射
 ```java
-// java 修饰符
-// 访问控制修饰符：default, public, protected, private
-// 非访问控制修饰符：final, abstract, strictfp(精确浮点运算)
+// class本质
+Type
+Class cls =  new Class(String) // 原类的创建
+// 获取class实例
+Class cls = String.class;
+Class cls = "str".getClass();
+Class cls = Class.forName("java.lang.String");
+// 从class获取class信息
+getName() // 全路径名
+getSimpleName() // 获取类名
+getPackage() // 获取包名
+// 从Class实例判断class类型
+instanceof, ==
+isInterface()
+isEnum()
+isArray()
+isPrimitive()
+// 创建class
+cls.newInstance()
+// 获取class的属性field
+getFiled(name) // 获取public的filed, 包括父类
+getDeclaredField(name) // 获取当前类的某个filed, 不包括父类
+getFIleds() // 获取所有public的field, 包括父类
+getDeclaredFields() // 获取当前类所有的filed, 不包括父类
+// 获取filed的属性
+getName()
+getType()
+getModifiers()
+// 获取和设置field的值, 通过反射访问Field需要通过SecurityManager设置的规则
+get(Object obj)
+set(Object, Object) // setAccessible(true) 设置非public字段
+// 通过Class获取方法
+getMethod(name, Class...) // 获取某个public的method(包括父类) 
+getDeclaredMethod(name, Class...) // 获取当前类的某个method(不包括父类) 
+getMethods() // 获取所有public的method(包括父类) 
+getDeclaredMethods() // 获取当前类的所有method(不包括父类)
+// 获取method属性
+getName() 
+getReturnType() 
+getParameterTypes() 
+getModifiers()
+// 调用方法
+setAccessible(true)
+Object invoke(Object obj, Object... args)
+// 调用public无参数构造方法
+Class.newInstance()
+// 获取Constructor
+getConstructor(Class...) // 获取某个public的Constructor 
+getDeclaredConstructor(Class...) // 获取某个Constructor 
+getConstructors() // 获取所有public的Constructor 
+getDeclaredConstructors() // 获取所有Constructor
+setAccessible(true) // 设置访问非public构造方法
+// 获取继承关系
+Class getSuperclass() // Object的父类是null interface的父类是null
+Class[] getInterfaces() // 不包括间接实现的interface 没有interface的class返回空数组 interface返回继承的interface
+// 判断向上转型
+bool isAssignableFrom(Class)
+Number.class.isAssignableFrom(Integer.class) // true, Number n = (Integer) i
+```
+# 4.2 注解
+```java
+// jdk注解
+@Override 
+@Deprecated // 废弃
+@SuppressWarnings(value=1) // 使用参数
+// 定义注解
+public @interface myAnnotation {
+  int type() default 0;
+  String value() default "info";
+}
+// 元注解
+@Target(ElementType.TYPE) // 必须设置定义注解应用范围, ElementType.FIELD, .METHOD, .CONSTRUCTOR, .PARAMETER
+@Retention // 定义注解生命周期, 默认为仅运行时RUNTIME: 仅编译器RetentionPolicy.SOURCE, 仅class文件: RetentionPolicy.CLASS
+@Repeatable // 可重复
+@Inherited // 可继承
+// 判断是否有Annotation
+Class.isAnnotationPresent(Class) 
+Field.isAnnotationPresent(Class) 
+Method.isAnnotationPresent(Class) 
+Constructor.isAnnotationPresent(Class) 
+// 获取注解
+Field.getAnnotation(Class) 
+Method.getAnnotation(Class) 
+Constructor.getAnnotation(Class) 
+// 获取注解参数, (多注解多参数) Annotation[][] = annos = method.getParameterAnnotations()
+getParameterAnnotations()
+```
 
-// enum 枚举
+# 4.3 泛型
+```java
+// 普通方法使用
+public class myArray<T> { public T[] array; }
+// static方法使用泛型, 与类中的泛型<T>无关
+public static <K> Pair<K> create(K first, K last){}
+// 使用new创建实例
+public Pair(Class<T> clazz) {
+  first = clazz.newInstance()
+  last = clazz.newInstance()
+}
+// 泛型继承
+public class IntPair extends Pair<Integer> {}
+Class<IntPair> clazz = IntPair.class;
+// 获取Pair<Integer>的泛型类型T-Integer
+Type t = clazz.getGenericsuperclass(); 
+ParameterizedType pt = (ParameterizedType) t;
+Type[] types = pt.getActuralTypeArguments();
+Type first = types[0];
+Class<?> typeClass = (Class<?>) firstType;
+System.out.println(typeClass); // Integer
 
-// 一个源文件只能有一个public类
-public class Puppy {
-	public Puppy(String name) {
-		// 构造函数
-	}
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-	}
+// extends通配符, 限制T的类型
+// void someMethod(List<? extends Number> list, 允许传入List<Number>，List<Integer>，List<Double>
+void myMeth(List<? extends Number> list){} // 只允许get, 不允许set
+<T extends Number> // 定义泛型时可以通过extends限定T必须是Number或Number的子类
+// super通配符, 限制T的类型 
+void someMethod(List<? super Integer> list) {} // 只允许set, 不允许get
+<T super Integer> // 定义泛型时可以通过extends限定T必须是Integer或Integer的超类
+// 泛型数组初始化
+Pair<String>[] ps = null; // 不能直接new泛型数组
+Pair<String>[] ps = (Pair<String>[]) new Pair[2]; // 必须通过强制转型
+// 可以通过Array.newInstance(Class<T>, int)创建T[]数组，需要强制转型
+// 利用变参创建T[]数组
+public class ArrayHelper {
+  @SafeVarags
+  static <T> T[] asArray(T... objs) {
+    return objs;
+  }
+}
+String[] ss = ArrayHelper.asArray("a", "b", "c");
+Integer[] ns = ArrayHelper.asArray(1, 2, 3);
+```
+# 5.集合
+```java
+// Collection统一接口 // List, Set, Queue 为implement接口
+// 避免添加null
+List: ArrayList, LinkedList
+  add(e), add(index, e), remove(e), remove(index), get(index), size()
+  遍历:
+    for(int i = 0; i < list.size(); i++){list.get(i)}
+    for(Iterator<String> it = list.iterator(); it.hasNext(); ){String s = it.next()}
+    for(String s: list){} // 实现iteratable接口
+  // array和list转化
+  Integer[] arr = list.toArray(new Integer[5]) // {1,2,3,null,null}
+  List<Integer> list = Arrays.asList(arr) // 只读
+  List<Integer> arrayList = new ArrayList<>(Arrays.asList(array)); // 或用 addAll() // 复制
+  // 查找 // 实现equals // Object.equals(p.name, this.name) // jdk提供的检查null比较方法
+  .contains(), indexOf()
+
+Map: HashMap, TreeMap
+  get(K key), put(K key, V value)
+  遍历：
+    for (K key: map.keySet()){map.get(key)}
+    for (Map.Entry<String, Integer> entry : map.entrySet()) {map.getKey();map.getValue();}
+  // 排序(key)
+  Map<String, Integer> map = new TreeMap<>(new Comparator<String>() {
+    public int compare(String o1, String o2) { return o1.compareTo(o2)}
+  })
+  // 查找 // 实现equals() // 必须实现hashCode()， 根据key内存位置获取唯一标识
+  public int hasCode() {
+    return Objects.hash(this.name, this.age); // 根据name和age唯一标识
+  }
+
+Set: HashSet, TreeSet
+  boolean add(e), remove(o), contains(o), size()
+  // 查找 // 实现equals()和hashCode()
+  Set<String> set = new TreeSet<>(new Comparator<String>() {
+    public int compare(String o1, String o2) { return o1.compareTo(o2)}
+  })
+  // 遗留类: Hashtable(线程安全map), Vector(线程安全List), Stack(基于Vector的LIFO栈)
+
+Queue: LinkedList // Queue<String> queue = new LinkedList<>();
+  size(), isEmpty()
+  // throwException   返回false或null
+      add(e)            offer(e)   // 将元素添加到队尾
+      remove(e)         poll(e)    // 获取队列头并删除
+      element()         peek()     // 获取队列头不删除
+PriorityQueue: // 实现Comparable接口 // 总返回优先级最高的元素
+  public class Person implements Comparable<Person> {
+    public int compareTo(Person o) {return this.name.compareTo(o.name);}
+  }
+  Queue<Person> queue = new PriorityQueue<>();
+  // 或直接定义comparable接口
+  Queue<Person> queue = new PriorityQueue<>(new Comparator<Person>() {
+    public int compare(Person o1, Person o2) {
+      return o1.getName().compareTo(o2.getName);
+    }
+  })
+Deque: 双端队列, 实现类: ArrayDeque, LinkedList
+  addLast(), offerLast() // addFirst(), offerFirst()
+  removeFirst(), pollFirst() // removeLast(), pollLast()
+  getFirst(), peekFirst()  // getLst(), getLast()
+  Deque<String> deque = new LinkedList<>()
+
+Stack: Deque
+  push(), // addFirst()
+  pop(),  // removeFirst()
+  peek()  // peekFirst()
+
+Iterator // 实现Iterable<E>接口
+public class ReadOnlyList<E> implements Iterable<E> {
+  @Override
+  public Iterator<E> iterator() {
+    return new ReadOnlyIterator() // 一般用内部类实现Iterator()
+  }
+}
+// 其他函数
+sort(), suffle()
+unmodifiableList / unmodifiableSet / unmodifiableMap // 创建不可变集合
+synchronizedList / synchronizedSet / synchronizedMap(已不推荐使用) // 创建线程安全的集合
+```
+# 5.2properties
+```java
+String f = "setting.properties";
+Propertirs props = new Properties(); // hashTable实现(废弃)
+// 读取多个properties， 后覆盖前
+props.load(new FileInputStream(f)); // 通过FileInputStream读取
+props.load(getClass().getResourceAsStream(f)); // classpath: 通过getResourceAsStream读取 
+String url = props.getProperty("url"); // url = "123"
+```
+
+# 6.IO编程
+```java
+// IO流: 以字节为单位byte[], 处理二进制 -- InputStream, OutputStream
+// 字符流: 以字符为单位char[], 处理字符(默认utf8) -- Reader, Writer
+// 抽象类: InputStream,     OutputStream,     Reader    , Writer
+// 实现类: FileInputStream, FileOutputStream, FileReader, FileWriter
+
+// 获取当前路径
+File file = new File(".") // 传入路径Path
+file.getCanonicalPath() // 传回规范目录
+file.getAbsolutePath() // 传回未规范目录
+file.getPath() // 传回path
+.isFile(), .isDirectory(), 
+canRead(), canWrite(), canExecute(), length()
+File.createNewFile(), FIle.ceateTempFIle(String prefix, Stering suffix), delete(), deleteOnExit() // JVM退出时删除该文件
+// 为目录时
+list(), listFIles(), listFiles(FileFilter filter), listFiles(FilenameFilter filter)
+mkdir(), mkdirs()
+
+// InputStream
+// FileInputStream实现了文件流输入, ByteArrayInputStream模拟字节流输入
+read(), read(byte[] b), read(byte[] b, int off, int len), close() 
+try (InputStream input = new FileInputStream("src/readme.txt")) {
+  byte[] buffer = new byte[1000];
+  int n;
+  while ((n = input.read(buffer)) != -1) {
+    System.out.println(n)
+  }
+}
+// OutputStream
+// FileOutputStream, ByteArrayOutputStream
+write(), write(byte[] b), write(byte[] b, int off, int len), close(), flush()
+try (OutputStream output = new FIleOutputStream("out/readme.txt")) {
+  byte[] b = "Hello".getBytes("UTF-8");
+  output.write(b);
 }
 
-// 类型范围
-// Byte.SIZE, Byte.MIN_VALUE, Byte.MAX_VALUE
-// 类型转换：低  ------------------------------------>  高
-// byte,short,char—> int —> long—> float —> double 
+// 直接提供数据的InputStream
+FileInputStream, ByteArrayInputStream, ServletInputStream, Socket.getInputStream
+// 提供额外附加功能的FilterInputStream
+BufferedInputStream, DigestInputStream, CipherInputStream
+InputStream input = new GZIPInputStream(new BufferedInputStream(new FileInputStream("test.gz")));
+// 直接提供写接口的OutputStream
+FileOutputStream, ByteArrayOutputStream, ServletOutputStream...
+// 提供额外附加功能的FilterOutputStream
+BufferedOutputStream, DataOutputStream, CheckedOutputStream
 
-// instanceof
-
-// for(int x : numbers)
-
-// 类
-Math.toString(), abs(), ceil(), floor(), round()
-min(), max(), random()
-
-Character.isLetter(), isDigit(), isWhitespace()
-isUpperCase(), isLowerCase(), toUpperCase(), toLowerCase()
-toString()
-
-String:
-char[] arr = {'h', 'e', 'l', 'l', 'o'}
-String str = String(arr)
-str.length(), concat(str1), charAt(int index), String.format()
-compareTo(str), compareToIgnoreCase(str)
-startsWith(), endsWith(str), equals(str)
-indexOf(str1, index), lastIndexOf(str1, index)
-replace(), replaceAll(), replaceFirst()
-split(String regex), substring(int beginIndex, int endIndex)
-toCharArray(), toLowerCase(), toUpperCase(), trim()
-getBytes(), == 判断是否为同一字符串地址，equals判断字符串内容是否相同
-
-StringBuffer()
-append(), reverse(), delete(), insert(int offset, int i), toString() // 转化为String类型
-replace(int start, int end, String str), capacity()
-
-// 转换字符串的方法
-包装类.toString(), String.valueOf(), 包装类+""
-Integer.parseInt(str), Integer.valueOf(str) 
-
-// 数组
-double [] myList;
-int[] arr = new int[size]
-int[] arr = {value0, value1, value2}
-String strp[][] = new String[length1][length2]
-
-java.util.Arrays
-fill(arr, 1, 3, 8) // 1-3 位填充数字8
-sort(arr, 1, 3)    // 1-3 位排序
-equals(arr1, arr2)
-binarySearch(arr, target) // 查找已排序的数据
-copyOf(arr, 3) // substring(0, 3)
-copyOfRange(arr, first, last)
-
-Date.after(date), before(date), clone, equals(), getTime(), toString()
-SimpleDateFormat ft = new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-System.out.println("Current Date: " + ft.format(dNow));
-Calendar calender; calender.getTime()
-.YEAR, .MONTH + 1, .DAY_OF_MONTH, .HOUR_OF_DAY, .MINUTE, .SECOND
-
-Thread.sleep(time)
-System.currentTimeMillis()
-Calendar.getInstance()
-// 正则表达式: http://www.runoob.com/java/java-regular-expressions.html
-Pattern.matches(strPattern, strContent)
-String pattern = "(\\D*)(\\d+)(.*)"
-Patten r = Pattren.compile(pattern) // 创建pattern对象
-Matcher m = r.matcher(line)         // m.group(0) == line, m.group(n) 为第n个捕获
-m.find(), m.start(), m.end() 
-m.replaceAll(), m.replaceFirst(), m.appendTail()
-
-// 重载：多方法
-// 重写：覆盖
-// 成员变量和局部变量同名时，局部变量优先级高（就近原则）
-
-// 静态方法中可以直接调用同类中的静态成员，但不能直接调用非静态成员
-// 普通成员方法则可以直接访问同类的非静态和静态变量
-// 静态方法中不能直接调用非静态方法，需要通过new 新对象来访问非静态方法
-
-// 静态初始化块只在类加载时执行，且只会执行一次，同时静态初始化块只能给静态变量赋值，不能初始化普通的成员变量。
-
-// 成员内部类
-public class Outer {
-	private int a = 99;
-	int b = 92;
-	public class Inner {
-		int b = 2;
-		public void test() {
-			System.out.println("访问外部类中的a " + a + Outer.this.b); // outer成员变量
-			System.out.println("访问内部类中的b " + b);
-		}
-	}
-	public static class SInner {
-		int b = 2;
-		public void test() {}
-	}
-
-	// 测试成员内部类
-	public static void main(String[] args) {
-		Outer o = new Outer();
-		Inner i = o.new Inner(); // 成员内部类inner 类中定义的 test() 方法可以直接访问 Outer 类中的数据，而不受访问控制符的影响
-		i.test();
-		SInner si = new SInner(); // 直接创建静态内部类
-		si.test();
-	}
+// ZipOutputStream 文件打包为zip
+try (ZipOutputStream zip = new ZipOutputStream(...)) {
+  File[] files = ...;
+  for (File file : files) {
+    zip.putNextEntry(new ZipEntry(file.getName()));
+    zip.write(getFIleDataAsBytes(file));
+    zip.closeEntry();
+  }
 }
-// 方法内部类：在方法内部定义的类，不能在外部类的方法以外的地方使用，因此方法内部类不能使用访问控制符和 static 修饰符
 
-Object 类（所有类的父类）:
-toString() 返回对象的哈希码（对象地址字符串）
-equals() 比较的是对象的引用是否指向同一块内存地址
+// classpath
+InputStream input = getClass().getResourceAsStream("/path/file") // 不存在返回null
 
-引用类型转换：
-Dog dog = new Dog();
-Animal animal = dog;
-Dog dog2 = (Dog)animal; // 存在转换风险
-
-接口：interface，可继承多个父接口
-接口就是用来被继承、被实现的，修饰符一般建议用public, 不能使用private和protected修饰
-接口中的常量：pulic static final修饰
-[修饰符] class 类名 extends 父类 implements 接口1, 接口2
-匿名内部类: Interface i = new Interface(){}
-
-Collection: 
-sort() - 默认比较：comparable接口 即 compareTo()方法, 临时比较：Comparator接口， 即compare()方法
-List: ArrayList // 泛型数组列表
-add(int index, E object), addAll(int index, Arrays.asList(arr)),
-(Course)get(index) // get方法返回Object类型，需要强制转换
-size(), set(int index, E object), remove(int index, E object), removeAll(int index, Arrays.asList(arr)), 
-clear, contains(Object obj)存引用 - equals, containsAll, isEmpty, 
-toArray, indexOf, lastIndexOf, subList(int start, int end)
-clone(), removeRange(int fromIndex, int toIndex)
-// 迭代器
-Iterator it = arrayListName.iterator(); it.hasNext();(arrayListName) it.next();
-for(Object obj : arrList)(arrayListName)obj;
-LinkedList: 构造同步List: List list = Collections.synchronizedList(new LinkedList(...)); // 链表List
-Vector: 同步ArrayList, 抛出ConcurrentModificationException异常
-Stack:push, pop, peel, empty, search
-// 集合与数组之间的转换
-String[] values = [];
-HashSet<String> staff = new HashSet<>(Arrays.asList(valus))
-staff.toArray(new String[staff.size()])
-
-泛型：规定集合只能存放特定类型及其子类型的对象
-public List<className> courses;
-courses = new ArrayList<Course>(); // new List<String>() 泛型
-泛型中不能使用基本类型，必须使用包装类（int-Integer, long-Long, boolean-Boolean
-
-queue: LinkedList
-set(无序，不重复，永远是第一次添加的对象): HashSet
-遍历set只能用foreach, iterator
-
-Map<key(Entry类), value>: HashMap, key 和 value可为null
-put(K key, V value), remove(Object key), contialsKey(), contailsValue()
-Set<class> keySet = someMap.keySet(); values(), get(id)
-Set<Entry<String, Student>> entrySet = students.entrySet();
-for(Entry<String, Student> entry: entrySet){entry.getKey();entry.getValue();}
-
-Scanner console = new Scanner(System.in);
-console.next()
-Scanner in = new Scanner(Path.get("myfile.txt")) // 文件读取
-PrintWriter out = new PrintWriter("myfile.txt") // 文件写入
-
-List与Set不同点：
-contains(Object obj) - equals()
-contails(Object obj) - hashCode() - equals()
-indexOf(), lastIndexOf() - equals()
-
-e.getClass().getName() // getSuperclass()
-className a = Class.forName(className).new Instance() // 创建新类
-
-// 反射
-java.lang.reflect // Field, Method, Constructor
-class.getFields, getMethods, getConstructors
-Contructor c = class.getDeclaredContructors()
-String modifiers = Modifier.toString(c.getModifiers()) // public, private, protected, static, final
-Class[] paramTypes = c.getParameterTypes()
-Method[] methods = cl.getDeclaredMethods()
-Class retType = m.getReturnType()
-String name = m.getName()
-Method m1 = className.class.getMethod("getName")
-m1.invoke(null, params)
-
-// 线程
-java.lang.Thread
-Thread.sleep(1000);
-// 创建单独线程执行任务
-public interface Runnable{
-	void run()
+// 序列化(转化为byte[]): Class实现Serializable接口, 添加serialVersionUID
+// ClassNotFoundException: 没有对应的Class, InvalidClassException: Class属性不匹配
+try (ObjectOutputStream output = new ObjectOutputStream(...)) {
+  output.writeObject(new Person("xiaoming")); // output.writeInt(), output.writeUTF("string")
+  output.writeObject(new Person("xiaohong"));
 }
-class MyRunnable implements Runnable {
-	public void run() {
-		// Mytask
-	}
+try (ObjectInputStream input = new ObjectInputStream(...)) {
+  Object p1 = input.readObject();
+  Person p2 = (Person) input.readObject();
 }
-Runnable r = new MyRunnable();
-Thread t = new Thread(r); // 创建新县城
+
+// Reader: 字符流
+try(Reader reader = new FileReader("readme.md")) { // 使用系统默认字符编码
+  char[] buffer = new char[1000];
+  int n; 
+  while((n = reader.read()) != -1) { // n = reader.reader(buffer)
+    System.out.println((char)n);
+  }
+}
+// CharArrayReader: 在内存中模拟字符流
+char[] data = {'a', 'b', 'c'}
+Reader reader = new CharArrayReader(data)
+// Reader本质是设置编码的InputStream
+InputStream input = new FileInputStream(filename);
+Reader reader = new InputStreamReader(input, "UTF-8");
+reader.close()
+```
+# 7.日期和时间
+```java
+// java.util.Data, .Calendar 
+// java.time.LocalDate, .LocalTime , .ZonedDateTime, .Instant (JDK >= 1.8)
+
+// Date 获取当前时间
+.getYear(), getMonth(), getDate(), getHours(), getMinutes(), getSeconds()
+new Date(), // GMT, long转化为Date
+long getTime(), System.currentTimeMillis() // long
+// Date转化为String
+toString(), toGMTString(), toLocaleString()
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+String s = sdf.format(new Date());        // 2018-12-18 23:12:23
+// String转化为Date
+Date d = new SimpleDateFormate("yyyy-MM-dd HH:mm:ss", Locale.US).parse(s);
+
+// Calendar
+Calendar c = Calendar.getInstance();
+// Calendar.MONTH, .DAY_OF_MONTH, .DAY_OF_WEEK, .HOUR_OF_DAY, .MINUTE, .SECOND, .MILLISECOND
+int y = c.get(Calendar.YEAR);
+c.set(Calendar.YEAR, 2000);
+c.add(Calendar.DATE, -1);
+// Calendar 转化Date
+Date d = c.getTime();
+c = Calendar.setTime(d);
+
+// java.time // 不变类, 同String
+LocalDate d = LocalDate.now(); // 获取当前日期
+LocalTime t = LocalTime.now(); // 获取当前时间
+LocalDateTime dt = LocalDateTime.now() // 获取当前日期和时间
+LocalDate d = LocalDate.of(2018, 12, 25);
+LocalDate d = LocalDate.parse("2016-11-30");
+// 时间和日期运算 // 支持链式
+LocalDate d2 = d.plusDays(5).minusWeeks(1); // +5天 -1周
+// 日期调整
+LocalDate firstDat = d2.withDayOfMonth(1); // 本月第1天
+LocalTime at = LocalTime.now().withSecond(0) // 秒数设为0
+LocalDate firstSunday = LocalDate.now().with(TemporalAjusters.firstInMonth(DayOfWeek.SUNDAY)); // 本月第1个周日
+// 比较
+.isBefore(), .isAfter(), .equals()
+// 日期间隔计算
+Period p = d2.until(d1); // getYears(), getMonths(), getDays()
+
+// java与数据库, java.sql.Timestamp派生至java.util.Date
+数据库       旧java类             新java类
+DATETIME    java.util.Date      LocalDateTime
+DATE        java.sql.Date       LocalDate
+TIME        java.sql.Time       LocalTime
+TIMESTAMP   java.sql.Timestamp  LocalDateTime
+// 新旧API的相互转换, 通过long转换, 对应数据库BIGINT
+// 用JDK处理时区间的转换
+String epochToString(long epoch, Locale lo, String zoneId) {
+  Instant ins = Instant.ofEpochMilli(epoch);
+  DateTimeFormatter f = DateTimeFormatter.ofLocalizeDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+  return f.withLocale(lo).format(ZonedDateTime.ofInstant(ins, ZoneId.of(zoneId)));
+}
+```
+# 9. 正则表达式
+```java
+// 使用1
+String regex = "^\\d{3,4}\\-\\d{6,8}$";
+String obj = "010-12345678";
+obj.matches(regex); // true
+obj.replaceAll(regex, otherStr);
+// 使用2
+Pattern pattern = Pattern.compile(regex);
+Matcher m = pattern.matcher(obj);
+boolean matches = m.matches(); // true
+// 多匹配, 并提取子串
+while (m.find()) {
+  String sub = s.substring(m.start(), m.end());
+  System.out.println(sub);
+}
+// 分组匹配()
+String whole = matcher.group(0); // 0为整个字符串
+// 非贪婪匹配?, (\\d??)
+// 分割字符串
+"a,b ;; c".split("[\\,\\;\\s]+"); // {"a", "b", "c"}
+```
+# 11 多线程编程
+```java
+// 创建线程1, 继承Thread, 覆写run方法
+public class MyThread extends Thread {
+  public void run() {}
+}
+Thread t = new MyThread();
 t.start()
-!Thread.currentThread().isInterruputed(); // 检查线程是否被中断 // interrupted() 测试当前线程是否被中断，同时将中断线程状态设置为false
-t.setPriority(int newPriority);
-.getState(); // 获取线程状态
-.join(); // 等待线程终止
-.yield(); // 让步
-t.setDaemon(true); // 转换为守护进程，为其他线程提供服务的线程
+// 创建进程2, 实现Runnable接口, 覆写run方法
+public class MyThread implements Runnable {
+  public volatile boolean running = true; // volatile线程共享变量
+  public void run() {
+    while(!isInterrupted()) {
+      System.out.println("Hello!");
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+      return;
+    }
+  }
+}
+Runnable r = new MyThread();
+Thread t = new Thread(r);
+t.start();
+t.join(); // 等待线程结束
+t.stop(); // 强制结束, 不推荐
+// Thread.setPriority(int n); // 设置调度优先级1-10, 默认为5
+// 线程状态
+New(创建), Runnable(运行中), Blocked(阻塞), Waiting(等待), Timed Waiting(计时等待), Ternubated(终止)
+// 守护线程: 不能持有资源, 持续运行, JVM进程关闭后关闭
+.setDaemon(true)
+```
+# 11. 线程同步
+# 11.1 原生
+```java
+// 原子操作: 基本类型(long和double类型除外)赋值, 引用类型赋值
+// 线程安全类: StringBuffer
+// 加锁: synchronized
+// 代码段加锁
+final Object lock = new Object();
+synchronized(lock) { // 以对象为锁
+  count += n;
+}
+// 方法加锁
+public synchronized void add(int n) {
+  count += n;
+}
+// 多线程协调wait(), notify(), notifyAll()
+public synchronized String getTask() {
+  whhile(queue.isEmpty()) {
+    this.wait(); // 等待notify()
+  }
+  return queue.remove();
+}
+```
+# 11.2 concurrent包 jdk>1.5
+```java
+// ReentrantLock 代替synchronized（底层）
+import java.util.locks.ReentrantLock; 
+import java.util.concurrent.locks.Lock;
+Class counter {
+  final Lock lock = new ReentrantLock(); // 创建锁
+  final Condition notEmpty = lock.newCondition(); // 添加Condition 设置wait,notify功能
+  // notEmpty.await(), .signal(), .signalAll() // 相当于wait(), notify(), notifyAll()
+  public void inc() {
+    // 获得锁synchronized功能
+    lock.lock();  
+    try {
+      while (this.queue.isEmpty()) {
+        notEmpty.await();
+      }
+      return queue.remove();
+    } finally {
+      lock.unlock(); // 放开所
+    }
+    // 尝试获得锁，防止死锁
+    if (lock.tryLock(1, TimeUnit.SECONDS)) { // 设置超时时间为1秒
+      try {
+        n = n+ 1;
+      } finally {
+        lock.unlock();
+      }
+    }
+  }
+}
+// ReadWriteLock: 允许多线程读，单线程写
+class Counter {
+  final ReadWriteLock lock = new ReentrantReadWriteLock();
+  final Lock rLock = lock.readLock();
+  final Lock wLock = lock.writeLock();
+  public void inc () {
+    wlock.lock();
+    try {
+      value += 1;
+    } finally {
+      wlock.unlock()
+    }
+  }
+  public int get() {
+    rlock.lock()
+    try {
+      return value;
+    } finally {
+      rlock.unlock();
+    }
+  }
+}
 
-// 锁对象
-private Lock backLock = new ReentrantLock(); // 只要有一个线程进入临界状态，任何其他线程都无法通过lock语句 // (boolean fair); 公平策略：等待时间长的线程
-private Condition condition = backLock.newCondition();
-myLock.lock(); // myLock.tryLock(100, TimeUtil.MILLISECONDS) // 设置超时参数
-try{
-	// 临界状态
-	while(c)
-		condition.await() // 线程阻塞, 等待condition.signalAll()事件
-	condition.signalAll() // signal(), 从等待及中随机选择一个线程，解除其阻塞状态
-} finally {
-	myLock.unlock();
-}
-// synchronized 关键字
-public synchronized void method() {}
-// 相当于
-public void method(){
-	this.intrinsicLock.lock();
-	try{
-		// method body
-	} finally {
-		this.intrinsicLock.unlock();
-	}
-}
-// 同步阻塞: 客户端锁，不推荐使用
-private Object lock = new Object();
-synchronized(lock){
-	// task
-}
-// 原子变量：并发更新标识,getter后跟setter
-private volatile boolean done;
-// tryLock(), trylock(long time, TimeUnit unit), lockInteruptibly() // Lock
-// await(long time, timeUit unit), awaitUniterruptibly() // Condition
-// 读写锁
-private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock(); // 构造读写锁对象
-private Lock readLock = rwl.readLock();
-private Lock writeLock = rwl.writeLock();
-public double getTotalBalance(){ // 对所有获取方法加锁，同理writeLock.lock(), .unlock()
-	readLock.lock();
-	try{}
-	finally {readLock.unlock();}
-}
+// 线程安全类实现
+BlockingQueue<t> t;
+t.put("123");
+String item = t.take();
+// 线程安全扩展类
+Interface     Non-thread safe         Thread safe
+List          ArrayList               CopyOnWriteArrayList
+Map           HashMap                 ConcurrentHashMap
+Set           HashSet, TreeSet        CopyOnWriteArraySet
+Queue         ArrayDeque,LinkedList   ArrayBlockQueue, LinkedBlockingQueue
+Deque         ArrayDeque, LinkedList  LinkedBlockingDeque
+// 线程安全原子类Atomic
+// AtomicInteger, AtomicLong, AtomicIntegerArray等
+.addAndGet(int delta), .incrementAndGet(), get(), compareAndSet(int except, int update) // CAS
+```
+# 11.3 线程池
+```java
+// FixedThreadPool, CachedThreadPool(ThreadPoolExecutor) 动态调整线程数, SingleThreadExecutor: 单线程
+ExecuterService executor = Executors.newFixeThreadPool(4); // 固定大小线程池
+executor.submit(task); // task为实现Runnable接口类或继承Thread, 实现run方法
+executor.shutdown(); // 关闭
+// ScheduledThreadPool: FixedRate和FiexdDelay两种模式
+ScheduleExecutorService executor = Executors.newScheduledThreadPool()
+executor.scheduleAtFixedRate(task1);  // 固定task总时间
+executor.scheduleWithFixedDelay(task2); // 固定task任务之间间隔时间
+// java.util.Timer: 一个Timer对应一个thread jdk < 1.5
+Timer.cancel() // 结束timer任务
+```
 
-// 阻塞队列，推荐：上层开发包
-import java.util.concurrent.*
-BlockingQueue<File> queue = new ArrayBlockingQueue<>(10);
-// add, element, offer, peek,  poll, put, remove, take
+# 11.4 Future
+```java
+// Future: 有返回值的多线程, 获取异步返回结果
+class Task impements Callable<String> {
+  public String call() throws Exception {
+    return longTimeCalculation();
+  }
+}
+Callable<String> task = new Task();
+ExecutorService executor = Executors.newFixedThreadPool(4); // executor.shutdown()
+Future<String> funture = executor.submit(task);
+String result = future.get(); // 阻塞
+// get(long tiemout, TimeUnit unit), cancel(boolean myInterruptIfRunning), isDone() // 轮询
+
+// CompletableFuture: 回调；
+CompletableFuture<String> cf = CompletableFuture.supplyAsync("异步执行实例"); // 实例实现Supplier接口
+cf.thenAccept(new Consumer<String>() {  // cf.thenAccept((result) -> {})
+  public void accept(String result) {
+    System.out.println(result);
+  }
+});
+cf.exceptionally(new Function<Throwable, String>() { // cf.exceptionally((t) -> {})
+  public String apply(Throwable t) {
+    System.out.println(t.getMessage());
+    return null;
+  }
+})
+// CompletableFuture串行执行
+// xxx(): 在已有的线程中执行, xxxAsync()用Executor的新线程执行
+CompletableFuture<String> cf1 = CompletableFuture.supplyAsync("异步执行实例1");
+CompletableFuture<Float> cf2 = cf1.thenApplyAsync("异步执行实例2");
+cf2.thenAccept("cf2执行后的操作");
+// anyOf任一个返回
+CompletableFunture<Object> join1 = CompletableFuture.anyOf(cf1, cf2);
+join1.join();
+// allOf 都返回时执行
+CompletableFunture<Void> join2 = CompletableFuture.allOf(cf1, cf2);
+join2.join();
+
+// Fork/Join 多核分治 jdk>1.7
+class MyTask extends RecursiveTask<Long> { // 实现RecursiveTask接口(有返回值) 或 RecursiveAction(无返回值)
+  protected Long compute() { // 覆写compute方法
+    SumTask subtask1 = new MyTask(...);
+    SumTask subtask2 = new MyTask(...);
+    invokeAll(subtask1, subtask2); // 同时运行两个任务
+    Long result1 = subtask1.join();
+    Long result2 = subtask2.join();
+    return result1 + result2;
+  }
+}
+ForkJoinTask<Long> task = new MyTask();
+Long result = ForkJoinPool.commonPool().invoke(task);
+// Fork/Join模式的应用
+java.util.Arrays.parallelSort(array);
+```
+# 11.5 ThreadLocal线程绑定值
+```java
+static ThreadLocal<String> threadLocalUser = new ThreadLocal()<>
+threadLocalUser.set("bob");
+String current = threadLocalUser.get();
+threadLocalUser.remove(); // finally
+```
+# 13.网络编程
+```java
+// http(基于TCP)发送请求 // get
+URL url = new URL("http://www.baidu.com/");
+HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+int code = conn.getResponseCode();
+try (InputStream input = conn.getInputStream()){
+  // 读取响应数据
+}
+conn.disconnect();
+// post
+URL url = new URL("http://www.baidu.com/");
+HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+conn.setRequestMethod("POST");
+conn.setDoOutput(true); // 设置发送请求数据
+byte[] postData = "test";
+conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+conn.setRequestProperty("Content-Length", String.valueOf(postData.length));
+try (OutputStream output = conn.getOutputStream()) {
+  output.write(postData);
+}
+// 省略同get方法
+```
+# 16.函数编程lambda: jdk>=1.8
+```java
+// 省略单个抽象方法@FunctionalInterface
+Arrays.sour(arr, new Comparator<String>() {
+  public int compare(String s1, String s2) {
+    return s1.compareTo(s2)
+  }
+})
+// 简化为
+Arrays.sort(arr, (s1, s2) -> { 
+  return s1.toLowerCase().compareTo(s2)
+})
+Tread t = new Thread(() -> {})
+
+// 方法引用
+Arrays.sort(arr, SortedBy::staicMed) // 静态方法 => (str1, str2)
+Arrays.sort(arr, SortedBy::notStaticMeh) // 实例方法 => (str2) // 默认第一个为this
+arr.stream().map(Person::new).collect(Collectors.toList()) // 调用new Person(String name)构造方法 // s -> {}
+
+// java.util.stream // 实时计算, 惰性分配
+// 创建Stream1
+Stream<Integer> s = Stream.of(1,2,3,4,5);
+Stream<Integer> s = Arrays.stream(array);
+Stream<Integer> s = collection.stream(); // collection: ArrayList等
+// 实现Supplier<T>接口及get()方法 提供无限制序列
+Stream<String> s = Stream.generate(new MyImpl()); // 基本类型: IntStream, LongStream, DoubleStream
+.limit(10), skip(), .forEach(item) // 无限序列需要先limit, forEach无返回值
+.filter(), .map(), 
+.reduce(init, Fun), .reduce(Fun).get()
+.sorted(), sorted(Comparator<? super T> cp)
+.distinct() // 去重
+.contact(stream1, stream2)
+.flatMap() // 拆开Collection并合并为stream
+.parallel() // 尽可能并行处理
+.count(), max(), min(), sum(), average()
+.allMatch(), anyMatch() // 返回boolean
+// Stream 转换为其他类型
+Object[] s = st.toArray()
+String[] arr = st.toArray(String[]::new)
+List<String> list = st.collect(Collectors.toList());
 ```

@@ -2,7 +2,6 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var ioServer = require('socket.io')(server);
-// var ioServer2 = require('net');
 
 var ids = 0;
 
