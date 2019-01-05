@@ -1,3 +1,17 @@
+# ByteBuffer 和 byte[]
+```java
+// put data array
+byte[] sequenceHeader = ByteBuffer.allocate(4).putInt(sequenceNumber).array();
+ByteBuffer bb = ByteBuffer.allocate(this.mtu);
+bb.put(sequenceHeader)
+bb.putInt(sequenceNumber)
+// get data
+ByteBuffer totalBuffer = ByteBuffer.wrap(receivePacket.getData());
+sequenceNumber = totalBuffer.getInt();
+byte[] b = new byte[4];
+ByteBuffer bb = ByteBuffer.wrap(packet.getData());
+int seq1 = bb.get(b,0,4).getInt();
+```
 # 4 java反射与泛型
 # 4.1 反射
 ```java
@@ -292,7 +306,7 @@ try (ObjectInputStream input = new ObjectInputStream(...)) {
   Person p2 = (Person) input.readObject();
 }
 
-// Reader: 字符流
+// Reader: 字符流(BufferedReader, FileReader, CharArrayReader)
 try(Reader reader = new FileReader("readme.md")) { // 使用系统默认字符编码
   char[] buffer = new char[1000];
   int n; 
@@ -389,6 +403,8 @@ String whole = matcher.group(0); // 0为整个字符串
 ```
 # 11 多线程编程
 ```java
+Thread.sleep()
+// .currentThread(), .getState(), .yield() // 让步
 // 创建线程1, 继承Thread, 覆写run方法
 public class MyThread extends Thread {
   public void run() {}
@@ -399,7 +415,7 @@ t.start()
 public class MyThread implements Runnable {
   public volatile boolean running = true; // volatile线程共享变量
   public void run() {
-    while(!isInterrupted()) {
+    while(!isInterrupted()) { // interrupted
       System.out.println("Hello!");
     } catch (InterruptedException e) {
       e.printStackTrace();
@@ -525,7 +541,7 @@ Timer.cancel() // 结束timer任务
 
 # 11.4 Future
 ```java
-// Future: 有返回值的多线程, 获取异步返回结果
+// Future（Callable）: 有返回值的多线程, 获取异步返回结果
 class Task impements Callable<String> {
   public String call() throws Exception {
     return longTimeCalculation();

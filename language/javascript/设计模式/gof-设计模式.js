@@ -182,18 +182,3 @@ var CarFactory = {
     return car;
   }
 }
-
-// classic
-// $(function(){
-//   // 1、前台业务逻辑
-//   var i = document.getElementById('input')
-//   i.addEventListener('click', sendReq)
-//   // 2、后台业务逻辑
-//   function sendReq() {
-//     // ajax请求
-//   }
-// })
-
-
-
-

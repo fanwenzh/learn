@@ -4,7 +4,6 @@ zlib 解压缩
 browser-sync 文件监听与浏览器同步
 progress  进度条
 querystring 读取查询字符串
-url 解析url
 nodemon // 自动重新执行node *.js
 http-proxy-middleware // 请求代理中间件
 multer: 文件上传
@@ -17,6 +16,7 @@ path 路径解析
 querystring 查询解析
 dns 域名解析
 uuid/v4 生成随机序列
+sockit.io 封装socket通信
 
 yarn 服务端离线缓存依赖管理：https://yarnpkg.com/zh-Hans/
 cnpm i -g supervisor // 热刷新node

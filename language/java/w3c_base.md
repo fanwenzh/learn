@@ -4,8 +4,6 @@
 // 访问控制修饰符：default, public, protected, private
 // 非访问控制修饰符：final, abstract, strictfp(精确浮点运算)
 
-// enum 枚举
-
 // 一个源文件只能有一个public类
 public class Puppy {
 	public Puppy(String name) {
@@ -39,6 +37,20 @@ min(), max(), random(), sin(Math.Pi/2)
 Character.isLetter(), isDigit(), isWhitespace()
 isUpperCase(), isLowerCase(), toUpperCase(), toLowerCase()
 toString()
+Object.equals() // ==:比较内存首地址
+	hashCode() // 为了提高比较效率，java底层会先判断hashCode是否相等，如果hashCode相等，在来判断equals是否相等，如果hashCode不相等，则不会判断equals而直接返回false,只有hashCode相等，而且equals也相等，才会认为两个对象完全相等
+	clone()
+	toString()
+// 深度克隆
+public class Attribute implements Cloneable {  // 1. 实现java.lang.Cloneable接口
+    public Object clone() {   // 重载java.lang.Object.clone()方法
+        try {   
+            return super.clone();   
+        } catch (CloneNotSupportedException e) {   
+            return null;   
+        }   
+    }   
+}   
 
 String:
 char[] arr = {'h', 'e', 'l', 'l', 'o'}
@@ -61,7 +73,6 @@ StringBuilder() //同StringBuffer, 但不是线程安全
 Integer.parseInt(str), Integer.valueOf(str) 
 
 // 数组
-// for(int x : numbers)
 double [] myList;
 int[] arr = new int[size]
 int[] arr = {value0, value1, value2}
@@ -83,9 +94,6 @@ Calendar calender; calender.getTime()
 calendarObj.YEAR, .MONTH + 1, .DAY_OF_MONTH, .HOUR_OF_DAY, .MINUTE, .SECOND
 calendarObj.set(), add()
 
-Thread.sleep(time)
-System.currentTimeMillis()
-Calendar.getInstance()
 // 正则表达式: http://www.runoob.com/java/java-regular-expressions.html
 Pattern.matches(strPattern, strContent)
 String pattern = "(\\D*)(\\d+)(.*)"
@@ -158,12 +166,6 @@ Dog dog = new Dog();
 Animal animal = dog;
 Dog dog2 = (Dog)animal; // 存在转换风险
 
-接口：interface，可继承多个父接口
-接口就是用来被继承、被实现的，修饰符一般建议用public, 不能使用private和protected修饰
-接口中的常量：pulic static final修饰
-[修饰符] class 类名 extends 父类 implements 接口1, 接口2
-匿名内部类: Interface i = new Interface(){}
-
 // 集合接口
 Collection: 
 sort() - 默认比较：comparable接口 即 compareTo()方法, 临时比较：Comparator接口， 即compare()方法
@@ -178,20 +180,10 @@ clone(), removeRange(int fromIndex, int toIndex)
 Iterator it = arrayListName.iterator(); it.hasNext();(arrayListName) it.next();
 for(Object obj : arrList)(arrayListName)obj;
 LinkedList: 构造同步List: List list = Collections.synchronizedList(new LinkedList(...)); // 链表List
-Vector: 同步ArrayList, 抛出ConcurrentModificationException异常
-Stack:push, pop, peel, empty, search
 // 集合与数组之间的转换
 String[] values = [];
 HashSet<String> staff = new HashSet<>(Arrays.asList(valus))
 staff.toArray(new String[staff.size()])
-
-泛型：规定集合只能存放特定类型及其子类型的对象
-x.compareTo(y) // 比较接口
-public List<className> courses;
-courses = new ArrayList<Course>(); // new List<String>() 泛型
-泛型中不能使用基本类型，必须使用包装类: int-Integer, long-Long, boolean-Boolean
-public static <E> void fanxingMethod(E[] arr){}
-public static <T extends Comparable<T>> T maximum(T x, T y, T z) // 利用泛型返回最大值
 
 // 序列化: 实现Serializable接口的类，要求
 // 该类必须实现 java.io.Serializable 对象。
@@ -208,19 +200,6 @@ ObjectInputStream in = new ObjectInputStream(fileIn);
 e = (Employee) in.readObject();
 in.close();
 fileIn.close();
-
-// 网络编程: url读取网页
-URL url = new URL("http://www.w3cschool.cn");
-URLConnection urlConnection = url.openConnection();
-HttpURLConnection connection = null;
-if (urlConnection instanceof HttpURLConnection) {
-	connection = (HttpURLConnection) urlConnection;
-} else {
-	System.out.println("Please enter an HTTP URL.");
-	return;
-}
-BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-while((String = in.readLine()) != null){}
 
 queue: LinkedList
 set(无序，不重复，永远是第一次添加的对象): HashSet
@@ -240,7 +219,11 @@ indexOf(), lastIndexOf() - equals()
 e.getClass().getName() // getSuperclass()
 className a = Class.forName(className).new Instance() // 创建新类
 
-// 反射
+```
+
+## 反射机制
+http://www.cnblogs.com/lzq198754/p/5780331.html
+```java
 java.lang.reflect // Field, Method, Constructor
 class.getFields, getMethods, getConstructors
 Contructor c = class.getDeclaredContructors()
@@ -252,72 +235,155 @@ String name = m.getName()
 Method m1 = className.class.getMethod("getName")
 m1.invoke(null, params)
 
-// 线程
-java.lang.Thread
-Thread.sleep(1000);
-// 创建单独线程执行任务
-public interface Runnable{
-	void run()
-}
-class MyRunnable implements Runnable {
-	public void run() {
-		// Mytask
-	}
-}
-Runnable r = new MyRunnable();
-Thread t = new Thread(r); // 创建新县城
-t.start()
-!Thread.currentThread().isInterruputed(); // 检查线程是否被中断 // interrupted() 测试当前线程是否被中断，同时将中断线程状态设置为false
-t.setPriority(int newPriority);
-.getState(); // 获取线程状态
-.join(); // 等待线程终止
-.yield(); // 让步
-t.setDaemon(true); // 转换为守护进程，为其他线程提供服务的线程
+// 实例化类对象
+package net.xsoftlab.baike;
+public class TestReflect {
+    public static void main(String[] args) throws Exception {
+        Class<?> class1 = null;
+        Class<?> class2 = null;
+        Class<?> class3 = null;
+        // 一般采用这种形式
+        class1 = Class.forName("net.xsoftlab.baike.TestReflect");
+        class2 = new TestReflect().getClass();
+        class3 = TestReflect.class;
+        // 方法一, 创建类实例
+        TestReflect t1 = (TestReflect) class1.newInstance(); 
+        // 方法二, 通过构造函数创建
+		Constructor<?> cons[] = class1.getConstructors();
+		Class<?> clazzs[] = cons[i].getParameterTypes();
+		TestReflect t2 = (TestReflect) cons[0].newInstance(); // 可判断参数
 
-// 锁对象
-private Lock backLock = new ReentrantLock(); // 只要有一个线程进入临界状态，任何其他线程都无法通过lock语句 // (boolean fair); 公平策略：等待时间长的线程
-private Condition condition = backLock.newCondition();
-myLock.lock(); // myLock.tryLock(100, TimeUtil.MILLISECONDS) // 设置超时参数
-try{
-	// 临界状态
-	while(c)
-		condition.await() // 线程阻塞, 等待condition.signalAll()事件
-	condition.signalAll() // signal(), 从等待及中随机选择一个线程，解除其阻塞状态
-} finally {
-	myLock.unlock();
-}
-// synchronized 关键字: 仅能被同一线程访问
-public synchronized void method() {}
-// 相当于
-public void method(){
-	this.intrinsicLock.lock();
-	try{
-		// method body
-	} finally {
-		this.intrinsicLock.unlock();
-	}
-}
-// 同步阻塞: 客户端锁，不推荐使用
-private Object lock = new Object();
-synchronized(lock){
-	// task
-}
-// 原子变量：并发更新标识,getter后跟setter(两个线程总看到某一成员变量的同一个值)
-private volatile boolean done;
-// tryLock(), trylock(long time, TimeUnit unit), lockInteruptibly() // Lock
-// await(long time, timeUit unit), awaitUniterruptibly() // Condition
-// 读写锁
-private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock(); // 构造读写锁对象
-private Lock readLock = rwl.readLock();
-private Lock writeLock = rwl.writeLock();
-public double getTotalBalance(){ // 对所有获取方法加锁，同理writeLock.lock(), .unlock()
-	readLock.lock();
-	try{}
-	finally {readLock.unlock();}
-}
+        System.out.println("类名称   " + class1.getName());
+        System.out.println("类名称   " + class2.getName());
+        System.out.println("类名称   " + class3.getName());
+        Class<?> parentClass = class1.getSuperclass(); // 获得父类
+        Class<?> intes[] = clazz.getInterfaces(); // 获取所有的接口
 
-// 阻塞队列，推荐：上层开发包
-import java.util.concurrent.*
-BlockingQueue<File> queue = new ArrayBlockingQueue<>(10);
-// add, element, offer, peek,  poll, put, remove, take
+        // 获得所有本类属性
+        Field[] field = class1.getDeclaredFields();
+        // 取得实现的接口或者父类的属性
+        Field[] filed1 = clazz.getFields();
+        // 获取权限修饰符
+        // 权限修饰符
+        int mo = field[i].getModifiers();
+        String priv = Modifier.toString(mo);
+        // 获得属性类型
+        Class<?> type = field[i].getType();
+    	System.out.println(priv + " " + type.getName() + " " + field[i].getName() + ";");
+
+    	// 获得类方法
+    	Method method[] = class1.getMethods();
+    	Class<?> returnType = method[i].getReturnType();
+        Class<?> para[] = method[i].getParameterTypes(); // para[j].getName()
+        // 权限修饰符
+        int temp = method[i].getModifiers();
+        System.out.print(Modifier.toString(temp) + " ");
+        System.out.print(returnType.getName() + "  ");
+        System.out.print(method[i].getName() + " ");
+        // 获取异常信息
+        Class<?> exce[] = method[i].getExceptionTypes(); // exce[k].getName()
+
+        // 调用某个类方法
+        Class<?> clazz = Class.forName("net.xsoftlab.baike.TestReflect");
+        // 调用TestReflect类中的reflect1方法
+        Method method = clazz.getMethod("reflect1");
+        method.invoke(clazz.newInstance());
+        method = clazz.getMethod("reflect2", int.class, String.class);
+        method.invoke(clazz.newInstance(), 20, "张三"); // args
+
+        // 通过反射机制操作某个类的属性
+        Field field = clazz.getDeclaredField("proprety");
+        field.setAccessible(true);
+        field.set(obj, "Java反射机制");
+        System.out.println(field.get(obj));
+
+        // 反射机制的动态代理
+        // 获取类加载器的方法
+		TestReflect testReflect = new TestReflect();
+		System.out.println("类加载器  " + testReflect.getClass().getClassLoader().getClass().getName());
+		import java.lang.reflect.InvocationHandler;
+		import java.lang.reflect.Method;
+		import java.lang.reflect.Proxy;
+		interface Subject { //定义项目接口
+		    public String say(String name, int age);
+		}
+		class RealSubject implements Subject { // 定义真实项目
+		    public String say(String name, int age) {
+		        return name + "  " + age;
+		    }
+		}
+		class MyInvocationHandler implements InvocationHandler {
+		    private Object obj = null;
+		    public Object bind(Object obj) {
+		        this.obj = obj;
+		        return Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(), this);
+		    }
+		    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		        Object temp = method.invoke(this.obj, args);
+		        return temp;
+		    }
+		}
+		/**
+		 * 在java中有三种类类加载器。
+		 * 1）Bootstrap ClassLoader 此加载器采用c++编写，一般开发中很少见。
+		 * 2）Extension ClassLoader 用来进行扩展类的加载，一般对应的是jrelibext目录中的类
+		 * 3）AppClassLoader 加载classpath指定的类，是最常用的加载器。同时也是java中默认的加载器。
+		 * 如果想要完成动态代理，首先需要定义一个InvocationHandler接口的子类，已完成代理的具体操作。
+		 */
+		public class TestReflect {
+		    public static void main(String[] args) throws Exception {
+		        MyInvocationHandler demo = new MyInvocationHandler();
+		        Subject sub = (Subject) demo.bind(new RealSubject());
+		        String info = sub.say("Rollen", 20);
+		        System.out.println(info);
+		    }
+		}
+
+		// 通过反射取得并修改数组的信息
+		import java.lang.reflect.Array;
+		public class TestReflect {
+		    public static void main(String[] args) throws Exception {
+		        int[] temp = { 1, 2, 3, 4, 5 };
+		        Class<?> demo = temp.getClass().getComponentType();
+		        System.out.println("数组类型： " + demo.getName());
+		        System.out.println("数组长度  " + Array.getLength(temp));
+		        System.out.println("数组的第一个元素: " + Array.get(temp, 0));
+		        Array.set(temp, 0, 100);
+		        System.out.println("修改之后数组第一个元素为： " + Array.get(temp, 0));
+		    }
+		}
+
+		// 修改数组大小
+		String[] atr = { "a", "b", "c" };
+        String[] str1 = (String[]) arrayInc(atr, 8);
+        // 修改数组大小
+	    public static Object arrayInc(Object obj, int len) {
+	        Class<?> arr = obj.getClass().getComponentType();
+	        Object newArr = Array.newInstance(arr, len);
+	        int co = Array.getLength(obj);
+	        System.arraycopy(obj, 0, newArr, 0, co);
+	        return newArr;
+	    }
+
+	    // 将反射机制应用于工厂模式
+    }
+}
+```
+
+## 泛型的约束和局限性
+```java
+// https://www.jianshu.com/p/f1b70ae8858d
+// 反射创建实例
+public static <T> Couple<T> createInstance(Class<T> clazz) {
+    try {
+        return new Couple<T>(clazz.newInstance(), clazz.newInstance());
+    } catch (Exception e) {
+        return null ;
+    }
+}
+// 反射创建数组
+public static <T extends Comparable<T>> T[] maxTwo(T[] array) {
+    // Type safety: Unchecked cast from Object[] to T[]
+    return (T[]) Array.newInstance(array.getClass().getComponentType(), 2) ;
+}
 ```

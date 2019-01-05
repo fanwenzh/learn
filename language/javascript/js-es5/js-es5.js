@@ -1,7 +1,7 @@
 let json = eval("("+ text + ")") // str转换Object(json)
 // 数据类型
 // Array
-	[].reverse, .splice, copyWidthin(target, start, end) // 改变数组
+	[].reverse, .splice, copyWidthin(index, start, end) // 数组copy自身
 	[].join, reverse // 改变数组并返回引用本身
 	sort(fn) // 中文按字典序：str1.localCompare
 	[].push, pop, unshift, shift, lenth
@@ -29,7 +29,7 @@ let json = eval("("+ text + ")") // str转换Object(json)
 	.now, getTime, getFullYear, getMonth + 1, getDate, getDay, getHours, getMinutes, getSeconds
 // Math
     max, min, ceil, floor, round, random, abs
-// RegExp: 2-chapter-3.js
+// RegExp: 
     (/i$/gi).test(), // true or false
     .exec() // .index, .input
     str.match(reg)
@@ -102,7 +102,7 @@ Object.assign(obj, other) // other扩展obj
 //window
 	encodeURI, decodeURI // ecodeURI 转换所有空格符 % 20
 	encodeURIComponent, decodeRIComponent // 转换所有非字幕数字字符
-	location.assign(url), .href = url.replace
+	location.assign(url), .href = url.replace // 更改url
 	// http: //   www.baidu.com  :8000   / dir /   ?cb=fn    #section
     //.protocol, .hostname,      .port, .pathname, .search( ? query) hash
     navigator

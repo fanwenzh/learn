@@ -1,4 +1,5 @@
 ### 1 
+ssh username@host
 # 网络
 vi /etc/sysconfig/network-scripts/ifcfg-xxx => ONBOOT=yes # 启动网卡
 service network start|stop|restart # 启动网络服务
