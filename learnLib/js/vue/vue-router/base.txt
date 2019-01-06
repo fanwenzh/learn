@@ -62,7 +62,6 @@ const router = new VueRouter({
 })
 重定向:
 { path: '/a', redirect: '/b' }
-{ path: '/a', redirect: to => '/b' }
 { path: '/a', redirect: { name: 'b'} }
 别名: 当用户访问 /a时，URL 将会被替换成 /b
 { path: '/a', component: A, alias: '/b' }

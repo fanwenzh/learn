@@ -32,9 +32,9 @@ mode=""></transition> // mode模式: in-out, out-in
 ></transition>
 
 <transition-group name="list" tag="p"> // for渲染，以p标签呈现，要有key //设置为 display: inline-block 或者放置于 flex 中
-<span v-for="item in items" v-bind:key="item" class="list-item">
-    {{ item }}
-</span>
+    <span v-for="item in items" v-bind:key="item" class="list-item">
+        {{ item }}
+    </span>
 </transition-group>
 v-move 移除动画：https://cn.vuejs.org/v2/guide/transitions.html
 可复用的过渡, 动态过渡（prop动态传参数）
@@ -64,10 +64,6 @@ new Vue({
   }
 })
 全局混合Vue.mixin({})
-
-vue-element(UI), vue-touch, v-router, vuex
-Vue.use(MyPlugin), Vue.use(MyPlugin, { someOption: true })
-vue-router // 
 
 状态管理：
 this.$root.$data
@@ -129,11 +125,5 @@ modules: {
                 rootGetters.someOtherGetter  // 'someOtherGetter'
             }
         }
-    }
-}
-// 同一模块多次引用，避免相互污染(绑定)
-state(){
-    return {
-        foo:'bar'
     }
 }

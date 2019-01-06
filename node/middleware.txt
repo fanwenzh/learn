@@ -17,6 +17,7 @@ querystring 查询解析
 dns 域名解析
 uuid/v4 生成随机序列
 sockit.io 封装socket通信
+raven-js 线上前端日志收集
 
 yarn 服务端离线缓存依赖管理：https://yarnpkg.com/zh-Hans/
 cnpm i -g supervisor // 热刷新node

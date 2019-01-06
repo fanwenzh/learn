@@ -14,6 +14,7 @@
           throw new Error('el is required');
         }
 
+        // 2.x vue: Object.defineProperty
         this.$data = new Proxy(options.data, {
           set: (obj, name, value) => {
             obj[name] = value;
