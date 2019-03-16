@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Thread" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/documet" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/encrypt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/io" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/net" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/reflect" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/regular" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/structure" charset="UTF-8" />
+  </component>
+</project>

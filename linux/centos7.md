@@ -109,3 +109,24 @@ npm i -g forever
   forever start xxxx.js
   forever stop xxx.js
   forever restart xxx.js
+
+docker
+```shell
+# 配置ssl
+# 查看地址
+ip address
+# 更新下载源
+yum update
+# 安装ssh-server
+yum install openssh-server
+# 配置ssh
+vim /etc/ssh/sshd_config
+# 开启ssh
+sudo service sshd start
+# 检查sshd服务
+ps -e | grep sshd # 查进程
+netstat -an | grep 22 # 查端口
+
+# 配置sftp
+
+```

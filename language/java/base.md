@@ -16,8 +16,7 @@ int seq1 = bb.get(b,0,4).getInt();
 # 4.1 反射
 ```java
 // class本质
-Type
-Class cls =  new Class(String) // 原类的创建
+int.class === Integer.TYPE
 // 获取class实例
 Class cls = String.class;
 Class cls = "str".getClass();
@@ -31,39 +30,49 @@ instanceof, ==
 isInterface()
 isEnum()
 isArray()
-isPrimitive()
+isPrimitive() // 是否为原始类型
 // 创建class
-cls.newInstance()
+cls.newInstance() // return Object
 // 获取class的属性field
 getFiled(name) // 获取public的filed, 包括父类
 getDeclaredField(name) // 获取当前类的某个filed, 不包括父类
-getFIleds() // 获取所有public的field, 包括父类
+  // nameField.setAccessible(true);
+  // nameField.get(obj) // 属性访问
+getFileds() // 获取所有public的field, 包括父类
 getDeclaredFields() // 获取当前类所有的filed, 不包括父类
 // 获取filed的属性
 getName()
 getType()
-getModifiers()
+getModifiers() // 修饰符的序号之和：@return int, String modifiers = Modifier.toString(mod);
+// Modifier.toString(Modifier.methodModifiers()) // 列举所有修饰符
+
 // 获取和设置field的值, 通过反射访问Field需要通过SecurityManager设置的规则
-get(Object obj)
-set(Object, Object) // setAccessible(true) 设置非public字段
+field.get(Object obj)
+field.set(Object, Object) // setAccessible(true) 设置非public字段
 // 通过Class获取方法
-getMethod(name, Class...) // 获取某个public的method(包括父类) 
+getMethod(name, Class...) // 获取某个public的method(包括父类). 
 getDeclaredMethod(name, Class...) // 获取当前类的某个method(不包括父类) 
 getMethods() // 获取所有public的method(包括父类) 
 getDeclaredMethods() // 获取当前类的所有method(不包括父类)
+
 // 获取method属性
 getName() 
 getReturnType() 
-getParameterTypes() 
-getModifiers()
+getParameters() // @return Parameter[]
+  // String parmType = parms[i].getType().getSimpleName()
+  // String parmName = parms[i].getName() // arg0
+getParameterTypes() // 
+getModifiers()      // @return int; String modifiers = Modifier.toString(mod);
+getExceptionTypes() // @return Class<?>[] cs, c.getSimpleName()
 // 调用方法
 setAccessible(true)
 Object invoke(Object obj, Object... args)
+
 // 调用public无参数构造方法
 Class.newInstance()
 // 获取Constructor
 getConstructor(Class...) // 获取某个public的Constructor 
-getDeclaredConstructor(Class...) // 获取某个Constructor 
+getDeclaredConstructor(Class...) // 获取某个Constructor(Integer.class)
 getConstructors() // 获取所有public的Constructor 
 getDeclaredConstructors() // 获取所有Constructor
 setAccessible(true) // 设置访问非public构造方法
@@ -71,7 +80,7 @@ setAccessible(true) // 设置访问非public构造方法
 Class getSuperclass() // Object的父类是null interface的父类是null
 Class[] getInterfaces() // 不包括间接实现的interface 没有interface的class返回空数组 interface返回继承的interface
 // 判断向上转型
-bool isAssignableFrom(Class)
+bool isAssignableFrom(Class) // class1.isAssignableFrom(class2)
 Number.class.isAssignableFrom(Integer.class) // true, Number n = (Integer) i
 ```
 # 4.2 注解
@@ -114,24 +123,24 @@ public Pair(Class<T> clazz) {
   first = clazz.newInstance()
   last = clazz.newInstance()
 }
-// 泛型继承
+// 泛型继承, 获取Pair<Integer>的泛型类型T-Integer
 public class IntPair extends Pair<Integer> {}
-Class<IntPair> clazz = IntPair.class;
-// 获取Pair<Integer>的泛型类型T-Integer
-Type t = clazz.getGenericsuperclass(); 
+Class<IntPair> clazz = IntPair.class; // Class clazz = IntPair.class;
+System.out.println(clazz.getSuperclass()) //getSuperclass()获得该类的父类 // com.test.Pair
+//Type是 Java 编程语言中所有类型的公共高级接口。它们包括原始类型、参数化类型、数组类型、类型变量和基本类型。
+Type t = clazz.getGenericsuperclass(); // 获得带有泛型的父类 // com.test.Pair<com.test.Integer>
+//ParameterizedType参数化类型，即泛型
 ParameterizedType pt = (ParameterizedType) t;
 Type[] types = pt.getActuralTypeArguments();
-Type first = types[0];
-Class<?> typeClass = (Class<?>) firstType;
+Type firstType = types[0];
+Class typeClass = (Class) firstType;
 System.out.println(typeClass); // Integer
 
-// extends通配符, 限制T的类型
-// void someMethod(List<? extends Number> list, 允许传入List<Number>，List<Integer>，List<Double>
-void myMeth(List<? extends Number> list){} // 只允许get, 不允许set
-<T extends Number> // 定义泛型时可以通过extends限定T必须是Number或Number的子类
-// super通配符, 限制T的类型 
-void someMethod(List<? super Integer> list) {} // 只允许set, 不允许get
-<T super Integer> // 定义泛型时可以通过extends限定T必须是Integer或Integer的超类
+// extends, super通配符, 限制T的类型
+// extends只读, supser只写, ?不读不写
+1. <? extends T> 只能用于方法返回，告诉编译器此返参的类型的最小继承边界为T，T和T的父类都能接收，但是入参类型无法确定，只能接受null的传入
+2. <? super T>只能用于限定方法入参，告诉编译器入参只能是T或其子类型，而返参只能用Object类接收
+3. ? 既不能用于入参也不能用于返参
 // 泛型数组初始化
 Pair<String>[] ps = null; // 不能直接new泛型数组
 Pair<String>[] ps = (Pair<String>[]) new Pair[2]; // 必须通过强制转型
@@ -251,7 +260,7 @@ file.getPath() // 传回path
 canRead(), canWrite(), canExecute(), length()
 File.createNewFile(), FIle.ceateTempFIle(String prefix, Stering suffix), delete(), deleteOnExit() // JVM退出时删除该文件
 // 为目录时
-list(), listFIles(), listFiles(FileFilter filter), listFiles(FilenameFilter filter)
+list(), listFiles(), listFiles(FileFilter filter), listFiles(FilenameFilter filter)
 mkdir(), mkdirs()
 
 // InputStream
@@ -451,7 +460,7 @@ public synchronized void add(int n) {
 }
 // 多线程协调wait(), notify(), notifyAll()
 public synchronized String getTask() {
-  whhile(queue.isEmpty()) {
+  while(queue.isEmpty()) {
     this.wait(); // 等待notify()
   }
   return queue.remove();
@@ -475,7 +484,7 @@ Class counter {
       }
       return queue.remove();
     } finally {
-      lock.unlock(); // 放开所
+      lock.unlock(); // 放开锁
     }
     // 尝试获得锁，防止死锁
     if (lock.tryLock(1, TimeUnit.SECONDS)) { // 设置超时时间为1秒

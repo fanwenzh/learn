@@ -1,3 +1,5 @@
+<!-- spring acturator -->
+
 # 3.spring boot配置
 @Configuration  // xml配置文件，作用于类
 @Bean // <bean>，作用于方法

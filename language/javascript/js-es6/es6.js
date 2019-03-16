@@ -60,6 +60,7 @@
     .find(function(value, index, arr){})//value在前！ === .findIndex(function(){}) // 返回[value, index, Array, callee, Symbol(Symbol.iterator)]
     .indexOf, .includes
     .fill(value, start, end), entries, keys, values, 
+    Array(number).fill([])
 // 8.对象扩展
     属性简写，属性名表达式
     Object.is(a, b) //（地址）是否相等===， Object.assign(a, ...b) // assign是扩展a可枚举的属性!
