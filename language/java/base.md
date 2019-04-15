@@ -230,7 +230,8 @@ public class ReadOnlyList<E> implements Iterable<E> {
   }
 }
 // 其他函数
-sort(), suffle()
+Collections.sort(), Collections.sort(list, Collections.reverseOrder())
+Collections.suffle(),Collections.max(), .min()
 unmodifiableList / unmodifiableSet / unmodifiableMap // 创建不可变集合
 synchronizedList / synchronizedSet / synchronizedMap(已不推荐使用) // 创建线程安全的集合
 ```
@@ -636,7 +637,7 @@ try (OutputStream output = conn.getOutputStream()) {
 # 16.函数编程lambda: jdk>=1.8
 ```java
 // 省略单个抽象方法@FunctionalInterface
-Arrays.sour(arr, new Comparator<String>() {
+Arrays.sout(arr, new Comparator<String>() {
   public int compare(String s1, String s2) {
     return s1.compareTo(s2)
   }

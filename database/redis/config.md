@@ -1,0 +1,35 @@
+redis配置
+```shell
+# 服务器启动
+# 前台shell启动
+./src/redis-server
+./src/redis-server /etc/redis/my.conf
+redis-cli -p port
+# 后台启动
+service redisd start
+service redisd stop
+
+# 权限设置
+# 永久设置: 在redis.conf修改requirepass
+redis-cli -h myIp -p myPort -a myPassword
+# 已启动的redis设置临时密码
+config set requirepass myPassword
+# 查看密码
+config get rquirepass
+
+# 持久化
+# RDB: shutdown后自动调用save命令保存, 全量数据快照, 文件小, 恢复快
+bgsave # 开启后台进程进行备份
+lastsave # 上次备份的时间
+mv dump.rdb otherDump.rdb
+# AOF(append only file), 可读性高, 适合增量保存, 数据不易丢失
+# 记录所有数据库变更命令
+config set appendonly yes
+# 默认为RDB-AOF混合持久化方式
+
+# 主从同步
+初始化全量同步, 随后为增量同步
+# sentinel哨兵机制
+# 数据分片(集群)：一次性哈希算法, 对2^32取模, 将哈希值空间组织成虚拟的圆环
+# 数据倾斜问题
+```
