@@ -4,63 +4,78 @@ import java.util.Arrays;
 
 /**
  * 堆排序,对简单选择排序的优化。
- * 1. 将序列构建成大顶堆。
- * 2. 将根节点与最后一个节点交换，然后断开最后一个节点。
- * 3. 重复第一、二步，直到所有节点断开
+ * parent(i) = floor((i - 1)/2), i != 0(i == 0为root节点)
+ * leftChild(i) = 2i + 1
+ * rightChild(i) = 2i + 2
+ * sibling(i) = i + 1, if i is odd and i < n - 1
+ *              i - 1, if i is even and i > 1
+ *              else i has no sibling
  */
 public class HeapSort {
-    public static void sort(int[] arr) {
-        int arrayLength = arr.length;
-        //循环建堆  
-        for (int i = 0; i < arrayLength - 1; i++) {
-            //建堆  
-            buildMaxHeap(arr, arrayLength - 1 - i);
-            //交换堆顶和最后一个元素  
-            swap(arr, 0, arrayLength - 1 - i);
-            System.out.println("第" + (i + 1) + "轮排序结果：" + Arrays.toString(arr));
+    // 向下调整，顶端的大值往下调，主要用于删除和建堆,i表示要调整的节点索引，n表示堆的最有一个元素索引
+    // 删除时候，i是0，建堆时候i从最后一个节点的父节点依次往前调整
+    public static void fixDown(int[] data, int i, int n) {
+        int num = data[i];
+        int son = i * 2 + 1;
+        while (son <= n) {
+            if (son + 1 <= n && data[son + 1] < data[son])
+                son++;
+            if (num < data[son])
+                break;
+            data[i] = data[son];
+            i = son;
+            son = i * 2 + 1;
         }
+        data[i] = num;
     }
 
-    private static void swap(int[] data, int i, int j) {
-        int tmp = data[i];
-        data[i] = data[j];
-        data[j] = tmp;
+    // 向上调整，小值往上走,用于增加,往上调整不需要制定最上面的索引，肯定是0
+    public static void fixUp(int[] data, int n) {
+        int num = data[n];
+        int father = (n - 1) / 2;
+        // data[father] > num是进入循环的基本条件,father减到0就不会减少了
+        // 当n等于0时，father=0；进入死循环，所以当n==0时，需要跳出循环
+        while (data[father] > num && n != 0) {
+            data[n] = data[father];
+            n = father;
+            father = (n - 1) / 2;
+        }
+        data[n] = num;
     }
 
-    //对data数组从0到lastIndex建大顶堆
-    private static void buildMaxHeap(int[] data, int lastIndex) {
-        //从lastIndex处节点（最后一个节点）的父节点开始
-        for (int i = (lastIndex - 1) / 2; i >= 0; i--) {
-            //k保存正在判断的节点  
-            int k = i;
-            //如果当前k节点的子节点存在  
-            while (k * 2 + 1 <= lastIndex) {
-                //k节点的左子节点的索引  
-                int biggerIndex = 2 * k + 1;
-                //如果biggerIndex小于lastIndex，即biggerIndex+1代表的k节点的右子节点存在  
-                if (biggerIndex < lastIndex) {
-                    //若果右子节点的值较大  
-                    if (data[biggerIndex] < data[biggerIndex + 1]) {
-                        //biggerIndex总是记录较大子节点的索引  
-                        biggerIndex++;
-                    }
-                }
-                //如果k节点的值小于其较大的子节点的值  
-                if (data[k] < data[biggerIndex]) {
-                    //交换他们  
-                    swap(data, k, biggerIndex);
-                    //将biggerIndex赋予k，开始while循环的下一次循环，重新保证k节点的值大于其左右子节点的值  
-                    k = biggerIndex;
-                } else {
-                    break;
-                }
-            }
-        }
+    // 删除,n表示堆的最后一个元素的索引
+    public static void delete(int[] data, int n) {
+        data[0] = data[n];
+        data[n] = -1;
+        fixDown(data, 0, n - 1);
+    }
+
+    // 增加,i表示要增加的数字，n表示增加位置的索引，是堆的最后一个元素
+    public static void insert(int[] data, int num, int n) {
+        data[n] = num;
+        fixUp(data, n);
+    }
+
+    // 建堆,n表示要建堆的最后一个元素的索引
+    public static void creat(int[] data, int n) {
+        // ## 调整第i个节点，使其满足最小堆（获取最小值）
+        for (int i = (n - 1) / 2; i >= 0; i--)
+            fixDown(data, i, n);
     }
 
     public static void main(String[] args) {
-        int[] arr = {9, 6, 7, 4, 5, 3, 2, 1};
-        sort(arr);
-        System.out.println(Arrays.toString(arr));
+        int[] data = { 15, 13, 1, 5, 20, 12, 8, 9, 11 };
+        // 测试建堆
+        creat(data, data.length - 1);
+        System.out.println(Arrays.toString(data));
+        // 测试删除
+        delete(data, data.length - 1);
+        delete(data, data.length - 2);
+        System.out.println(Arrays.toString(data));
+        // 测试插入
+        insert(data, 3, data.length - 2);
+        System.out.println(Arrays.toString(data));
+
     }
+
 }

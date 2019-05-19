@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="aab45c31-80b2-42e3-b4db-517211e39331" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../../init/gulp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../init/gulp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,14 +12,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="77" />
-    <option name="y" value="66" />
+    <option name="x" value="108" />
+    <option name="y" value="23" />
     <option name="width" value="1172" />
     <option name="height" value="692" />
   </component>
@@ -31,8 +30,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -77,16 +76,17 @@
       <updated>1552449545686</updated>
       <workItem from="1552449548782" duration="23000" />
       <workItem from="1552719684043" duration="94000" />
+      <workItem from="1556892322816" duration="27000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117000" />
+    <option name="totallyTimeSpent" value="144000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="77" y="66" width="1172" height="692" extended-state="0" />
+    <frame x="108" y="23" width="1172" height="692" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2539823" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -104,7 +104,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="11" side_tool="true" visible="true" weight="0.32943144" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" visible="true" weight="0.32928944" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
