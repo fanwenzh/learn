@@ -1,25 +1,7 @@
-// 关系对
-1对1： 1.外键关联, 2.主键关联
-1对多: 多数据表添加外键关联1数据表
-多对多：新建关系表R
-// 删除数据库所有表
-SELECT CONCAT('drop table ',table_name,';') FROM information_schema.`TABLES` WHERE table_schema='数据库名';
-
-// 配置
-http://www.centoscn.com/mysql/2016/0626/7537.html
-## 创建数据库
-mysql -u root -p # root用户登录
-create database bank
-# 创建lrngsql用户，并赋予bank操作权限
-grant all privileges on bank.* to 'lrngsql'@'localhost' identified by 'xyz' 
-quit 
-mysql -u lrngsql -p # 以用户lrngsql登录
-use bank # 使用bank数据库
 
 不区分大小写
 CHAR 固长字符串，不足空格天填充
 VARCHAR 变长字符串, '单引号转义
-
 
 文本类型
 tinytext, text, mediumtext, longtext
@@ -42,8 +24,8 @@ ALTER DATABASE - 修改数据库
 CREATE TABLE - 创建新表
 ALTER TABLE - 变更（改变）数据库表
 DROP TABLE - 删除表
-CREATE INDEX - 创建索引（搜索键）
-DROP INDEX - 删除索引
+CREATE INDEX - 创建索引（搜索键） // CREATE INDEX index_name ON table_name (column(length))) 
+DROP INDEX - 删除索引 // DROP INDEX index_name ON table
 
 CREATE [UNIQUE][CLUSTERED | NONCLUSTERED]  INDEX  index_name  
 ON {table_name | view_name} [WITH [index_property [,....n]]
@@ -60,7 +42,7 @@ DELETE - 从数据库表中删除数据
 INSERT INTO - 向数据库表中插入数据
 
 //表
-永久表（create），临时表(查询)，虚拟表(CREATE VIEW tab AS condition:P46, 隐藏列，简化数据库)
+永久表（create），临时表(查询)
 
 // 查询: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY
 SELECT cols (*/col as otherName/DISTINCT col：去重)
@@ -139,8 +121,7 @@ pow(a, b)
 ceil()
 floor()
 round()
-sign() // <0:-1, =0:0, >0:1
-abs()
+abs(), sum(), ave()
 
 日期
 cast('' as datetime) // 字符串转日期 // js: exec
@@ -263,6 +244,5 @@ INTO OUTFILE 'C:\\TEMP\\emp_list.txt' // 写入emp_list.txt文件
 	LINKS TERMINATED BY '\n' // 行分隔符，默认\n
 FROM employee;
 
-// 插入更新
-insert 
-on duplicate key
+// 查看查询性能
+explain 

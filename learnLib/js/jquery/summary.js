@@ -1,3 +1,9 @@
+$(document).ready(function{
+  // doSomething
+});
+event.stopPropagation();
+event.preventDefault();
+
 // core
 // jQuery(ele, [context])
 //     .length, .get(n), .eq(n),

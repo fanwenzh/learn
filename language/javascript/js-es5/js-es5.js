@@ -1,56 +1,109 @@
 let json = eval("("+ text + ")") // str转换Object(json)
+// JSON
+// JSON.stringify(obj) 
+// 串行化指定属性
+let selectProperties = ['prop1', 'prop2']
+JSON.stringify(obj, selectProperties)
+// 指定方法
+function f(key, val){return val;}
+JSON.stringify(obj, f)
+// 设置对象的toJSON, 定义stringify的转换方式
+obj.toJSON = func
+//JSON.parse(json)
+JSON.parse(obj, f) // f(key,val)
+
+typeof NaN == "number"
 // 数据类型
+.valueOf() // 返回包装对象, 如Number, String, Boolean的原始类型的值
 // Array
-	[].reverse, .splice, copyWidthin(index, start, end) // 数组copy自身
-	[].join, reverse // 改变数组并返回引用本身
+	[].reverse(), .splice(), copyWidthin(index, start, end) // 数组copy自身
+    [].join(",") // undefined, null 会转成空字符串
+    reverse() // 改变数组并返回引用本身
 	sort(fn) // 中文按字典序：str1.localCompare
-	[].push, pop, unshift, shift, lenth
+	[].push, pop, unshift(加到数组头部), shift, length
 	concat // 合并复制
-	splice // 改变原数组，取出子数组
+	splice(-4, 2) // 改变原数组，取出子数组 // 从-4位置开始, 删除两个
 	slice // 不改变原数组，取出子数组
-	indexOf, lastIndexOf
-	every(fn), some, filter, forEach, map(不改变原数组)
-	reduce, reduceRight, Array.isArray()
-// String
-	cancat(+), slice(start, end), substr(s, length) // / l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
     indexOf, lastIndexOf
+    // 迭代方法
+	every(fn), some, filter, forEach(function, context), map(不改变原数组)
+	reduce, reduceRight, Array.isArray(), filters
+// String
+    "a".cancat('b','c') // 'abc' 
+    slice(start, end), // 不改原字符串
+    substr(s, length) // / l < 0 则 l = 0, substring(s, e) // e<0 变substring(0, s)
+    indexOf(val) // indexOf(val, start)
+    lastIndexOf
     charAt(), charCodeAt() // 输出。字母编码
 	trim, toUpperCase, toLowerCase
 	match, search, replace, split // 四个函数可与RegExp匹配
 	str.replace(otherStr, function(subs, index, str){})
 	localeCompare() // 字典序比较
 // Number
-	toFixed(2) 两位小数, toString(2), parseInt(str, 16) 按16进制解析str, parseFloat()
-// Bollean
+    Number.POSITIVE_INFINITY // Infinity 无限
+    Number.NEGATIVE_INFINITY // -Infinity
+    Number.MAX_VALUE // 最大值 < Infinity
+    Number.MIN_VALUE // > 0
+    Number.MAX_SAFE_INTEGER // 9007199254740991
+    Number.MIN_SAFE_INTEGER // -9007199254740991
+    .parseInt(str, 16) 按16进制解析str, parseFloat()
+    .toFixed(2) // 保留两位小数,最后一位四舍五入  -> toString(2), 
+    .toPrecision() // 返回指定长度的字符串, 含整数部分
+    .valueOf()
+    // Number(new Date("2019-04-15")); Number.MAX_VALUE, .MIN_VALUE
+// Bollean： !!转化为任意boolean值
 	true.valueOf() // true、false
 	toString // 'true'、'false'
 // Date
-	toString, toUTString, Date.parse() // 返回毫秒数 Date.UTC(year, month, day, hour, minute, second)
-	.now, getTime, getFullYear, getMonth + 1, getDate, getDay, getHours, getMinutes, getSeconds
+	toString, toUTString, Date.parse(obj) // 返回毫秒数 Date.UTC(year, month, day, hour, minute, second)
+    .now() // 距离1970年1月1日0点的毫秒数
+    , getTime, getFullYear, getMonth + 1, getDate, getDay, getHours, getMinutes, getSeconds
 // Math
     max, min, ceil, floor, round, random, abs
 // RegExp: 
+    var regex = new RegExp('xyz', 'i') // == var regex = /xyz/i
+    // i: ignoreCase, g: global, 
     (/i$/gi).test(), // true or false
-    .exec() // .index, .input
-    str.match(reg)
+    /_(x)/.exec() // 返回["整个正则匹配", "括号匹配"] //.index, .input
+    str.match(reg) // 返回["所有匹配"]
     // 1.特殊元字符
     // \ :转义字符, ^ 开头, $ 结尾, 
     // \n: 匹配一个换行符, . 匹配除\n以外的任意字符
     // (): 分组, RegExp.$1,
-    // x|y: x或y， [xyz]: xyz任一字符， [^xyz]除了xyz的人一个字符，[a-z]
+    // x|y: x或y， [xyz]: xyz任一字符， [^xyz]除了xyz的任一个字符，[a-z]
     // \d: [0-9], \D 除了0-9以外的所有字符
     // \b: 一个边界符, "w1 w2 w3" -> ""|w1| |w2| |w3|", \B匹配除了边界符以外的
     // \w: 数字、字母、下划线的任一个字符, [0-9a-zA-Z_], \W
     // \s: 匹配一个空白符、空格、制表符、换页符, \S
     // 2.两次元字符
     // * 0-n, + 1-n, ? 0-1, {n}, {n, }, {n, m}
+    // # 特殊
+    // 非贪婪模式 +?, *?, ??
+    /(.)b(.)\1b\2/.test("abcabc") // \1表示第一个括号匹配的内容, \2表示第二个括号匹配的内容
+    /y((..)\2)\1/.test('yabababab') // true , \1指向外层括号 或者说 第1个左括号，\2指向内层括号
+    // 获取标签
+    var tagName = /<([^>]+)>[^<]*<\/\1>/;
+    tagName.exec("<b>bold</b>")[1] // b
+    // 非捕获组 (?:x)
+    var m = 'abc'.match(/(?:.)b(.)/);
+    m // ["abc", "c"]
+    // 先行断言(Positive look-ahead) 
+    // x(?=y), x只有在y前面才匹配，y不会被计入返回结果
+    var m = 'abc'.match(/b(?=c)/);
+    m // ["b"]
+    // 先行否定断言(Negative look-ahead)
+    // x(?!y), x只有不在y前面才匹配，y不会被计入返回结果
+    /\d+(?!\.)/.exec('3.14') // ["14"]
+
 // Function
 	arguments.callee // 自身
 	arguments.callee.caller // 调用的函数
-	call(target, a, b ...), apply(target, arr), bind
-// JSON
-	JSON.stringify()
-	JSON.parse()
+    call(target, a, b, ...)
+    apply(target, arrArr), 
+    var newFun = fun.bind(obj) // 绑定调用fun函数的对象
+
+// 精确性
+不使用指数或科学计数法，会被精确到15位; // 2e-1, 2e3
   
 // 类型检测
 1. typeof
@@ -63,7 +116,7 @@ let json = eval("("+ text + ")") // str转换Object(json)
     局限性：
     1.不能处理用字面量方式创建出来的基本数据类型值
     对于基本数据类型(1, "", true, undefined, null), 字面量方式创建和实例创建方式不同，严格来说，只有实例创建出来的结果才是标准的对象数据类型
-    1 instaceof Number      -> false // 非严谨实例
+    1.instaceof Number      -> false // 非严谨实例
     true instanceof Boolean -> false
     "" instanceof String    -> false
     new Number(1) intanceof Number -> true
@@ -86,18 +139,33 @@ let json = eval("("+ text + ")") // str转换Object(json)
     Object.prototype.toString.call(null); // "[object Null]"
     Object.prototype.toString.call(undefined); // "[object undefined]"
 	Object.prototype.toString.call(function() {}); // "[object Function]"
-	
+
 // Object相关
 Object.getOwnPropetyDescriptor
-Object.defineProperty
+Object.defineProperty(object, propertyName, {
+    value: 123,
+    writable: false,
+    enumberable: true,
+    configurable: false
+})
 Object.getPrototypeOf
 Object.keys(); // for in 可枚举类型
 Object.getOwnPropertyNames(); // 无论是否可枚举，输出自定义属性名
-Object.create(a) // 继承a的属性
-Object.assign(obj, other) // other扩展obj  
+Object.prototype.propertyIsEnumerable('attr')
+# Object.create(a) // 继承a的属性
+# Object.assign(obj, other) // other扩展obj 
+// var o1 = {};
+// var o2 = Object.create(o1);
+// o1.isPrototypeOf(o2) // true
 .isPrototypeOf()
 .hasOwnProperty()
 .delete(key)
+Object.preventExtensions(obj); // 无法添加新属性
+Object.isExtensible(obj); // 检查对象obj是否使用了preventExtensions
+Object.seal(obj); // 无法添加新属性，无法删除就属性 -> configurable: false, isExtensible: fasle
+Object.isSealed(); // 是否使用了seal
+Object.freeze() // 无法添加新属性、无法删除旧属性、也无法改变属性的值
+Object.isFrozen()
 
 //window
 	encodeURI, decodeURI // ecodeURI 转换所有空格符 % 20
@@ -184,3 +252,48 @@ oDiv.addEventListener("click", function(e) {
     switch(target.id) {
     }
 })
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo").innerHTML = this.responseText;
+    }
+}
+xhttp.open("GET", "summary.md", true);
+xhttp.send();
+
+var myObject;
+xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        myObject = JSON.parse(this.responseText);
+        document.getElementById("demo").innerHTML = txt;
+    }
+}
+xhttp.open("POST", "json_demo_db_post.php", true);
+xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhttp.send("x=" + dbParam);
+
+// 类型判断
+var type = function(o) {
+    let s = Object.prototype.toString.call(o);
+    return s.match(/\[object (.*?)\]/)[1].tolowerCase();
+}
+['Null',
+'Undefined',
+'Object',
+'Array',
+'String',
+'Number',
+'Boolean',
+'Function',
+'RegExp'
+].forEach(function (t) {
+    type['is' + t] = function (o) {
+        return type(o) === t.toLowerCase();
+    };
+});
+
+type.isObject({}) // true
+type.isNumber(NaN) // true
+type.isRegExp(/abc/) // true

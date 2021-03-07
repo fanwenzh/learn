@@ -1,10 +1,34 @@
- // 账户登录
+alias mysql=/usr/local/mysql/bin/mysql
+// 账户登录
 mysql -u root -p
+// 授权远程登录
+grant all privileges on *.* to '用户名'@'%' identified by '登录密码' with grant option;
+flush privileges;
+
+数据定义语言：简称DDL(Data Definition Language):用来定义数据库对象：数据库，表，列等。关键字：create，alter，drop等
+数据操作语言：简称DML(Data Manipulation Language)，用来对数据库中表的记录进行更新。关键字：insert，delete，update等
+数据控制语言：简称DCL(Data Control Language)，用来定义数据库的访问权限和安全级别，及创建用户；关键字：grant等
+数据查询语言：简称DQL(Data Query Language)，用来查询数据库中表的记录。关键字：select，from，where等
+
+show databases;
 // 创建数据库
-CREATE DATABASE databaseName;
+CREATE DATABASE databaseName (character set utf-8);
 // 实用数据库
-use databaseName
-//  创建表
+use databaseName;
+// 查看正在使用的数据库
+select database();
+// 数据类型
+整数: tinyint, smallint, mediumint, int 
+小数: float, double, decimal 严格定义浮点
+日期: year, time, date, datetime(实际项目时间类型), timestamp
+文本: char, varchar(实际项目主键类型, 非int), text, 
+// 约束
+primary key, unique, not null， auto_increment
+// 查看表定义
+DESC person;
+// 查看、删除、创建表
+show tables;
+drop table name;
 CREATE TABLE person
 (
     person_id SMALLINT UNSIGNED, # smallint unsigned
@@ -20,9 +44,6 @@ CREATE TABLE person
     CONSTRAINT pk_person PRIMARY KEY (person_id) // #命名pk_person约束:主键约束
 );
 
-// 查看表定义
-DESC person;
-
 // 创建favorite_food表
 create table favorite_food
 (
@@ -34,32 +55,37 @@ create table favorite_food
 );
 
 // 改变表的属性
-SET FOREIGN_KEY_CHECKS = 0;
-// 设置主键自增模式, 可在自定义时设置
-ALTER TABLE person MODIFY person_id SMALLINT UNSIGNED AUTO_INCREMENT; 
-SET FOREIGN_KEY_CHECKS = 1;
+alter table 表名 add 列名 类型(长度) 约束; 		--修改表添加列. 
+alter table 表名 modify 列名 类型(长度) 约束;	--修改表修改列的类型长度及约束.
+alter table 表名 change 旧列名 新列名 类型(长度) 约束;	--修改表修改列名.
+alter table 表名 drop 列名;					--修改表删除列.
+rename table 表名 to 新表名;					--修改表名
+alter table 表名 character set 字符集;		--修改表的字符集
 
 // 插入数据
-INSERT INTO person
-(person_id, fname, lname, gender, birth_date)
-VALUES (null, 'fan', 'wenzh', 'M', '1991-01-01');
+INSERT INTO person (lineName1, lineName2)
+VALUES (value1, value2);
+insert into 表 (列名1,列名2,列名3..) values select (列名1,列名2,列名3..) from 表
+insert into 表 values select * from 表
 
-INSERT INTO favorite_food (person_id, food)
-VALUES (1, 'pizza');
-INSERT INTO favorite_food (person_id, food)
-VALUES (1, 'cookies');
+// 比较运算符
+between 5 and 10; in (1,2,3); is null
+like 'a_' :% 代表零个或多个任意字符，_ 代表一个字符
+// 逻辑运算符
+and, or, not
 
-SELECT food
+// 查询
+SELECT food as otherName
 FROM favorite_food
 WHERE person_id = 1
 ORDER BY food
-
 //删除
 DELECT FROM department d
 WHERE NOT EXIST (SELECT 1 
         FROM employee e
         WHERE e.dept_id = d.dept_id) 
 
+truncate table 表名 // 删除表并将auto_increment置为0
 // 更新
 UPDATE person
 SET street='1225 Tremont ST.',
@@ -71,16 +97,21 @@ UPDATE person
 SET birth_date = str_to_date('DEC-21-1980', '%b-%d-%Y')
 WHERE person_id=1
 
-//查看所有table
-SHOW TABLES;
-// 删除表
-DROP TABLE favorite_food
+// 连接: A join B on condition
+// 外连接：cross join
+隐式: select * from A,B;
+显示：select * from A cross join B;
+// inner join
+隐式：select * from A, B where A.id = B.id;
+显示：select * from A inner join B on A.id = B.id;
+// 外连接: left join, right join, (mysql 不支持full join)
+select * from A left join B on A.id = B.id;
 
 // 去除重复cust_id
 SELECT DISTINCT cust_id
 FROM account
 
-// 子表
+// 子表 select line from (select line2 from A, B), C
 SELECT e.emp_id, e.fname, e.lname
 FROM (SELECT emp_id, fname, laname, start_date, title FROM employee) e;
 
@@ -91,10 +122,13 @@ ON d.dept_id = e.dept_id
 GROUP BY d.name
 HAVING count(e.emp_id) > 2
 
-// 根据fed_id最后3位数字排序
+// 根据fed_id最后3位数字排序, left join保留左表
 SELECT cust_id, cust_type_cd, city, state, fed_id
 FROM customer
 ORDER BY RIGHT(fed_id, 3); LEFT // ORDER BY 2, 5 //根据第二和第5列排序
+order by lineName desc // 降序
+// 聚合函数sum(), avg(), max(), min(), count()
+select cid, count(*) from product group by cid;
 
 // 成员条件
 SELECT account_id, product_cd, cust_id, avail_balance
@@ -200,7 +234,7 @@ WHERE emp_id != ALL (SELECT superior_emp_id // ALL emp_id与集合每行row比�
 
 // 查找有两个账户的客户
 SELECT c.cust_id, c.cust_type_cd, c.city
-FROM customer city
+FROM customer c, city
 WHERE 2 = (SELECT COUNT(*)
     FROM ACCOUNT a
     WHERE a.cust_id = c.cust_id);
@@ -229,32 +263,13 @@ SELECT dept_id, name
 FROM department
 WHERE name LIKE 'A%';
 
-// 创建视图
-CREATE VIEW customer_vw
-(cust_id,
- fed_id,
- cust_type_id,
- address,
- city,
- state,
- zipcode
- )
- AS
- SELECT cust_id,
- 	concat('ends in ', substr(fed_id, 8, 4)) fed_id,
- 	cust_type_cd,
- 	address,
- 	city,
- 	state,
- 	postal_code
- FROM customer;
-
- // 修改前10条信息
+ // 修改前10条信息: limit:尽量少用
  UPDATE account
  SET avail_balamce = avail_balance + 100
  WHERE product_cd IN ('CHK', 'SAV', 'MM')
  ORDER BY open_date ASC
- LIMIT 10;
+ LIMIT 10; // 即0, 10
+ limit 5, 10 // 从索引(不包括)5开始，查询10条
 
  // 多表删除(比单表多了链接)
  DELETE account2, customer2, individual2
@@ -263,3 +278,15 @@ CREATE VIEW customer_vw
     INNER JOIN individual2
     ON customer2.cust_id = individual2.cust_id
 WHERE individual2.cust_id = 1;
+
+// 执行顺序
+SELECT * FROM user LEFT JOIN order ON user.id = order.uid WHERE order.price > 1000 GROUP BY user.name HAVING count(1) > 5 ORDER BY user.name LIMIT 0,10
+1.	FROM（将最近的两张表，进行笛卡尔积）---VT1
+2.	ON（将VT1按照它的条件进行过滤）---VT2
+3.	LEFT JOIN（保留左表的记录）---VT3
+4.	WHERE（过滤VT3中的记录）--VT4…VTn
+5.	GROUP BY（对VT4的记录进行分组）---VT5
+6.	HAVING（对VT5中的记录进行过滤）---VT6
+7.	SELECT（对VT6中的记录，选取指定的列）--VT7
+8.	ORDER BY（对VT7的记录进行排序）--游标
+9.	LIMIT（对排序之后的值进行分页）

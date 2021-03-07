@@ -7,7 +7,7 @@ tab 右
 shift + tab 左
 双击间隔栏：根据内容自动匹配方格长度
 
-# =vlookup(关键字，资料范围，位置，是否模糊查询模式)
+# =vlookup(搜索区域，搜索目标，返回搜搜区域的位置，是否模糊查询模式)
 vlookup(position, table, index, isAccu)
 
 # 绝对参照 F4

@@ -18,6 +18,9 @@
   yum install vim -y
   ifconfig    查询ip、保存
 
+  yum install -y gcc # 安装c/c++编译
+  yum install -y pcre-devel # 正则算法
+  yum install -y openssl-devel #ssl
 3.更新源
   备份原来的源
   mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak

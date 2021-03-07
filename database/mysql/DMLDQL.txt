@@ -1,0 +1,41 @@
+约束
+primary key, not null, nuique, foreign key
+auto_increment
+设置外键级联更新
+ALTER TABLE employee 
+ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dep_id) REFERENCES department(id) 
+// ON UPDATE CASCADE // 级联更新
+// ON DELETE CASCADE // 级联删除, 少用
+
+分组查询:
+select sex, count(id) number 
+from user 
+where grade > 60 
+having number > 2 order 
+by limit start, num;
+
+去重分页查询: mysql
+select distinct number from data limit start, num;
+select math, english, math+IFNULL(english, 0) sum from grade
+
+条件查询:where, between and, not, like, is null
+select * from student where age >=20 and age <= 30;
+select * from student where age = 22 or age = 29;
+select * from student where age in (20, 35);
+select * from student where grade is not null;
+select * from student where name like "%123%"; _任意一个字符, %任意字符
+
+多表查询:
+隐式内连接:
+select emp.id, dep.name from emp, dep where emp.dep_id = dep.id
+select t1 inner t2 join on t1.dep_id = t2.id
+外链接(交集)
+select emp.id, dep.name from emp left join dep on t1.dep_id = t2.id
+子查询:
+select * from emp where emp.salary >= (select max(salary) from emp); // 单行单列
+select * from emp where emp_id in (select id from dep wherer name in ("财务", "市场"))// 多行单列
+// 多行多列
+select * from dept t1, (select * from emp where emp.join_date > "2011-11-11") t2
+where t1.id = t2.dept_id;
+= 
+select * from emp t1, dept t2 wherer t1.dept_id = t2.id and t1.join_date > "2011-11-11"

@@ -11,7 +11,6 @@
 //             if (l < r) {
 //                 swap(arr, l++, r--);
 //             }
-
 //         }
 //         swap(arr, left, r);
 //         qs(arr, left, r - 1);
@@ -25,12 +24,12 @@
 //     item[second] = temp;
 // }
 
-// let arr = [1, 23, 34, 5, 45, 2, 3, 65]
+// let arr = [1, 23, 34, 5, 45, 2, 3, 65]             
 // qs(arr, 0, arr.length - 1);
 // console.log(arr)
 
 // var quickSort = function(arr) {
-// 　　if (arr.length <= 1) { return arr; }
+// 　　if (arr.length <= 1) { return arr; } 
 // 　　var pivotIndex = Math.floor(arr.length / 2);
 // 　　var pivot = arr.splice(pivotIndex, 1)[0];
 // 　　var left = [];

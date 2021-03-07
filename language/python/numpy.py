@@ -33,7 +33,7 @@ m.ndim # 维数（行）
 m.size # 元素个数
 m.itemsize # 每个元素占空间大小
 m.shape # -> 3*4 or m.shape = (1,4)
-m.dtype # 数据类型
+m.dtype # 【数据类型】
 m.reshape(1,8) # 改变矩阵形状 : arange(24).reshape(2, 3, 4)
 m.resize((2, 12))
 m.ravel() # 变成一维数组（视图）
@@ -125,9 +125,13 @@ m/np.sum(a, axis=0) # m/m.sum(axis=0, keepdims=True)
 # pandas
 # https://www.joinquant.com/post/603903d2c8f565caa6712bd53bad4a7a?f=stydy&m=python
 import pandas as pd
-s = pd.Series([1,2,3]) # 创建一维数组
+s = pd.Series([1,2,3]) # 创建一维数组, s[0]
+pd.Series([1,2,3],index=['a','b','c']) # 重新设置索引, s['a']
 dates = pd.date_range('20130101', periods=6)
 df = pd.DataFrame(np.random.randn(6,4),index=dates,columns=list('ABCD'))
+pd.DataFrame({字典})
+df.info()
+df.query("age == 18")
 df.head() # 获取头部元素
 df.tail() # 获取尾部元素
 df.index # 获取列表索引
@@ -137,8 +141,14 @@ df.describe() # 快速统计
 df.T # 转置
 df.sort(columns='open') #根据open列排序
 df['open'], df.open # 选择列数据 d['a', 'b'], d['a':'b']
+
+# df.ix() 混合
+# df.loc() 根据行列字段选取, 支持boolean过滤
+# df.iloc() 根据行列字段的序号选取, 不支持boolean过滤
+df.ix() # index
 # df.loc[行标签,列标签]
 df.loc['a':'b'] #选取 ab 两行数据
+    df.loc[df.age == 19, 'age'] # 取age为19的行, age列
 df.loc[:,'open'] #选取 open 列的数据
 df.iloc[行位置,列位置]
 df.iloc[1,1] #选取第二行，第二列的值，返回的为单个值
@@ -162,7 +172,7 @@ df.sort_index(axis=1)#列名字排序
 df.sort_index(axis=1,ascending = False) # 数据默认是按升序排序的，也可以降序排序, 等等函数
 df.median() # 中位数
 df.std() # 标准差
-# 数据规整
+# 数据规整（关联）
 pd.concat([df1, df2], axis=0) # 纵向拼接
 pd.concat([df1, df2], axis=1) # 横向拼接
 df1.append(s, ignore_index=False) # ignore_index=False 表示索引不变; ignore_index=True, 索引重置

@@ -1,9 +1,9 @@
 ### 基本数据类型
-- 基本数据类型5: Undefined, Null, Number, String, Boolean
+- 基本数据类型5: undefined, null, Number, String, Boolean
 - 引用数据类型: Array、Function、Math、Date、JSON、RegExp、Error
 判断:
 - 精确区分: Object.prototype.toString.call(obj) === "[object Array]"
-- 模糊区分方法3: .constructor, instanceOf, typeof  
+- 模糊区分方法3: .constructor, instanceOf, typeof (null 为 "object") 
 - isNaN, Array.isArray()
 
 ### 预解释：

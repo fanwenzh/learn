@@ -20,8 +20,8 @@ bool()
   str.split(',')
   ','.join(arr)
   .startswith(), endswith('s') // true or false
-  .find(), .rfind()
-  .count()
+  .find('word'), .rfind() // index
+  .count(word)
   .strip(' ') // 删除以' '头尾尾的字符串 .strip(a)
   .title() // 所有单词的开头字母变成大写
   .lower(), .upper()
@@ -66,7 +66,7 @@ arr[o1][o2]
   .sort(cmp=None, key=None, reverse=False)
   .reverse()
 del arr[-1] // 删除最后一个元素 del arr[index]
-  .pop(0) 表头, .pop() or .pop(-1) 表尾 // append(), pop()
+  .pop(0) 表头, .pop() or .pop(-1) 表尾 // append()
   .index(el) // 查询位置
 el in list // True or Flase
   .count(el)
@@ -215,6 +215,9 @@ for stooge in quotes: // 按字典序输出
 from collections import deque # 双队列
 dq = deque(word)
 dq.pop(), dq.pop(0)-dq.popleft()
+while len(dq) > 1:
+  if dq.popleft() != dq.pop():
+    return False
 # import itertools
 itertools.chain([1,2], ['a', 'b']) # 连续迭代
 itertools.cycle() # 循环迭代
@@ -224,7 +227,9 @@ itertools.accumulate( ,fun ) # 自定义迭代函数
 6.对象和类
 ```python
 # @property # 设置getter
+  可定义在方法上
 # @name.setter # 设置setter
+  定义在方法上
 # @classmethod # 类方法，第一个参数为类本身self
 # @staticmethod # 静态方法
 class Person():
@@ -267,8 +272,9 @@ class Tail():
     self.name = name
 tail = Tail('long')
 duck = Duck(tail)
-# 定义符号函数
+# 定义符号函数（魔术方法）
   # 比较相关
+class A():
   def __eq__(self, other) # self == other
   def __ne__(self, ohter) # self != other
   def __lt__(self, other) # self < other
@@ -295,7 +301,8 @@ str.encode('utf-8') # ascii
 str.decode('utf-8')
 #  格式化
 "hello %d %f %s" % (25, 25.0, True)
-'hello, {0} {1:lf}%'.format('小明', 17.25)
+"%10d %10f %10s" % (n, f, s) # 10位数靠右表示整数、浮点数、字符串
+'hello, {0} {1:lf}%'.format('小明', 17.25) # {1:lf} 第1位, 短型小数点
 %s 字符串
 %d 十进制
 %10.4d 10个字符宽,浮点数在为小数点后4位
@@ -303,11 +310,37 @@ str.decode('utf-8')
 import re
 source = 'Young Frankenstein'
 m = re.match('You', source) # .match('\d') :\d \D \w \W \s \S \b \B 
-m.group()
+
+youpattern = re.compile('You')
+res = youpattern.match('Young Frankenstein')
+
+m.group() # [group(0)返回source整体, group(n)返回第n个匹配]
 re.search() # 返回第一次匹配
-re.findAll() # 返回所有不重叠的匹配
+re.findAll('find', source) # 返回所有不重叠的匹配 ['find', 'find']
 re.split() # 划分段落
 re.sub() # 
+
+# 标识符
+abc             文本值abc
+(expr)          expr
+expr1|expr2     expr1或expr2
+.               除/n外的任何字符
+^               源字符串的开头
+$               源字符串的结尾
+prev?           0个或1个prev
+prev*           0个或多个prev, 尽可能多地匹配
+prev*?          0个或多个prev, 尽可能少地匹配
+prev+           1个或多个prev, 尽可能多地匹配
+prev+?          1个或多个prev, 尽可能少地匹配
+prev{m}         m个连续的prev
+prev{m, n}      m到n个连续的prev, 尽可能多地匹配
+prev{m, n}?     m到n个连续的prev,尽可能少地匹配
+[abc]           a或b或c
+[^abc]          非(a或b或c)
+prev(?=next)    如果后面为next, 返回prev
+prev(?!next)    如果后面非next, 返回prev
+(?<=prev)next   如果前面为prev, 返回next
+(?<!prev)next   如果前面非prev, 返回next
 ```
 
 ## 8 文件
@@ -341,6 +374,7 @@ os.listDir(dirName)
 os.chdir(path) # 改变当前目录
 os.getcwd() # 获取当前目录
 os.getpid() # 获取当前进程
+
 # 文件复制
 import shutil
 import time
@@ -350,6 +384,7 @@ time.mktime(t) # 将一个struct_time转化为时间戳。
 
 shutil.copy('source', 'des')
 shutil.move()
+
 # 创建进程
 import subprocess # 单进程
 import multiprocessing # 多进程
