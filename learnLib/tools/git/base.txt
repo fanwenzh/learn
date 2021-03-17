@@ -1,0 +1,83 @@
+https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+##  git初始化配置
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/fanwenzh/doubanMovie.git
+git push -u origin master
+
+# 设置
+git config --global user.name "name"
+git config --global user.email "something@"
+
+## 本地配置
+git init  // 初始化项目
+git add filename //添加到列表 -u 添加已被add 的文件 .添加所有变化 -A两者集合
+git status // 查看当前git状态  -v用注释显示每一行的差异
+git diff //列出以改变文件  --staged或--cached //已缓存与上次提交时的差异
+git commit -m ‘commit hint‘ //提交缓存文件 -a 自动提交已跟踪文件 --amend  撤销上一次提交，重新提交
+git rm fileName --cached// 删除add后的缓存中的fileName  -f 在本地删除file文件 
+git reset HEAD <file> //取消提交暂存区的file文件
+git rm log/\*.log 删除所有log/ 目录下扩展名为.log的文件，注意添加
+git log //显示所有历史更新 -p展开每次提交差异，-2显示最近两次更新，--word-diff 显示单词级别的更新 --graph 显示图
+git reflog // 记录每一次的命令
+git reset --hard <commit ID号>  回滚版本
+git reset --hard HEAD^ // 恢复到上一次更新的版本（回到未来）
+git checkout -- <file> //恢复file修改前的版本 （丢弃工作区的修改）
+git mv oldName newName //移动文件
+git log --graph --pretty=oneline --abbrev-commit // 显示合并树
+
+##  远程仓库的使用
+git remote -v //查看远程库名
+git clone  url // 下载url 的 git项目
+git fetch [remote-name] //抓取remote-name(仓库名)和或url有的，但本地仓库没有的信息(该命令不合并分支) //下载
+git remote add [shortname] [url] : git remote add origin git@github.com:    //添加远程仓库
+git remote rm origin  //删除远程仓库
+git push -u [remote-name=origin] [branch-name=master] -f强制推送 //把本地master分支推送到origin服务器上(该过程中有别人推送，需先pull回本地合并，才可再次推送)
+git pull url // 下载url内容并合并本地分支
+git pull origin master// origin本地，master远程仓库
+git remote show origin //查看某个远程仓库的详细信息:换origin
+git remote rename [oldName] [newName] 将oldName远程仓库在本地的名称改为newName
+git remote rm [repository] 移除某个远程仓库
+
+git remote add origin git@github.com:fanwenzh/learn.git //在本地添加远程仓库关联
+git push -u origin master // 关联后推送，第一次加-u，将本地分支与远程分支关联
+git clone git@github.com:fanwenzh/gitskills.git // 克隆远程仓库到本地
+
+## 分支管理
+    查看分支：git branch // 查看所有分支情况 -v 显示最后一次提交信息 --merged 查看已合并分支，--no-merged 查看为合并分支
+    创建分支：git branch <name>
+    切换分支：git checkout <name>
+    创建+切换分支：git checkout -b <name>
+    合并name分支到当前分支：git merge <name>
+    删除分支：git branch -d <name> // -D强制删除
+    解决冲突
+        git merge --no-ff -m "merge with no-ff" dev //强制禁用Fast forward模式，Git就会在merge时生成一个新的commit
+    Bug分支
+        git stash // 储存当前分支工作现场
+        git stash list // 查看当前分支工作现场
+        git stash apply // 恢复最近一次stash，stash不删除 // 可在末尾加stash@{0}
+        git stash drop // 删除stash
+        git stash pop //恢复并删除stash
+    feature分支
+        git checkout -b feature-vulcan
+        git add vulcan.py
+        git commit -m "add feature vulcan"
+        git branch -d feature-vulcan // 删除分支
+    多人协作
+        git remote -v
+        git push origin dev // 推送分支
+便签管理
+    创建标签
+    git checkout master // 切换到需要打标签的分支
+    git tag v1.0 //打标签
+    git tag //查看所有标签
+    git tag v0.9 commitId // 给commitId状态打标签
+    git show v0.9 // 查看v0.9标签的内容情况
+    操作标签
+    git push origin v1.0 // 推送标签
+    git push origin --tags // 推送所有标签
+    git tag -d v0.1 // 删除标签
+    git push origin :refs/tags/v0.9 // 删除远程标签

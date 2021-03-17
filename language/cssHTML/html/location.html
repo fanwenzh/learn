@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>title</title>
+	</head>
+	<script>
+		// window.navigator.getCurrentPosition(onSuccess, onError, options)
+		options = {
+			maximmAge: 60*1000*2, // 设置缓存有效时间
+			timeout: 5000
+		}
+		window.navigator.geolocation.getCurrentPosition(function success(position){
+			// console.log(position.coords)
+			position.coords.latitude // 维度
+			position.coords.longitude // 经度
+			position.coords.altitude // 海拔
+			// accuracy 经度, heading 向前的方向, speed: 前进速度, timestamp:获取地理位置信息的时间
+			// 再调用百度地图api
+
+		}, function fail(err){
+			console.log(err)
+			err.code // 1:位置服务被拒绝, 2:获取不到位置信息, 3:huoqu xinxi chaoshi 
+		})
+		// 实时
+		window.navigator.geolocation.watchPosition(function(){}, function(){})
+		window.navigator.geolocation.clearWatch()
+	</script>
+
+</html>

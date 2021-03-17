@@ -1,0 +1,193 @@
+*{margin:0;padding:0;list-style:none;}
+
+清除浮动:
+    overflow: hidden;  // 清除子元素浮动对父级的影响
+    clear:both;        // 清除哥哥元素浮动对子元素的影响
+    .clear:after {
+        display: block;
+        content: '';
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        clear: both;
+    }
+    .clear{zoom:1} //ie6/7
+
+
+font-family:      微软小黑
+	font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif, Arial, "微软雅黑","新宋体","黑体";
+
+透明度兼容:
+	opacity: 0.9;  // 透明度在IE6~8中不兼容
+	filter: alpha(opacity=90);
+
+超出部分省略
+  display: -webkit-flex!important;  // 12年为-webkit-box
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+省略号裁剪
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp:1;
+    &:hover
+        white-space: normal
+
+居中样式:
+    1) 绝对定位，top, left, transform 50%
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            或 margin: 宽高
+        }
+    2)  绝对定位，距离各方向0
+        {
+            position: absolute;
+            top: 0;
+            left:0;
+            bottom:0;
+            right: 0;
+            margin: 0;
+        }
+    3) height = line-height
+    {
+        height: 10px;
+        line-height: 10px;
+        vertical-align: center;
+    }
+    4) display: table-cell
+    {
+        .container{
+            display: table;
+            height:100%;
+        }
+        .table_cell{/*将cell垂直居中，如果外层div不为table则tablecell必须有高度*/
+            display:table-cell;
+            vertical-align:middle;
+        }
+    }
+    4) flex : ie11
+    5) margin-top: -n px //支持ie6~8, 但不支持%和响应式
+    6）插入空div占位
+
+	/*禁止选中*/
+	-webkit-user-select: none;
+
+删除table表格边框距离:
+    border-spacing: 0;
+    border-collapse: collapse;
+
+css省略号动画: 
+.loading:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ellipsis 2s infinite;
+    content: "\2026"; /* ascii code for the ellipsis character */
+}
+@keyframes ellipsis {
+    from {
+        width: 2px;
+    }
+    to {
+        width: 15px;
+    }
+}
+
+嵌套结构纯质外边距margin Bug:
+    1)padding-top:1px solid transparent;
+    2)border-top:1px solid transparent;
+    3)overflow:hidden;
+
+列表宽度自适应(文本换行)
+td {
+    white-space: nowrap;
+}
+文本水平填充div（不超div的width）
+pre {
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+其他
+    a: text-decoration:none;
+    *: -webkit-user-select: none;
+    { width:1000px; margin:0 auto;}
+
+设置font-size:
+    // 没有小于12px的字体
+    ~function(){
+        let winW = document.documentElement.clientWidht;
+        if(winW >= maxW){
+            winW = maxW;
+        }
+        document.documentElement.sytle.fontSize = winW / designWin * 100 + "px";
+    }
+
+兼容ie6、7, 即css hack
+    *display: inline-block // 在属性前添加 *
+/////////////////////////////////////////////////////////////// 图腾 3.0
+
+vue 
+    设置scoped后, component只有父级才带有data-v-xxxx, 使用@keyframes设置css属性
+    https://github.com/vuejs/vue-loader/releases/tag/v12.2.0
+CSS 属性
+    设置svg可点击选择
+        pointer-events
+    图片、文字缩放
+        zoom
+    文字抖动
+        backface-visibility: hidden
+        发生条件：double scale + position relative 或者 absolute
+    颜色继承
+        background-color: inherit  // inherit属性使用
+    左右居中
+        width: 200px
+        // https://developer.mozilla.org/zh-CN/docs/Web/CSS/width
+        // min-contents属性, table-cell, 最小内容空间
+        // max-content, 最大内容空间
+        // fit-content, 
+        // fill-available: 100% 自动填满剩余空间
+        width: min-content
+        margin: 0 auto
+    折角
+        // 0deg 向上， #58a 0：0 为马上开始渐变，20%为到20%为止 // 前覆盖后
+        background: linear-gradient(-150deg, transparent 1.5em, #58a 0)
+        &::before
+            background: linear-gradient(to left bottom, transparent 50%, rgba(0,0,0,.2) 0, rgba(0,0,0,.4)) no-repeat
+    走马灯边框
+        @keyframes ants 
+          to 
+            background-position: 100% 100%
+        background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, black 0, black 25%, transparent 25%, transparent 50%) 0 / .6em .6em
+        animation: ants 12s linear infinite
+    图片四角样式
+        =coner-edges()
+          &::before, &::after, & .imgs::before, & .imgs::after
+            content: ''
+            position: absolute
+            width: 1em
+            height: 1em
+            border: 4px solid red
+          &::before
+            top: -2px
+            left: -2px
+            border-right: none
+            border-bottom: none
+          &::after
+            top: -2px
+            right: -2px
+            border-bottom: none
+            border-left: none
+          & .imgs::before
+            bottom: -2px
+            left: -2px
+            border-right: none
+            border-top: none
+          & .imgs::after
+            right: -2px
+            bottom: -2px
+            border-top: none
+            border-left: none

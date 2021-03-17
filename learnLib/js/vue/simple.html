@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+    class Vue {
+      constructor(options) {
+        options.data = options.data || {};
+
+        //el是必填的
+        if (!options.el) {
+          throw new Error('el is required');
+        }
+
+        // 2.x vue: Object.defineProperty
+        this.$data = new Proxy(options.data, {
+          set: (obj, name, value) => {
+            obj[name] = value;
+
+            this._render();
+
+            return value;
+          }
+        });
+
+        //选取元素
+        this.$el = document.querySelector(options.el);
+
+        if (!this.$el) {
+          throw new Error(`the DOM element ${options.el} is not found`);
+        }
+
+        //核心——渲染
+        this._dom = this.$el.innerHTML;
+        this._render();
+
+        /*setInterval(()=>{
+          this.$data['a']++;
+        }, 500);*/
+      }
+
+      _render() {
+        this.$el.innerHTML = this._dom.replace(/{{[^}]+}}/g, (s) => {
+          let str = s.substring(2, s.length - 2);
+
+          str = str.replace(/[$a-z_][\w$]*/ig, id => {
+            const paichu = {
+              'true': 1, 'false': 1, 'null': 1, 'undefined': 1
+            };
+
+            if (paichu[id]) return id;
+
+            return `this.$data['${id}']`;
+          });
+
+          return eval(str);
+        });
+
+        //双向绑定
+        //元素          数据
+        Array.from(this.$el.getElementsByTagName('*')).forEach(el => {
+          let name = el.getAttribute('v-model');
+
+          if (name && this.$data[name]) {
+            //数据->DOM
+            el.value = this.$data[name];
+
+            //DOM->数据
+            el.oninput = () => {
+              this.$data[name] = el.value;
+            };
+          }
+        });
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="div1">
+    这儿有个表达式：
+    <br/>
+    <input type="text" v-model="a">
+    <input type="text" v-model="b"> {{a+b}} -------------------------- 这样
+  </div>
+</body>
+<script>
+  let vm = new Vue({
+    el: '#div1',
+    data: {
+      a: 12, b: 5,
+      show: true
+    }
+  });
+</script>
+
+</html>

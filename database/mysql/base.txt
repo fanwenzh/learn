@@ -1,0 +1,248 @@
+
+不区分大小写
+CHAR 固长字符串，不足空格天填充
+VARCHAR 变长字符串, '单引号转义
+
+文本类型
+tinytext, text, mediumtext, longtext
+整数类型
+tinyint, smallint, mediumint, int, bigint
+浮点类型
+float, double
+时间类型
+data, datatime, timestamp, year, time
+
+约束 constraint
+非空约束(not null)
+唯一性约束(unique)
+主键约束(primary key) PK
+外键约束(foreign key) FK
+
+1.DDL（数据定义语言）
+CREATE DATABASE - 创建新数据库
+ALTER DATABASE - 修改数据库
+CREATE TABLE - 创建新表
+ALTER TABLE - 变更（改变）数据库表
+DROP TABLE - 删除表
+CREATE INDEX - 创建索引（搜索键） // CREATE INDEX index_name ON table_name (column(length))) 
+DROP INDEX - 删除索引 // DROP INDEX index_name ON table
+
+CREATE [UNIQUE][CLUSTERED | NONCLUSTERED]  INDEX  index_name  
+ON {table_name | view_name} [WITH [index_property [,....n]]
+说明：
+UNIQUE: 建立唯一索引。
+CLUSTERED: 建立聚集索引。
+NONCLUSTERED: 建立非聚集索引。
+Index_property: 索引属性。
+
+2.DML 数据操作语言
+SELECT - 从数据库表中获取数据
+UPDATE - 更新数据库表中的数据
+DELETE - 从数据库表中删除数据
+INSERT INTO - 向数据库表中插入数据
+
+//表
+永久表（create），临时表(查询)
+
+// 查询: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY
+SELECT cols (*/col as otherName/DISTINCT col：去重)
+WHERE a BETWEEN 3000 AND 5000
+// 连接表
+FROM table1 AS otherName INTER JOIN table2 ON condition 
+WHERE condition AND condition (OR， IS, NOT 最好在condition中用!表示, IN, NOT IN) // BETWEEN AND // attr != ALL (select ... 集合)
+GROUP BY 1, 2 （先按第一列后（再第一组分完的情况下）按第二列分组）
+HAVING condition
+OREDR BY col DESC  // ASC 默认升序 
+LIMIT num;
+UNION 
+SELECT ...
+
+// 插入
+INSERT INTO table (keys)
+VALUES (vals);
+// 更新
+UPDATE table
+SET key = val
+WHREE condition;
+// 删除，
+DELETE FROM table
+WHERE condition
+
+获取xml格式的数据
+mysql -u user -p --xml basename
+不同 ：在每个查询末尾添加 for xml 子句即可
+SELECT * FROM favorite_food
+FOR XML AUTO, ELEMENTS
+
+错误提示:
+主键不唯一
+不存在的外键
+列值不合法
+无效的日期转换
+	使用str_to_date函数
+
+where condition
+通配符：LIKE
+_ 1个字符
+% 任意数目的字符
+F%  以F打头的字符串
+%t  以t结尾的字符串
+%bas%  包含'bas'字符串的字符串
+__t_ 包含4个字符，且第三个为t的字符串
+
+正则表达式: REGEXP '^[FG]' // 以F或G开头的字符串
+IS NULL // 判断空
+
+5. 多表查询
+// INNER JOIN
+// LEFT JOIN:取所有left表元素，用right匹配, RIGHT JOIN // 
+JOIN: 笛卡尔积, INNER JOIN
+内连接(条件链接) 
+SELECT e.fname, e.lname, d.name
+FROM employee e JOIN department d ON condition
+WHERE condition // ON e.dept_id = d.dept_id; condition// USING (dept_id) 
+
+6.集合
+暂时不支持：INTERSECT交集, EXCEPT差集
+UNION 不保留集合重复项 // UNION ALL 保留集合重复项
+SELECT DISTINCT key// 去除重复项
+
+7.数据生成，转换和操作
+字符串拼接：mysql:concat(), oracke:+ ， sql server: || 
+LENGTH(), LEN() // 长度
+position(str in col) // 位置从1开始，0为没有
+locate(strm col, startIndex)
+strcmp(a, b) // a字典序>b为-1， =b为0，<b为1
+insert(str, start, len, otherStr) // 4个参数: 原始字符串，字符串操作的开始位置，需要替换的字符数以及替换字符串, len = 0 时直接插入
+
+数值计算
+mod(10,4) // 模除
+pow(a, b)
+ceil()
+floor()
+round()
+abs(), sum(), ave()
+
+日期
+cast('' as datetime) // 字符串转日期 // js: exec
+STR_TO_DATE('', '%M %d, %Y');
+CURRENT_DATE(), //当前日期
+CURRENT_TIME(), // 当前时间
+CURRENT_TIMESTAMP() // 日期+时间
+select date_add(current_date(), interval 5 day)// 增加5天 // hour_second, year_mouth
+extract(date) //返回日期中的年份
+
+8.分组 GROUP BY
+	排序在前的覆盖（合并）后面的
+	将select中的内容、方法进行合并
+Max(), Min(), AVG(), Sum(), Count()
+
+9.子表查询: SELECT 返回子表或行、列数据
+SELECT cols
+FROM table
+WHERE val = (SELECT SUM(*) 
+			FROM account a
+			WHERE a.cust_id = c.cust_id)
+// 关键字
+EXIST, NOT EXIST, IN, NOT IN, ANY, ALL
+
+10.连接
+外连接 // left 表示左表可以
+LEFT OUTER JOIN ／ RIGHT OUTER JOIN
+NATURAL JOIN 自然连接，由计算机决定怎样连接···
+
+11.条件逻辑:SELECT后
+CASE
+	WHEN condition1 THEN col1
+	WHEN condition2 THEN col2
+	END colName
+或者
+CASE colName   // switch(value)
+	WHEN val1 THEN E1
+	WHEN val2 THEN E2
+	ELSE E3
+END
+
+12.事务
+表锁，页锁，行锁
+START TRANSACTION;
+...
+ROLLBACK TO SAVPOINT before_close_accounts;
+COMMIT;
+
+13.索引和约束
+索引：
+	// 为department.name列创建索引dept_name_idx
+	ALTER TABLE department
+	ADD INDEX dept_name_idx (name); //B树结构，
+	或
+	CREATE INDEX dept_name_idx
+	ON department (name);
+
+	SWOW INDEX FROM department
+
+	// 删除索引
+	ALTER TABLE department
+	DROP INDEX dept_name_index
+	或
+	DROP INDEX dept_name_idx ON department
+
+	EXPLAIN SELECT... // 显示查询计划
+约束：
+	CREATE TABLE product
+	(product_cd VARCHAR(10) NOT NULL,
+	 name VARCHAR(50) NOT NULL,
+	 product_type_cd VARCHAR (10) NOT NULL,
+	 date_offered DATE,
+	 date_retired DATE,
+	 	CONSTRAINT fk_product_type_cd FOREIGN KEY (product_type_cd)
+	 		REFER ENCES product_type (product_type_cd), // product_type_cd为表的外键
+	 	CONSTRAINT pk_product PRIMARY KEY (product_cd) // 设置product_cd为表的主键
+	);
+	或
+	ALTER TBLE product
+	ADD CONSTRAINT pk_product PRIMARY KEY (product_cd);
+	ALTER TBLE product
+	CONSTRAINT fk_product_type_cd FOREIGN KEY (product_type_cd)
+	 		REFER ENCES product_type (product_type_cd)
+	删除键
+	ALTER TBLE product
+	DROP PRIMARY KEY;
+	ALTER TBLE product
+	DROP FOREIGN KEY fk_product_type_cd;
+级联约束 p228
+	// 修改外键传播到所有子行, 创建时末尾添加ON UPDATE CASCADE;
+	ALTER TBLE product
+	CONSTRAINT fk_product_type_cd FOREIGN KEY (product_type_cd)
+	 		REFER ENCES product_type (product_type_cd)
+	 	ON UPDATE CASCADE;
+	 //另外还有删除级联
+	 ON DELETE CASCADE;
+
+14. 视图 // 不涉及数据存储的[查询表]引用，不会修改原数据库
+CREATE VIEW customer_vw
+(cols
+ )
+ AS
+ SELECT cols
+ FROM table;
+
+15.原数据
+// 跳过
+
+## mysql对sql语言的扩展
+//LIMIT: 限制显示数量
+SELECT open_emp_id, COUNT(*) how_many
+FROM account
+GROUP BY open_emp_id
+LIMIT 3; // 语法: LIMIT start length; // 从start开始，长度为length的数据（0 - start-1略去）
+
+into file:将查询写入文件
+SELECT emp_id, fname, lname, start_date
+INTO OUTFILE 'C:\\TEMP\\emp_list.txt' // 写入emp_list.txt文件
+	FIELDS TERMINATED BY '|'  // 每列用|隔开
+	LINKS TERMINATED BY '\n' // 行分隔符，默认\n
+FROM employee;
+
+// 查看查询性能
+explain 

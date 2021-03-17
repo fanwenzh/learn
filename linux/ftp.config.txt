@@ -1,0 +1,63 @@
+### 主机 centos.7
+1.安装vsftpd:
+    yum install vsftpd -y
+2.设置ftp访问机制
+    vim /etc/vsftpd/vsftpd.conf
+    其中，anonymous_enable=NO #设定不允许匿名访问
+        chroot_list_enable=YES #使用户不能离开主目录
+3.启动ftp
+    systemctl start vsftpd.service //启动ftp服务
+    systemctl stop vsftpd.service //停止ftp服务
+    systemctl enable vsftpd.service //设置开机自启动
+    执行下面指令也可以对应上指令执行
+    service vsftpd start
+    service vsftpd stop
+    service vsftpd status
+    service vsftpd restart
+4.添加用户
+    useradd yourname -d /usr/FTP -s /sbin/nologin 
+    passwd yourname
+5.开机自启动还可以一下设置
+    chkconfig --list
+    chkconfig --level 2345 vsftpd on
+    chkconfig vsftpd on
+
+所遇问题：
+1.00 OOPS: could not read chroot() list file:/etc/vsftpd/chroot_list
+解决：在chroot_list文件中添加用户名yourname，一行
+2.553权限问题，无法上传文件
+解决：设置上传根目录的权限，对于yourname用户可写
+
+安装mongodb, yum update后直邮mongodb 2.4版本, 所以要添加yum安装源
+vim /etc/yum.repos.d/mongodb-org-3.4.repo 
+添加以下内容：
+[mongodb-org-3.4]  
+name=MongoDB Repository  
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/  
+gpgcheck=1  
+enabled=1  
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc  
+运行yum安装：
+yum -y install mongodb
+
+查看并kill进程
+ps -ef
+ps -ef | grep mongodb
+pgrep mongodb
+kill -9 uid
+
+centos7 防火墙改为firewall（原permanent）, 添加80端口可使用
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+--zone #作用域
+--add-port=80/tcp  #添加端口，格式为：端口/通讯协议
+--permanent   #永久生效，没有此参数重启后失效
+systemctl stop firewalld.service  
+systemctl start firewalld.service 
+
+查看端口
+netstat -nat |grep 80
+外网无法访问的原因:
+## 实例 -> 管理 -> 本实例安全组 -> 配置规则 -> 开放端口···
+
+node
+UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): Error: Exited with code 3

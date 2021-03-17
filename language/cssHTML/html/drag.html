@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="dragme" draggable="true"></div>
+  <div id="text"></div>
+  <script>
+    function init() {
+      // e,dataTrabsfer 属性传递
+      // 可拖放目标: dragstart, drag, dragend
+      var source = document.getElementById('dragme')
+      // 可放置目标: dragenter, dragover, dragleave, drop
+      var dest = document.getElementById('text')
+      source.addEventListener('dragstart', function(e){
+        // 向dataTransfer对象追加数据
+        var dt = e.dataTransfer
+        console.log(dt) // 多属性多事件
+        dt.effectAllowed = 'all'
+        // 传递数据
+        dt.setData("text/plain", "hello")
+      }, false)
+      dest.addEventListener("dragend", function(e){
+        // 禁止dest默认事件使其发生drop
+        e.preventDefault()
+      },false)
+      dest.addEventListener("drop", function(e){
+        // 获取传递函数
+        var dt = e.dataTransfer
+        var text = dt.getData("text/plain")
+        // 如果拖拽的是文件
+        let textFile = e.dataTransfer.files[0]
+        // 禁止默认的打开文件事件
+        e.preventDefault()
+        let reader = new FileReader()
+        reader.onload = function () {
+          console.log(this.result) // this-reader
+        }
+        reader.onerror = function () { }
+        console.log(reader)
+        reader.readAsText(textFile)
+        reader.readAsDataURL() // base64
+        reader.readerAsBinaryString() // 二进制文本形式数据（文件上传）
+        reader.readAsArrayBuffer()  // 原始二进制数据
+
+        // 禁止默认的在浏览器打开文件事件
+        e.preventDefault()
+        // 停止传播
+        e.stopPropagation()
+      }, false)
+    }
+    // 其他事件：dragstart, dragover
+  </script>
+</body>
+</html>

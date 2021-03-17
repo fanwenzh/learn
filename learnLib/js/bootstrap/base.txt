@@ -1,0 +1,18 @@
+@media (max-width: @screen-xs-max) { ... } // max-width: 768px
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { ... } // min-width: 768px and max-width: 992px
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { ... } // min-width: 992px and max-width: 1200px
+@media (min-width: @screen-lg-min) { ... } // min-width: 1201px
+
+.container-fluid // 流式布局 width:100%
+.container
+    .row
+        .col-xs-n   width<768px
+        .col-sm-n   768px <= width < 992px
+        .col-md-n   992px <= width < 1200px
+        .col-lg-n   1200px<= width
+多余的col令起一行
+col-md-offset-1  // 偏移
+.col-md-push-*, .col-md-pull-* // 改变偏移顺序
+.clearfix // 清楚浮动
+
+pass

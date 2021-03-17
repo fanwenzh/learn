@@ -1,0 +1,62 @@
+http://element.eleme.io/#/zh-CN/component/quickstart
+
+npm install babel-plugin-component -D
+import { Button, Select } from 'element-ui'
+Vue.use(Button)
+Vue.use(Select)
+
+过渡动画
+//el-fade-in, 
+//el-zoom-in-center, el-zoom-in-top, el-zoom-in-bottom
+<transition name="el-fade-in-linear"></transition>
+<el-collapse-transition></el-collapse-transition>
+
+Basic:
+    layout布局
+    color色彩
+    typography字体
+    icon图标
+    button按钮
+Form:
+    Radio单选框
+    checkbox多选框
+    input输入框
+    InputNumber 计数器
+    Select 选择器
+    Cascader 级联选择器
+    Switch 开关
+    Slider 滑块
+    TimePicker 时间选择器
+    DatePicker 日期选择器
+    DateTimePicker 日期时间选择器
+    Upload 上传
+    Rate 评分
+    ColorPicker 颜色选择器
+    Transfer 穿梭框
+    Form 表单
+data:
+    Table 表格
+    Tag 标签
+    Progress 进度条
+    Tree 树形控件
+    Pagination 分页
+    Badge 标记
+Notice:
+    Alert 警告
+    Loading 加载
+    Message 消息提示
+    MessageBox 弹框
+    Notification 通知
+Navigation
+    NavMenu 导航菜单
+    Tabs 标签页
+    Breadcrumb 面包屑
+    Dropdown 下拉菜单
+    Steps 步骤条
+Others
+    Dialog 对话框
+    Tooltip 文字提示
+    Popover 弹出框
+    Card 卡片
+    Carousel 走马灯(轮播图)
+    Collapse 折叠面板

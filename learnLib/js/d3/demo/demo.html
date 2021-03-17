@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../../lib/js/d3.min.js"></script>
+    <title>Document</title>
+    <style>
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+        }
+        
+        .MyRect {
+            fill: steelblue;
+        }
+        
+        .MyText {
+            fill: white;
+            text-anchor: middle;
+        }
+        
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+        
+        .node {
+            font: 12px sans-serif;
+        }
+        
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <svg>
+        <!-- <rect></rect> -->
+    </svg>
+    <!-- initial -->
+    <script>
+        //画布大小
+        var width = 500;
+        var height = 500;
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+    </script>
+    <!-- 树状图 -->
+    <!-- <script>
+        //画布大小
+        var width = 400;
+        var height = 400;
+
+        //在 body 里添加一个 SVG 画布   
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        //画布周边的空白
+        var padding = {
+            left: 30,
+            right: 30,
+            top: 20,
+            bottom: 20
+        };
+        //定义一个数组
+        var dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+
+        //x轴的比例尺
+        var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length))
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+
+        //y轴的比例尺
+        var yScale = d3.scale.linear()
+            .domain([0, d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+        //定义x轴
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
+        //定义y轴
+        var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+        //添加矩形和文字元素
+        //矩形之间的空白
+        var rectPadding = 4;
+
+        //添加矩形元素
+        var rects = svg.selectAll(".MyRect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("class", "MyRect")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function(d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("y", function(d) {
+                return yScale(d);
+            })
+            .attr("width", xScale.rangeBand() - rectPadding)
+            .attr("height", function(d) {
+                return height - padding.top - padding.bottom - yScale(d);
+            });
+
+        //添加文字元素
+        var texts = svg.selectAll(".MyText")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .attr("class", "MyText")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function(d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("y", function(d) {
+                return yScale(d);
+            })
+            .attr("dx", function() {
+                return (xScale.rangeBand() - rectPadding) / 2;
+            })
+            .attr("dy", function(d) {
+                return 20;
+            })
+            .text(function(d) {
+                return d;
+            });
+        //添加坐标轴的元素
+        // <g></g>
+        //添加x轴
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
+            .call(xAxis);
+
+        //添加y轴
+        svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .call(yAxis);
+    </script> -->
+    <!--动画transition  -->
+    <!-- <script>
+        var circle3 = svg.append("circle");
+        circle3.transition()
+            .duration(2000)
+            .ease("bounce")
+            .attr("cx", 300)
+            .style("fill", "red")
+            .attr("r", 25);
+    </script> -->
+    <!--update, enter, exit  -->
+    <!-- <script>
+        // Update: 数据量 = 图形元素量
+        // Enter: 数据量 > 图形元素量
+        var p = d3.select("body").selectAll("p");
+        var update = p.data(dataset);
+        var enter = update.enter();
+        // Exit: 数据量 < 图形元素量
+        var p = d3.select("body").selectAll("p");
+        var update = p.data(dataset);
+        var exit = update.exit();
+    </script> -->
+    <!--事件  -->
+    <!-- <script>
+        var circle = svg.append("circle");
+        // click, mouseover, mouseout, mousemove, mousedown, mouseup, dbclick
+        // keydown, keypress, keyup, touchstart, 
+        circle.on("click", function() {});
+    </script> -->
+    <!--饼状图  -->
+    <!-- <script>
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        var color = d3.scale.category10(); //有十种颜色的颜色比例尺
+        // 将数据格式转换成可绘制格式
+        var dataset = [30, 10, 43, 55, 13];
+        var pie = d3.layout.pie();
+        var piedata = pie(dataset);
+        // 弧线生产器（路径）
+        var outerRadius = 150; //外半径
+        var innerRadius = 0; //内半径，为0则中间没有空白
+        var arc = d3.svg.arc() //弧生成器
+            .innerRadius(innerRadius) //设置内半径
+            .outerRadius(outerRadius); //设置外半径
+        var arcs = svg.selectAll("g") // 在svg里添加分组元素（g）, 每一个分组用于存放一段弧的相关元素。
+            .data(piedata)
+            .enter()
+            .append("g")
+            .attr("transform", "translate(" + (width / 2) + "," + (width / 2) + ")");
+        arcs.append("path") // 添加path
+            .attr("fill", function(d, i) {
+                return color(i);
+            })
+            .attr("d", function(d) {
+                return arc(d); //调用弧生成器，得到路径值
+            });
+        // 在弧线中心添加文本
+        arcs.append("text")
+            .attr("transform", function(d) {
+                // arc.centroid(d) 能算出弧线的中心
+                return "translate(" + arc.centroid(d) + ")";
+            })
+            .attr("text-anchor", "middle")
+            .text(function(d) {
+                return d.data; // d为数据对象{data, startAngle, endAngle}
+            });
+    </script> -->
+    <!--力导向图  -->
+    <!-- <script>
+        var nodes = [{
+            name: "桂林"
+        }, {
+            name: "广州"
+        }, {
+            name: "厦门"
+        }, {
+            name: "杭州"
+        }, {
+            name: "上海"
+        }, {
+            name: "青岛"
+        }, {
+            name: "天津"
+        }];
+
+        var edges = [{
+            source: 0,
+            target: 1
+        }, {
+            source: 0,
+            target: 2
+        }, {
+            source: 0,
+            target: 3
+        }, {
+            source: 1,
+            target: 4
+        }, {
+            source: 1,
+            target: 5
+        }, {
+            source: 1,
+            target: 6
+        }];
+        var force = d3.layout.force()
+            .nodes(nodes) //指定节点数组
+            .links(edges) //指定连线数组
+            .size([width, height]) //指定作用域范围
+            .linkDistance(150) //指定连线长度
+            .charge([-400]); //相互之间的作用力
+        force.start(); //开始作用
+        console.log(nodes);
+        // index： 节点的索引号
+        // px, py： 节点上一个时刻的坐标
+        // x, y： 节点的当前坐标
+        // weight： 节点的权重
+        console.log(edges);
+        // line， 线段， 表示连线。
+        // circle， 圆， 表示节点。
+        // text， 文字， 描述节点。
+        //添加连线 
+        var svg_edges = svg.selectAll("line")
+            .data(edges)
+            .enter()
+            .append("line")
+            .style("stroke", "#ccc")
+            .style("stroke-width", 1);
+
+        var color = d3.scale.category20();
+
+        //添加节点 
+        var svg_nodes = svg.selectAll("circle")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("r", 20)
+            .style("fill", function(d, i) {
+                return color(i);
+            })
+            .call(force.drag); //使得节点能够拖动
+
+        //添加描述节点的文字
+        var svg_texts = svg.selectAll("text")
+            .data(nodes)
+            .enter()
+            .append("text")
+            .style("fill", "black")
+            .attr("dx", 20)
+            .attr("dy", 8)
+            .text(function(d) {
+                return d.name;
+            });
+
+        // 更新视图
+        force.on("tick", function() { //对于每一个时间间隔
+            //更新连线坐标
+            svg_edges.attr("x1", function(d) {
+                    return d.source.x;
+                })
+                .attr("y1", function(d) {
+                    return d.source.y;
+                })
+                .attr("x2", function(d) {
+                    return d.target.x;
+                })
+                .attr("y2", function(d) {
+                    return d.target.y;
+                });
+
+            //更新节点坐标
+            svg_nodes.attr("cx", function(d) {
+                    return d.x;
+                })
+                .attr("cy", function(d) {
+                    return d.y;
+                });
+
+            //更新文字坐标
+            svg_texts.attr("x", function(d) {
+                    return d.x;
+                })
+                .attr("y", function(d) {
+                    return d.y;
+                });
+        });
+    </script> -->
+    <!-- 树状图 -->
+    <!-- <script>
+        var tree = d3.layout.tree()
+            .size([width, height - 200]) // 设定尺寸
+            .separation(function(a, b) { // 设定节点之间的间隔
+                return (a.parent == b.parent ? 1 : 2);
+            });
+        // 创建一个对角线生成器
+        var diagonal = d3.svg.diagonal()
+            .projection(function(d) {
+                return [d.y, d.x];
+            });
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(40,0)");
+        // 绘制
+        // 转换数据
+        d3.json("city_tree.json", function(error, root) {
+
+            var nodes = tree.nodes(root);
+            var links = tree.links(nodes);
+
+            console.log(nodes);
+            console.log(links);
+
+            var link = svg.selectAll(".link")
+                .data(links)
+                .enter()
+                .append("path")
+                .attr("class", "link")
+                .attr("d", diagonal); //使用对角线生成器
+
+            var node = svg.selectAll(".node")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) {
+                    return "translate(" + d.y + "," + d.x + ")";
+                })
+
+            node.append("circle")
+                .attr("r", 4.5);
+
+            node.append("text")
+                .attr("dx", function(d) {
+                    return d.children ? -8 : 8;
+                })
+                .attr("dy", 3)
+                .style("text-anchor", function(d) {
+                    return d.children ? "end" : "start";
+                })
+                .text(function(d) {
+                    return d.name;
+                });
+        });
+    </script> -->
+    <!--打包图  -->
+    <!-- <script>
+        var width = 500;
+        var height = 500;
+
+        var pack = d3.layout.pack()
+            .size([width, height])
+            .radius(20);
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(0,0)");
+
+
+        d3.json("city2.json", function(error, root) {
+
+            var nodes = pack.nodes(root);
+            var links = pack.links(nodes);
+
+            console.log(nodes);
+            console.log(links);
+
+            svg.selectAll("circle")
+                .data(nodes)
+                .enter()
+                .append("circle")
+                .attr("fill", "rgb(31, 119, 180)")
+                .attr("fill-opacity", "0.4")
+                .attr("cx", function(d) {
+                    return d.x;
+                })
+                .attr("cy", function(d) {
+                    return d.y;
+                })
+                .attr("r", function(d) {
+                    return d.r;
+                })
+                .on("mouseover", function(d, i) {
+                    d3.select(this)
+                        .attr("fill", "yellow");
+                })
+                .on("mouseout", function(d, i) {
+                    d3.select(this)
+                        .attr("fill", "rgb(31, 119, 180)");
+                });
+
+            svg.selectAll("text")
+                .data(nodes)
+                .enter()
+                .append("text")
+                .attr("font-size", "10px")
+                .attr("fill", "white")
+                .attr("fill-opacity", function(d) {
+                    if (d.depth == 2)
+                        return "0.9";
+                    else
+                        return "0";
+                })
+                .attr("x", function(d) {
+                    return d.x;
+                })
+                .attr("y", function(d) {
+                    return d.y;
+                })
+                .attr("dx", -12)
+                .attr("dy", 1)
+                .text(function(d) {
+                    return d.name;
+                });
+
+        });
+    </script> -->
+</body>
+
+</html>

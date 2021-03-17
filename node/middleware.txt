@@ -1,0 +1,23 @@
+iconv-lite  编码解码
+readline  行输入输出
+zlib 解压缩
+browser-sync 文件监听与浏览器同步
+progress  进度条
+querystring 读取查询字符串
+nodemon // 自动重新执行node *.js
+http-proxy-middleware // 请求代理中间件
+multer: 文件上传
+log4js日志记录
+bodyParser 请求体解析
+favicon 图像
+jwt-simple, jsonwebtoken 加密解密
+crypto 加解密,签名
+path 路径解析
+querystring 查询解析
+dns 域名解析
+uuid/v4 生成随机序列
+sockit.io 封装socket通信
+raven-js 线上前端日志收集
+
+yarn 服务端离线缓存依赖管理：https://yarnpkg.com/zh-Hans/
+cnpm i -g supervisor // 热刷新node

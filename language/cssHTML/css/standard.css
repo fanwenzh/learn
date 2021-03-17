@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+/* 文件注释 */
+/**
+* @name: 文件名或模块名
+* @description: 文件或模块描述
+* @author: author-name(mail-name@domain.com)
+*          author-name2(mail-name2@domain.com)
+* @update: 2015-04-29 00:02
+*/
+
+/* 命名 */
+/* http://nec.netease.com/standard/css-practice.html */
+.g-header  /* 全局布局 */
+.s-static, .s-selected /* 状态 */
+.u-clearfix /* 工具 */
+.m-slider /* 模块 */
+.j-open /* js钩子 */
+
+/* 样式顺序 Positioning Model > Box Model > Typographic > Visual */
+Positioning Model 布局方式、位置，相关属性包括：position / top / right / bottom / left / z-index / display / float /
+Box Model 盒模型，相关属性包括：width / height / padding / margin / border / overflow / 
+Typographic 文本排版，相关属性包括：font / line-height / text-align / word-wrap / …
+Visual 视觉外观，相关属性包括：color / background / list-style / transform / animation / transition / …
+
+/* sass
+组件/公用类使用 %placeholders 定义，使用 @extend 引用
+%clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+ 
+.g-header {
+  @extend %clearfix;
+} */
+
+/* 属性声明顺序规范 */
+.declaration-order {
+  /*Position（定位）*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  display: none;
+  float: right;
+
+  /*Box model（盒模型）*/
+  width: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: 0;
+
+  /*Typographic（和文字相关的）*/
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  word-break: break-all;
+  line-height: 3em;
+
+  /*Visual（其他视觉上的）*/
+  cursor: pointer;
+  background: #00FF00 url(img.png) no-repeat fixed top;
+  outline: none;
+  opactity: 0;
+  visibility: hidden;
+  transform: rotate(7deg);
+  transition: width 2s;
+  animation: mymove 5s infinite;
+}

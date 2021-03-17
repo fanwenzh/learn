@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	c
+	<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+	  var socket = io.connect();
+	  var username = null;
+	  $('#signout').hide();
+
+	  socket.on('open', function(){
+	  	console.log('socket link successfully');
+	  });
+
+	  socket.on('system', function(data){
+	  	var text = $('#content').val();
+	  	$('#content').val(text + data.username +'@' + data.time + ' : ' + data.text + '\n');
+	  });
+
+	  function signin(){
+	  	username = $('#name').val();
+	  	$('#signin').hide();
+	  	$('#name').hide();
+	  	socket.emit('message', {username:username});
+	  };
+
+	  function signout(){
+	  	$('#signin').show();
+	  	$('#name').show().val('');
+	  	$('#signout').hide();
+	  	username = null;
+	  };
+
+	  function say(){
+	  	let text = $('#say').val();
+	  	if(text != ''){
+	  		socket.emit('message', {username:username,text:text});
+			$('#say').val('');
+	  	}
+	  }
+
+	</script>
+	<title>socket.io chat</title>
+</head>
+<body>
+	<h1> socket.io chat room </h1>
+	<div>
+		<input id="name" type="text">
+		<input id='signin' type="button" onclick="signin()" value='登陆'>
+		<input id='signout' type="button" onclick="signout()" value="退出">
+	</div>
+	<div>
+		<textarea id="content" style="height: 150px; width:500px;"></textarea>  
+	</div>
+	<from>
+		<textarea id="say" type="text" style="height:50px;width: 500px;"></textarea>
+		<br>
+		<input type="reset" value="重置">
+		<input type="button" value="发布" onclick='say()'>
+	</form>		 
+</body>
+</html>

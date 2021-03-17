@@ -1,0 +1,13 @@
+// 配置
+http://www.centoscn.com/mysql/2016/0626/7537.html
+
+show engines
+
+# 用户登录
+mysql -u root -p password
+# 创建lrngsql用户，并赋予操作database bank的所有权限
+grant all privileges on bank.* to 'lrngsql'@'localhost' identified by 'xyz' 
+# 创建数据库
+create database name character set utf8
+# 使用数据库
+use databaseName

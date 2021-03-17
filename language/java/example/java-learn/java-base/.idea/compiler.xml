@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="base" />
+        <module name="documet" />
+        <module name="encrypt" />
+        <module name="io" />
+        <module name="JDBC" />
+        <module name="Lambda" />
+        <module name="net" />
+        <module name="proxy" />
+        <module name="reflect" />
+        <module name="regular" />
+        <module name="structure" />
+        <module name="Thread" />
+        <module name="time" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="base" target="1.8" />
+      <module name="documet" target="1.8" />
+      <module name="encrypt" target="1.8" />
+      <module name="io" target="1.8" />
+      <module name="java-base" target="1.8" />
+      <module name="JDBC" target="1.8" />
+      <module name="Lambda" target="1.8" />
+      <module name="net" target="1.8" />
+      <module name="proxy" target="1.8" />
+      <module name="reflect" target="1.8" />
+      <module name="regular" target="1.8" />
+      <module name="structure" target="1.8" />
+      <module name="Thread" target="1.8" />
+      <module name="time" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
